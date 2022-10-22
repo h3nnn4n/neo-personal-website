@@ -6,5 +6,8 @@
     - role: bootstrap
       tags: ['bootstrap']
 
+    - role: python
+      tags: ['python']
+
   vars:
     ansible_user: root

@@ -1,6 +1,7 @@
 ---
-project_folder: /opt/neo_personal_website/
+project_folder: /opt/neo_personal_website
 deploy_branch: main
 environment_name: main
 repo_name: neo-personal-website
 base_domain: renan.website
+python_version: 3.10.4

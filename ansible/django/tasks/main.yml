@@ -7,16 +7,8 @@
       version: "{{ deploy_branch }}"
     become: true
 
-  - name: Ensure pip is available
-    command: "{{ project_folder }}/pyenv/shims/python3 -m ensurepip"
-
-  - name: Ensure poetry is available
-    command: "{{ project_folder }}/pyenv/shims/python3 -m pip install poetry"
-    args:
-      chdir: "{{ project_folder }}/{{ repo_name }}"
-
   - name: Install project deps with Poetry
-    command: "{{ project_folder }}/pyenv/shims/python3 -m poetry install"
+    command: "python3.10 -m poetry install"
     args:
       chdir: "{{ project_folder }}/{{ repo_name }}"
 
