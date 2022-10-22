@@ -5,6 +5,13 @@ terraform {
       version = "1.35.2"
     }
   }
+
+  # https://www.terraform.io/language/settings/backends/s3
+  backend "s3" {
+    bucket = "h3nnn4n-terraform-state"
+    key    = "neo-personal-website"
+    region = "us-east-1"
+  }
 }
 
 provider "hcloud" {
