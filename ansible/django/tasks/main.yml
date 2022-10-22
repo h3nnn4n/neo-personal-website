@@ -1,0 +1,60 @@
+---
+- block:
+  - name: Checkout website
+    git:
+      repo: https://github.com/h3nnn4n/{{ repo_name }}
+      dest: "{{ project_folder }}/{{ repo_name }}"
+      version: "{{ deploy_branch }}"
+    become: true
+
+  - name: Ensure pip is available
+    command: "{{ project_folder }}/pyenv/shims/python3 -m ensurepip"
+
+  - name: Ensure poetry is available
+    command: "{{ project_folder }}/pyenv/shims/python3 -m pip install poetry"
+    args:
+      chdir: "{{ project_folder }}/{{ repo_name }}"
+
+  - name: Install project deps with Poetry
+    command: "{{ project_folder }}/pyenv/shims/python3 -m poetry install"
+    args:
+      chdir: "{{ project_folder }}/{{ repo_name }}"
+
+  - name: Setup .env file
+    template:
+      src: dot_env
+      dest: "{{ project_folder }}/{{ repo_name }}/.env"
+      owner: devops
+      group: devops
+      mode: '0400'  # Read only to owner
+
+  - name: Run django collectstatic
+    shell: |
+      DJANGO_SETTINGS_MODULE=website.settings.{{ environment_name }} \
+      {{ project_folder }}/pyenv/shims/python3 -m poetry run python3 manage.py collectstatic --no-input
+    args:
+      executable: /bin/bash
+      chdir: "{{ project_folder }}/{{ repo_name }}"
+
+  - name: Stop gunicorn
+    command: |
+      pkill --full gunicorn
+    ignore_errors: true
+
+  - name: Ensure Gunicorn is running
+    shell: |
+      DJANGO_SETTINGS_MODULE=website.settings.{{ environment_name }} \
+      {{ project_folder }}/pyenv/shims/python3 -m poetry run gunicorn \
+        website.wsgi \
+        --bind=unix:{{ project_folder }}/website/gunicorn.sock \
+        --keep-alive 10 \
+        --access-logfile access.log \
+        --log-level info \
+        --log-file server.log \
+        --preload \
+        --timeout 5 \
+        --worker-class sync \
+        --workers {{ gunicorn_worker_count | default('2') }} > stuff.log &
+    args:
+      executable: /bin/bash
+      chdir: "{{ project_folder }}/{{ repo_name }}"

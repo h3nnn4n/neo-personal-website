@@ -1,0 +1,40 @@
+---
+- name: Ensure system packages deps are present
+  apt:
+    pkg:
+      - nginx
+      - certbot
+      - python3-certbot-nginx
+    state: present
+
+- name: Setup nginx website
+  template:
+    src: website
+    dest: /etc/nginx/sites-available/website
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Enable website
+  file:
+    src: /etc/nginx/sites-available/website
+    dest: /etc/nginx/sites-enabled/website
+    owner: root
+    group: root
+    state: link
+
+- name: Disable default nginx site
+  file:
+    path: '{{ item }}'
+    state: absent
+  loop:
+    - /etc/nginx/sites-enabled/default
+    - /etc/nginx/sites-available/default
+
+- name: Generate and install certificates
+  command: certbot run --nginx --redirect --non-interactive --expand --agree-tos --email domain@h3nnn4n.me --domain {{ base_domain }}
+
+- name: Reload nginx
+  service:
+    name: nginx
+    state: reloaded

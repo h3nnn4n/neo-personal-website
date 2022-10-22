@@ -1,0 +1,14 @@
+server {
+    server_name .{{ base_domain }};
+
+    location /nginx_status {
+      stub_status;
+    }
+
+    location / {
+      include proxy_params;
+      proxy_pass http://unix:{{ project_folder }}/{{ repo_name }}/website/gunicorn.sock;
+    }
+
+    client_max_body_size 16M;
+}
