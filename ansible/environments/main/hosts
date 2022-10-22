@@ -1,0 +1,7 @@
+website:
+  hosts:
+    5.161.102.174
+
+all:
+  vars:
+    ansible_user: devops

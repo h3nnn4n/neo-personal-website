@@ -1,0 +1,10 @@
+---
+- hosts: all
+  strategy: free
+  gather_facts: false
+  roles:
+    - role: bootstrap
+      tags: ['bootstrap']
+
+  vars:
+    ansible_user: root

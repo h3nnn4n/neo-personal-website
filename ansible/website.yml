@@ -1,0 +1,10 @@
+---
+- hosts: website
+  strategy: free
+  gather_facts: false
+  roles:
+    - role: django
+      tags: ['django']
+
+    - role: nginx
+      tags: ['nginx']

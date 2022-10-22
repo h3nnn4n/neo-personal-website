@@ -1,0 +1,73 @@
+---
+- name: Add deadsnakes ppa
+  ansible.builtin.apt_repository:
+    repo: 'ppa:deadsnakes/ppa'
+
+- name: Refresh apt and install base packages
+  apt:
+    pkg:
+      - file
+      - htop
+      - neovim
+      - prometheus-node-exporter
+      - python3-apt
+      - sudo
+      - nmap
+      - unzip
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Make sure we have a 'wheel' group
+  group:
+    name: wheel
+    state: present
+
+- name: Allow 'wheel' group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+- name: Add devops user
+  user:
+    name: devops
+    groups: wheel
+    append: yes
+    state: present
+    createhome: yes
+    shell: /bin/bash
+
+- name: Set authorized keys
+  authorized_key:
+    user: "{{ item }}"
+    state: present
+    key: "{{ lookup('file', 'authorized_keys') }}"
+    exclusive: True
+  with_items:
+    - root
+    - devops
+
+- name: Ensure ssh login password is disabled
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^(.*)PasswordAuthentication(.*)$'
+    line: 'PasswordAuthentication no'
+
+- name: Restart ssh
+  ansible.builtin.service:
+    name: sshd
+    state: restarted
+
+- name: Ensure prometheus-node-exporter is started
+  service: name=prometheus-node-exporter state=started enabled=yes
+
+- name: Ensure working folder is present
+  file:
+    path: "{{ project_folder }}"
+    state: directory
+    recurse: yes
+    owner: devops
+    group: devops
