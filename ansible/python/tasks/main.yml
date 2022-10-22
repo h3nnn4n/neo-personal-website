@@ -27,5 +27,8 @@
 - name: Ensure pip is available
   command: "python3.10 -m ensurepip"
 
+- name: Ensure pip is updated
+  command: "python3.10 -m pip install --upgrade pip"
+
 - name: Ensure poetry is available
-  command: "python3.10 -m pip install poetry"
+  command: "python3.10 -m pip install --user poetry"
