@@ -1,52 +1,61 @@
 ---
-- block:
-  - name: Checkout website
-    git:
-      repo: https://github.com/h3nnn4n/{{ repo_name }}
-      dest: "{{ project_folder }}/{{ repo_name }}"
-      version: "{{ deploy_branch }}"
+- name: Checkout website
+  git:
+    repo: https://github.com/h3nnn4n/{{ repo_name }}
+    dest: "{{ project_folder }}/{{ repo_name }}"
+    version: "{{ deploy_branch }}"
 
-  - name: Install project deps with Poetry
-    command: "poetry install"
-    args:
-      chdir: "{{ project_folder }}/{{ repo_name }}/website"
+- name: Install project deps with Poetry
+  command: "poetry install"
+  args:
+    chdir: "{{ project_folder }}/{{ repo_name }}/website"
 
-  - name: Setup .env file
-    template:
-      src: dot_env
-      dest: "{{ project_folder }}/{{ repo_name }}/website/.env"
-      owner: devops
-      group: devops
-      mode: '0400'  # Read only to owner
+- name: Setup .env file
+  template:
+    src: dot_env
+    dest: "{{ project_folder }}/{{ repo_name }}/website/.env"
+    owner: devops
+    group: devops
+    mode: '0400'  # Read only to owner
 
-  - name: Run django collectstatic
-    shell: |
-      DJANGO_SETTINGS_MODULE=website.settings \
-      poetry run python3 manage.py collectstatic --no-input
-    args:
-      executable: /bin/bash
-      chdir: "{{ project_folder }}/{{ repo_name }}/website"
-    when: false
+- name: Run django collectstatic
+  shell: |
+    DJANGO_SETTINGS_MODULE=website.settings \
+    poetry run python3 manage.py collectstatic --no-input
+  args:
+    executable: /bin/bash
+    chdir: "{{ project_folder }}/{{ repo_name }}/website"
+  when: false
 
-  - name: Stop gunicorn
-    command: |
-      pkill --full gunicorn
-    ignore_errors: true
+- name: Stop gunicorn
+  command: |
+    pkill --full gunicorn
+  ignore_errors: true
 
-  - name: Ensure Gunicorn is running
-    shell: |
-      DJANGO_SETTINGS_MODULE=website.settings.{{ environment_name }} \
-      poetry run gunicorn \
-        website.wsgi \
-        --bind=unix:{{ project_folder }}/website/gunicorn.sock \
-        --keep-alive 10 \
-        --access-logfile access.log \
-        --log-level info \
-        --log-file server.log \
-        --preload \
-        --timeout 5 \
-        --worker-class sync \
-        --workers {{ gunicorn_worker_count | default('2') }} > stuff.log &
-    args:
-      executable: /bin/bash
-      chdir: "{{ project_folder }}/{{ repo_name }}/website"
+- name: Ensure Gunicorn is running
+  shell: |
+    DJANGO_SETTINGS_MODULE=website.settings \
+    poetry run gunicorn \
+      website.wsgi \
+      --bind=unix:{{ project_folder }}/{{ repo_name }}/website/gunicorn.sock \
+      --keep-alive 10 \
+      --access-logfile access.log \
+      --log-level info \
+      --log-file server.log \
+      --preload \
+      --timeout 5 \
+      --worker-class sync \
+      --workers {{ gunicorn_worker_count | default('2') }} > stuff.log &
+  args:
+    executable: /bin/bash
+    chdir: "{{ project_folder }}/{{ repo_name }}/website"
+
+- name: Check sock file is present
+  stat:
+    path: "{{ project_folder }}/{{ repo_name }}/website/gunicorn.sock"
+  register: sock_file
+
+- name: Fail if sock file doesn't exist
+  fail:
+    msg: "sock file not found!"
+  when: not sock_file.stat.exists
