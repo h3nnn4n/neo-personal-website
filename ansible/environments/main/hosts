@@ -1,6 +1,6 @@
 website:
   hosts:
-    5.161.102.174
+    renan.website
 
 all:
   vars:
