@@ -1,27 +1,36 @@
 ---
-- name: Ensure system packages deps are present
+- name: Update apt pkg list
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  become: yes
+
+- name: Ensure nginx and deps are present
   apt:
     pkg:
       - nginx
       - certbot
       - python3-certbot-nginx
     state: present
+  become: true
 
-- name: Setup nginx website
+- name: Setup site
   template:
     src: website
     dest: /etc/nginx/sites-available/website
     owner: root
     group: root
     mode: '0644'
+  become: yes
 
-- name: Enable website
+- name: Enable site
   file:
     src: /etc/nginx/sites-available/website
     dest: /etc/nginx/sites-enabled/website
     owner: root
     group: root
     state: link
+  become: yes
 
 - name: Disable default nginx site
   file:
@@ -30,11 +39,20 @@
   loop:
     - /etc/nginx/sites-enabled/default
     - /etc/nginx/sites-available/default
+  become: yes
+
+- name: Ensure nginx is running
+  service:
+    name: nginx
+    state: started
+  become: yes
 
 - name: Generate and install certificates
   command: certbot run --nginx --redirect --non-interactive --expand --agree-tos --email domain@h3nnn4n.me --domain {{ base_domain }}
+  become: yes
 
 - name: Reload nginx
   service:
     name: nginx
     state: reloaded
+  become: yes
