@@ -22,8 +22,8 @@
 
   - name: Run django collectstatic
     shell: |
-      DJANGO_SETTINGS_MODULE=website.settings.{{ environment_name }} \
-      {{ project_folder }}/pyenv/shims/python3 -m poetry run python3 manage.py collectstatic --no-input
+      DJANGO_SETTINGS_MODULE=website.settings \
+      python3.10 -m poetry run python3.10 manage.py collectstatic --no-input
     args:
       executable: /bin/bash
       chdir: "{{ project_folder }}/{{ repo_name }}"
@@ -36,7 +36,7 @@
   - name: Ensure Gunicorn is running
     shell: |
       DJANGO_SETTINGS_MODULE=website.settings.{{ environment_name }} \
-      {{ project_folder }}/pyenv/shims/python3 -m poetry run gunicorn \
+      python3.10 -m poetry run gunicorn \
         website.wsgi \
         --bind=unix:{{ project_folder }}/website/gunicorn.sock \
         --keep-alive 10 \

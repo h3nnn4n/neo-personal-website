@@ -31,4 +31,4 @@
   command: "python3.10 -m pip install --upgrade pip"
 
 - name: Ensure poetry is available
-  command: "python3.10 -m pip install --user poetry"
+  command: "python3.10 -m pip install --user poetry==1.1.14"
