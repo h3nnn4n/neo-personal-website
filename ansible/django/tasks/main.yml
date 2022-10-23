@@ -38,14 +38,13 @@
     poetry run gunicorn \
       website.wsgi \
       --bind=unix:{{ project_folder }}/{{ repo_name }}/website/gunicorn.sock \
-      --keep-alive 10 \
       --access-logfile access.log \
       --log-level info \
       --log-file server.log \
       --preload \
-      --timeout 5 \
+      --timeout 2 \
       --worker-class sync \
-      --workers {{ gunicorn_worker_count | default('2') }} > stuff.log &
+      --workers {{ gunicorn_worker_count | default('2') }} &
   args:
     executable: /bin/bash
     chdir: "{{ project_folder }}/{{ repo_name }}/website"
