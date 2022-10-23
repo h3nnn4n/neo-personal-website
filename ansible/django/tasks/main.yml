@@ -5,17 +5,16 @@
       repo: https://github.com/h3nnn4n/{{ repo_name }}
       dest: "{{ project_folder }}/{{ repo_name }}"
       version: "{{ deploy_branch }}"
-    become: true
 
   - name: Install project deps with Poetry
-    command: "python3.10 -m poetry install"
+    command: "poetry install"
     args:
-      chdir: "{{ project_folder }}/{{ repo_name }}"
+      chdir: "{{ project_folder }}/{{ repo_name }}/website"
 
   - name: Setup .env file
     template:
       src: dot_env
-      dest: "{{ project_folder }}/{{ repo_name }}/.env"
+      dest: "{{ project_folder }}/{{ repo_name }}/website/.env"
       owner: devops
       group: devops
       mode: '0400'  # Read only to owner
@@ -23,10 +22,11 @@
   - name: Run django collectstatic
     shell: |
       DJANGO_SETTINGS_MODULE=website.settings \
-      python3.10 -m poetry run python3.10 manage.py collectstatic --no-input
+      poetry run python3 manage.py collectstatic --no-input
     args:
       executable: /bin/bash
-      chdir: "{{ project_folder }}/{{ repo_name }}"
+      chdir: "{{ project_folder }}/{{ repo_name }}/website"
+    when: false
 
   - name: Stop gunicorn
     command: |
@@ -36,7 +36,7 @@
   - name: Ensure Gunicorn is running
     shell: |
       DJANGO_SETTINGS_MODULE=website.settings.{{ environment_name }} \
-      python3.10 -m poetry run gunicorn \
+      poetry run gunicorn \
         website.wsgi \
         --bind=unix:{{ project_folder }}/website/gunicorn.sock \
         --keep-alive 10 \
@@ -49,4 +49,4 @@
         --workers {{ gunicorn_worker_count | default('2') }} > stuff.log &
     args:
       executable: /bin/bash
-      chdir: "{{ project_folder }}/{{ repo_name }}"
+      chdir: "{{ project_folder }}/{{ repo_name }}/website"
