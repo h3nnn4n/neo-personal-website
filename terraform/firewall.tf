@@ -39,7 +39,7 @@ resource "hcloud_firewall" "http_https" {
   rule {
     direction = "in"
     protocol  = "tcp"
-    port      = "433"
+    port      = "443"
     source_ips = [
       "0.0.0.0/0",
       "::/0"
