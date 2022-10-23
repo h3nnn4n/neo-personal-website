@@ -1,6 +1,5 @@
-from django.http import HttpResponse
-from django.shortcuts import render  # noqa
+from django.views.generic import TemplateView
 
 
-def index(request):
-    return HttpResponse("oi")
+class IndexView(TemplateView):
+    template_name = "index.html"
