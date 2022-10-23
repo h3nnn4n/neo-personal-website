@@ -1,7 +1,7 @@
 # https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/server
 resource "hcloud_server" "webserver" {
   name        = "neo-personal-website"
-  image       = "ubuntu-20.04"
+  image       = "ubuntu-22.04"
   server_type = "cpx11"
   location    = "ash"
 
