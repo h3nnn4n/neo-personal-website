@@ -12,6 +12,7 @@ whitenoise = "^6.2.0"
 Markdown = "^3.4.1"
 
 [tool.poetry.dev-dependencies]
+ipdb = "^0.13.9"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -1,6 +1,9 @@
 import json
 import logging
+import os
+from os import path
 
+from django.conf import settings
 from markdown import markdown
 
 
@@ -14,6 +17,12 @@ def read_file(filename: str) -> str:
 
 def render_markdown(markdown_str: str):
     return markdown(markdown_str)
+
+
+def list_posts():
+    posts_folder = path.join(settings.CONTENT_FOLDER, "posts")
+    posts = os.listdir(posts_folder)
+    return [p.partition(".md")[0] for p in posts]
 
 
 def parse_md_file(markdown_str: str):

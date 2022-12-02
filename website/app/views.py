@@ -7,6 +7,7 @@ from django.utils.safestring import mark_safe
 from django.views.generic import TemplateView
 from django.views.generic.base import View
 
+from app import services
 from app.services import parse_md_file, read_file, render_markdown
 
 
@@ -20,10 +21,31 @@ class AboutView(TemplateView):
 
 class PostView(View):
     def get(self, request, *args, **kwargs):
+        slug = kwargs.get("slug")
+
+        if slug:
+            return self.render_post(request, slug)
+
+        # TODO: Should sort by date
+        # TODO: Should show tags
+        # TODO: Should show the public date
+        # TODO: Should skip drafts
+        posts = services.list_posts()
+
+        return render(
+            request,
+            "posts.html",
+            context={
+                "posts": posts,
+            },
+        )
+
+    def render_post(self, request, slug):
+        print(f"rendering post {slug}")
         file_contents = read_file(
             path.join(
                 settings.CONTENT_FOLDER,
-                "posts/hello-world.md",
+                f"posts/{slug}.md",
             ),
         )
 
