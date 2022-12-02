@@ -1,3 +1,6 @@
+from os import path
+
+from django.conf import settings
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
 from django.views.generic import TemplateView
@@ -16,7 +19,16 @@ class AboutView(TemplateView):
 
 class PostView(View):
     def get(self, request, *args, **kwargs):
-        content = mark_safe(render_markdown(load_markdown("test.md")))
+        content = mark_safe(
+            render_markdown(
+                load_markdown(
+                    path.join(
+                        settings.CONTENT_FOLDER,
+                        "posts/hello-world.md",
+                    ),
+                )
+            )
+        )
 
         return render(
             request,
