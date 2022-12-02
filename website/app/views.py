@@ -39,7 +39,7 @@ class PostView(View):
             request,
             "post.html",
             context={
-                "title": "hi this is post",
+                "title": headers.get("title"),
                 "content": content,
             },
         )
