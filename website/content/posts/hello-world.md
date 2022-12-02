@@ -1,4 +1,4 @@
-a--
+---
 title: "Hello World"
 date: 2018-08-18
 tags: ["personal"]
@@ -6,7 +6,7 @@ draft: false
 ---
 
 
-Hey there. Recentlty I started working at [JobScore](https://www.jobscore.com/)
+Hey there. Recently I started working at [JobScore](https://www.jobscore.com/)
 while I was working at my masters degree on
 [Applied Computing](https://www.udesc.br/cct/ppgca).
 This marked a new stage of my life. One that I am not familiar with, since I
