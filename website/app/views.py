@@ -1,3 +1,4 @@
+from datetime import datetime
 from os import path
 
 from django.conf import settings
@@ -29,6 +30,9 @@ class PostView(View):
         headers, markdown_data = parse_md_file(file_contents)
         __import__("pprint").pprint(headers)
 
+        date = datetime.strptime(headers["date"], "%Y-%m-%d")
+        pretty_date = date.strftime("%B %d, %Y")
+
         content = mark_safe(
             render_markdown(
                 markdown_data,
@@ -40,6 +44,7 @@ class PostView(View):
             "post.html",
             context={
                 "title": headers.get("title"),
+                "date": pretty_date,
                 "content": content,
             },
         )
