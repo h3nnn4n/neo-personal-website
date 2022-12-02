@@ -45,6 +45,7 @@ class PostView(View):
             context={
                 "title": headers.get("title"),
                 "date": pretty_date,
+                "tags": headers.get("tags"),
                 "content": content,
             },
         )

@@ -16,6 +16,14 @@
 
       <h6> {{ date }} </h6>
 
+      Tags:
+
+      {% for tag in tags %}
+        {{ tag }}
+      {% endfor %}
+
+      <br><br>
+
       {{ content }}
     </div>
   </div>
