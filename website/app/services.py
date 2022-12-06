@@ -20,7 +20,7 @@ def render_markdown(markdown_str: str):
     return markdown(markdown_str)
 
 
-def list_posts(ordered: bool = False):
+def list_posts(ordered: bool = False, hide_drafts: bool = False):
     def _parse(post):
         post_path = path.join(posts_folder, post)
         file_contents = read_file(post_path)
@@ -35,6 +35,9 @@ def list_posts(ordered: bool = False):
     posts_folder = path.join(settings.CONTENT_FOLDER, "posts")
     posts = os.listdir(posts_folder)
     posts = [_parse(p) for p in posts]
+
+    if hide_drafts:
+        posts = [p for p in posts if not p["draft"]]
 
     if ordered:
         posts = sorted(posts, key=lambda x: x["date"], reverse=True)

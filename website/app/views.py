@@ -27,8 +27,7 @@ class PostView(View):
             return self.render_post(request, slug)
 
         # TODO: Should show tags
-        # TODO: Should skip drafts
-        posts = services.list_posts(ordered=True)
+        posts = services.list_posts(ordered=True, hide_drafts=True)
 
         return render(
             request,
