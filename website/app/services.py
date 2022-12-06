@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+from datetime import datetime
 from os import path
 
 from django.conf import settings
@@ -20,18 +21,25 @@ def render_markdown(markdown_str: str):
 
 
 def list_posts(ordered: bool = False):
-    def _sorter(post):
-        file_contents = read_file(path.join(posts_folder, post))
+    def _parse(post):
+        post_path = path.join(posts_folder, post)
+        file_contents = read_file(post_path)
         headers, _ = parse_md_file(file_contents)
-        return headers["date"]
+
+        date = datetime.strptime(headers["date"], "%Y-%m-%d")
+        headers["pretty_date"] = date.strftime("%B %d, %Y")
+        headers["filename"] = post.partition(".")[0]
+
+        return headers
 
     posts_folder = path.join(settings.CONTENT_FOLDER, "posts")
     posts = os.listdir(posts_folder)
+    posts = [_parse(p) for p in posts]
 
     if ordered:
-        posts = sorted(posts, key=_sorter, reverse=True)
+        posts = sorted(posts, key=lambda x: x["date"], reverse=True)
 
-    return [p.partition(".md")[0] for p in posts]
+    return posts
 
 
 def parse_md_file(markdown_str: str):

@@ -27,7 +27,6 @@ class PostView(View):
             return self.render_post(request, slug)
 
         # TODO: Should show tags
-        # TODO: Should show the public date
         # TODO: Should skip drafts
         posts = services.list_posts(ordered=True)
 
