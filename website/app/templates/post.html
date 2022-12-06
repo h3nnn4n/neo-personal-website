@@ -20,10 +20,14 @@
         </span>
       </h6>
 
-      Tags:
+      <span class="font-monospace">
+        Tags:
+      </span>
 
       {% for tag in tags %}
-        {{ tag }}
+        <span class="font-monospace badge rounded-pill bg-primary">
+          {{ tag }}
+        </span>
       {% endfor %}
 
       <br><br>
