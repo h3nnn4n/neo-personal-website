@@ -19,9 +19,18 @@ def render_markdown(markdown_str: str):
     return markdown(markdown_str)
 
 
-def list_posts():
+def list_posts(ordered: bool = False):
+    def _sorter(post):
+        file_contents = read_file(path.join(posts_folder, post))
+        headers, _ = parse_md_file(file_contents)
+        return headers["date"]
+
     posts_folder = path.join(settings.CONTENT_FOLDER, "posts")
     posts = os.listdir(posts_folder)
+
+    if ordered:
+        posts = sorted(posts, key=_sorter, reverse=True)
+
     return [p.partition(".md")[0] for p in posts]
 
 
