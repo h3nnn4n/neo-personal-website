@@ -21,7 +21,7 @@ def render_markdown(markdown_str: str):
 
 
 def list_posts(ordered: bool = False, hide_drafts: bool = False):
-    def _parse(post):
+    def _parse(post: str) -> dict:
         post_path = path.join(posts_folder, post)
         file_contents = read_file(post_path)
         headers, _ = parse_md_file(file_contents)
@@ -33,8 +33,7 @@ def list_posts(ordered: bool = False, hide_drafts: bool = False):
         return headers
 
     posts_folder = path.join(settings.CONTENT_FOLDER, "posts")
-    posts = os.listdir(posts_folder)
-    posts = [_parse(p) for p in posts]
+    posts = [_parse(p) for p in os.listdir(posts_folder)]
 
     if hide_drafts:
         posts = [p for p in posts if not p["draft"]]
