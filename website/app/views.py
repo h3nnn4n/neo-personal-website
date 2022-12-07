@@ -81,11 +81,15 @@ class PostView(View):
         date = datetime.strptime(headers["date"], "%Y-%m-%d")
         pretty_date = date.strftime("%B %d, %Y")
 
-        content = mark_safe(
+        md_content = mark_safe(
             render_markdown(
                 markdown_data,
             )
         )
+
+        md_content = "{% load static %}\n" + md_content
+        template = Template(md_content)
+        content = template.render(Context({}))
 
         return render(
             request,
