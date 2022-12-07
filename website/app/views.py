@@ -3,6 +3,7 @@ from os import path
 
 from django.conf import settings
 from django.shortcuts import render
+from django.template import Context, Template
 from django.utils.safestring import mark_safe
 from django.views.generic import TemplateView
 from django.views.generic.base import View
@@ -27,11 +28,16 @@ class AboutView(View):
         )
 
         headers, markdown_data = parse_md_file(file_contents)
-        content = mark_safe(
+        md_content = mark_safe(
             render_markdown(
                 markdown_data,
             )
         )
+
+        # Render any tags from the markdown files
+        md_content = "{% load static %}\n" + md_content
+        template = Template(md_content)
+        content = template.render(Context({}))
 
         return render(
             request,

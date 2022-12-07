@@ -32,5 +32,5 @@ couple of examples. My github also has a lot of code about it too.
 Here is a random picture of my puzzle collection (the cat is a specially hard
 one).
 
-![Rubik's Cube Collection](/images/cube_collection.jpg)
-![Cat](/images/gatuno.png)
+<img src="{% static 'images/cube_collection.jpg' %}" alt="Rubik's Cube Collection">
+<img src="{% static 'images/gatuno.jpg' %}" alt="Cat">
