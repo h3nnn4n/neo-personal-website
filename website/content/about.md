@@ -4,8 +4,8 @@ date: 2018-08-19T10:50:17-03:00
 draft: false
 ---
 
-Hey there. I am Renan S Silva, also known as h3nnn4n or bacon_unleased /
-bacon_unleashed, depending on where you know me from. I received my bachelor
+Hey there. I am Renan S Silva, also known as `h3nnn4n` or `bacon_unleased` /
+`bacon_unleashed`, depending on where you know me from. I received my bachelor
 degree on Computer Science from the
 [State University of Santa Catarina](https://www.udesc.br/) on august 2017.
 Immediately after that I started a master's degree in
