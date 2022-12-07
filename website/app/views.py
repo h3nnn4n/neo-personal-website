@@ -15,8 +15,31 @@ class IndexView(TemplateView):
     template_name = "index.html"
 
 
-class AboutView(TemplateView):
+class AboutView(View):
     template_name = "about.html"
+
+    def get(self, request, *args, **kwargs):
+        file_contents = read_file(
+            path.join(
+                settings.CONTENT_FOLDER,
+                "about.md",
+            ),
+        )
+
+        headers, markdown_data = parse_md_file(file_contents)
+        content = mark_safe(
+            render_markdown(
+                markdown_data,
+            )
+        )
+
+        return render(
+            request,
+            "about.html",
+            context={
+                "content": content,
+            },
+        )
 
 
 class PostView(View):
