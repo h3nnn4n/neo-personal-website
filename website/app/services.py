@@ -17,7 +17,7 @@ def read_file(filename: str) -> str:
 
 
 def render_markdown(markdown_str: str):
-    return markdown(markdown_str)
+    return markdown(markdown_str, extensions=['attr_list'])
 
 
 def list_posts(ordered: bool = False, hide_drafts: bool = False):
