@@ -25,7 +25,6 @@
   args:
     executable: /bin/bash
     chdir: "{{ project_folder }}/{{ repo_name }}/website"
-  when: false
 
 - name: Stop gunicorn
   command: |
