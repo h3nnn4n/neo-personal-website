@@ -3,6 +3,7 @@ import logging
 import os
 from datetime import datetime
 from os import path
+from typing import Any
 
 from django.conf import settings
 from markdown import markdown
@@ -17,10 +18,10 @@ def read_file(filename: str) -> str:
 
 
 def render_markdown(markdown_str: str):
-    return markdown(markdown_str, extensions=['attr_list'])
+    return markdown(markdown_str, extensions=["attr_list"])
 
 
-def list_posts(ordered: bool = False, hide_drafts: bool = False):
+def list_posts(ordered: bool = False, hide_drafts: bool = False) -> list[dict[str, Any]]:
     def _parse(post: str) -> dict:
         post_path = path.join(posts_folder, post)
         file_contents = read_file(post_path)
