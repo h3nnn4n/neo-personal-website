@@ -53,5 +53,7 @@ This number always is being optimized. A higher number (should) mean a better mo
 This means that the agent is composed of two optimizers. One tries to learn the best
 strategy while the other tries to find the best move using the current strategy.
 
-Note: If you are seeing nothing than this means that your browser does not support WASM :(
-Note2: If you are on mobile the page will probably look like crap :(
+Some notes:
+
+- If you are seeing nothing than this means that your browser does not support WASM :(
+- If you are on mobile the page will probably look like crap :(
