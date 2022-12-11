@@ -4,3 +4,6 @@
 [submodule "website/content/external/Dancing-Rooms"]
 	path = website/content/external/Dancing-Rooms
 	url = https://github.com/h3nnn4n/Dancing-Rooms
+[submodule "website/content/external/dancing-friends-zero"]
+	path = website/content/external/dancing-friends-zero
+	url = https://github.com/h3nnn4n/dancing-friends-zero

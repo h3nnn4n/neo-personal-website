@@ -9,7 +9,7 @@ After writing a bit about the original Dancing with Friends and Enemies and my [
 I decided to try to implement something more close to the original. The first version used [matter.js](http://brm.io/matter-js/)
 which added a different behavior style to the particles while being somewhat similar to the original.
 
-<iframe class='iframe' src="/dancing-friends-zero/src/index.html" width="700" height="680" frameBorder="0"></iframe>
+<iframe src="{% static 'external/dancing-friends-zero/src/index.html' %}" width="720" height="630" frameBorder="0"></iframe>
 
 I was satisfied with the results and glad to be able to keep its original behavior while adding my own touch to it.
 However, the whole thing was quite heavy due to the JS physics engine. Furthermore, things like angular momentum,
