@@ -17,4 +17,4 @@ the cracks/fractures. Unfortunately, I was not able to do it fast enough using
 JavaScript.  The partial result can be seen below. One can click the canvas to
 restart the drawing process and generate new images.
 
-<iframe class='iframe' src="/fracture/index.html" width="700" height="620" frameBorder="0"></iframe>
+<iframe src="{% static 'external/fracture/index.html' %}" width="700" height="620" frameBorder="0"></iframe>
