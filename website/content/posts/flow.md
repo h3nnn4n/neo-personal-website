@@ -22,7 +22,7 @@ leaves the screen on the right, to continue its journey when it appears on the r
 this option is turned off, the field on the left may be pointing in the opposite direction that
 the particle came from, possibly in a way that it will get stuck in the borders.
 
-<iframe class='iframe' src="/flow-net/src/index.html" width="800" height="700" frameBorder="0"></iframe>
+<iframe class='iframe' src="{% static 'external/flow-net/src/index.html' %}" width="800" height="700" frameBorder="0"></iframe>
 
 The slider that shows `500 Particles` is auto explanatory, it shows the number of active particles.
 Another control is the `Noise Level` slider. This one control how noisy the vector field is. The smaller
