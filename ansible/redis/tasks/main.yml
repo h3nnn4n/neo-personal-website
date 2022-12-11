@@ -4,11 +4,18 @@
     repo: 'ppa:chris-lea/redis-server'
   become: yes
 
-- name: Ensure Redis is present
+- name: Update apt pkg list
   apt:
-    name: redis-server
-    state: latest
+    update_cache: yes
+    cache_valid_time: 3600
   become: yes
+
+- name: Ensure nginx and deps are present
+  apt:
+    pkg:
+      - redis-server
+    state: present
+  become: true
 
 - name: Ensure Redis is started
   service:
