@@ -32,5 +32,5 @@ couple of examples. My github also has a lot of code about it too.
 Here is a random picture of my puzzle collection (the cat is a specially hard
 one).
 
-![Rubik's Cube Collection]({% static 'images/cube_collection.jpg' %}){.img-fluid}
-![Cat]({% static 'images/gatuno.png' %}){.img-fluid}
+![A picture of about 30 puzzles on the ground, and a black cat, looking defiantly at the camera]({% static 'images/cube_collection.jpg' %}){.img-fluid}
+![A black cat sleeping on the ground with his belly up]({% static 'images/gatuno.png' %}){.img-fluid}
