@@ -103,8 +103,8 @@ python-versions = "*"
 tests = ["asttokens", "pytest", "littleutils", "rich"]
 
 [[package]]
-name = "fontawesome-free"
-version = "5.15.4"
+name = "fontawesomefree"
+version = "6.2.1"
 description = "Font Awesome Free"
 category = "main"
 optional = false
@@ -379,7 +379,7 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "ab38e25612dff44597d936ed665dcd6d6576285686f087d71503defd8096afec"
+content-hash = "70bacb73cf4f58e5bda8833c879e8f9cc91f76ac0efba175bb1a68006ddd6e2c"
 
 [metadata.files]
 appnope = [
@@ -421,8 +421,8 @@ executing = [
     {file = "executing-1.2.0-py2.py3-none-any.whl", hash = "sha256:0314a69e37426e3608aada02473b4161d4caf5a4b244d1d0c48072b8fee7bacc"},
     {file = "executing-1.2.0.tar.gz", hash = "sha256:19da64c18d2d851112f09c287f8d3dbbdf725ab0e569077efb6cdcbd3497c107"},
 ]
-fontawesome-free = [
-    {file = "fontawesome_free-5.15.4-py3-none-any.whl", hash = "sha256:5d3d0edbf6ce0f7cd56978a31ea4ea697a8bb28103b5c528b3aa1f0a4474d9a1"},
+fontawesomefree = [
+    {file = "fontawesomefree-6.2.1-py3-none-any.whl", hash = "sha256:961d015f2f2355b389429d6f18006d304573ab88455ea39cc15975a7a59f048f"},
 ]
 gunicorn = [
     {file = "gunicorn-20.1.0-py3-none-any.whl", hash = "sha256:9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e"},

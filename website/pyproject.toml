@@ -12,7 +12,7 @@ whitenoise = "^6.2.0"
 Markdown = "^3.4.1"
 redis = "^4.4.0"
 django-memoize = "^2.3.1"
-fontawesome-free = "^5.15.4"
+fontawesomefree = "^6.2.1"
 
 [tool.poetry.dev-dependencies]
 ipdb = "^0.13.9"
