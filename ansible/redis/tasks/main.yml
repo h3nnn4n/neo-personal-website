@@ -1,0 +1,39 @@
+---
+- name: Add redis ppa
+  apt_repository:
+    repo: 'ppa:chris-lea/redis-server'
+  become: yes
+
+- name: Ensure Redis is present
+  apt: pkg=redis-server state=latest
+  pkg:
+    - redis-server
+  state: latest
+  become: yes
+
+- name: Ensure Redis is started
+  service:
+    name: redis
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Ensure Redis parameters are configured
+  lineinfile:
+    dest: /etc/redis/redis.conf
+    regexp: "{{ item.line_to_match }}"
+    line: "{{ item.line_to_configure }}"
+  with_items:
+    - { line_to_match: "maxmemory", line_to_configure: "maxmemory 512MB" }
+    - { line_to_match: "bind", line_to_configure: "bind 127.0.0.1" }
+    - { line_to_match: "maxmemory-policy", line_to_configure: "maxmemory-policy allkeys-lru" }
+    - { line_to_match: "maxmemory-samples", line_to_configure: "maxmemory-samples 5" }
+  register: redis_conf
+  become: yes
+
+- name: Ensure redis service is restarted
+  service:
+    name: redis
+    state: restarted
+    when: redis_conf.changed
+  become: yes
