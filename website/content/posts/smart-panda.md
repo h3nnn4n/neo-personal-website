@@ -36,7 +36,7 @@ tries to learn from it. As of the time of writing this it can learn a bit but st
 very bad bot. There is also an option of selecting a Random Agent, which just play random moves.
 It also plays slower, so it is easier to see what is going on.
 
-<iframe class='iframe' src="/smart-panda/index.html" width="700" height="600" frameBorder="0"></iframe>
+<iframe src="{% static 'external/smart-panda/index.html' %}" width="700" height="600" frameBorder="0"></iframe>
 
 The information to the right of the tetris box is contains some useful information.
 `lines_cleared` shows how many lines have been cleared during the current game and `best`

@@ -13,3 +13,6 @@
 [submodule "website/content/external/fracture"]
 	path = website/content/external/fracture
 	url = https://github.com/h3nnn4n/fracture
+[submodule "website/content/external/smart-panda"]
+	path = website/content/external/smart-panda
+	url = https://github.com/h3nnn4n/smart-panda
