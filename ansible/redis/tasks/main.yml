@@ -5,8 +5,7 @@
   become: yes
 
 - name: Ensure Redis is present
-  apt: pkg=redis-server state=latest
-  pkg:
+  apt:
     - redis-server
   state: latest
   become: yes
