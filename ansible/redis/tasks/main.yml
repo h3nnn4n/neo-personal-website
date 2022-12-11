@@ -6,8 +6,8 @@
 
 - name: Ensure Redis is present
   apt:
-    - redis-server
-  state: latest
+    name: redis-server
+    state: latest
   become: yes
 
 - name: Ensure Redis is started
