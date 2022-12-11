@@ -8,6 +8,7 @@
 - name: Ensure redis and deps are present
   apt:
     pkg:
+      - redis
       - redis-server
     state: present
   become: true
