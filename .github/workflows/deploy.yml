@@ -53,7 +53,7 @@ jobs:
           known_hosts: unnecessary
           if_key_exists: fail
 
-      - name: Redeploy
+      - name: Deploy
         run: |
           ansible-playbook -i environments/main   \
             bootstrap.yml                         \
