@@ -7,20 +7,24 @@ from typing import Any
 
 from django.conf import settings
 from markdown import markdown
+from memoize import memoize
 
 
 logger = logging.getLogger(__name__)
 
 
+@memoize(timeout=60)
 def read_file(filename: str) -> str:
     with open(filename, "rt") as f:
         return f.read()
 
 
+@memoize(timeout=60)
 def render_markdown(markdown_str: str):
     return markdown(markdown_str, extensions=["attr_list"])
 
 
+@memoize(timeout=60)
 def list_posts(ordered: bool = False, hide_drafts: bool = False) -> list[dict[str, Any]]:
     def _parse(post: str) -> dict:
         post_path = path.join(posts_folder, post)
@@ -45,6 +49,7 @@ def list_posts(ordered: bool = False, hide_drafts: bool = False) -> list[dict[st
     return posts
 
 
+@memoize(timeout=60)
 def parse_md_file(markdown_str: str):
     """
     Poor man's parsing
