@@ -47,6 +47,8 @@
   args:
     executable: /bin/bash
     chdir: "{{ project_folder }}/{{ repo_name }}/website"
+  async: 5
+  poll: 1
 
 - name: Check sock file is present
   stat:
