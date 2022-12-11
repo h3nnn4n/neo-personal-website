@@ -1,9 +1,4 @@
 ---
-- name: Add redis ppa
-  apt_repository:
-    repo: 'ppa:chris-lea/redis-server'
-  become: yes
-
 - name: Update apt pkg list
   apt:
     update_cache: yes
