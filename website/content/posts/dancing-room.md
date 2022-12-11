@@ -13,7 +13,7 @@ was something like ''Dancing With Friends and Enemies'' and it does not exist an
 as far as I can tell. However, I was able to find a copy [here](http://kaurov.com/wordpress/?p=1096).
 The idea is pretty simple and below you can see my reinterpretation of it.
 
-<iframe src="{% static 'external/Dancing-Rooms/src/index.html' %}" width="800" height="700" frameBorder="0"></iframe>
+<iframe src="{% static 'external/Dancing-Rooms/src/index.html' %}" width="700" height="670" frameBorder="0"></iframe>
 
 The behavior of the original system is based on a very simple set of rules, which I will quote from
 Simon Woods here:
