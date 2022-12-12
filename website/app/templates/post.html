@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load extras %}
 
 {% block title %} {{ title }} {% endblock %}
 
@@ -26,9 +27,11 @@
       </span>
 
       {% for tag in tags %}
+      <a class="" href="{% url 'tags_view' tag|underscorize %}">
         <span class="font-monospace badge rounded-pill bg-primary">
           {{ tag }}
-        </span>
+        <!-- These two tags have to be here, or we get some rendering issues wtf -->
+        </span></a>
       {% endfor %}
 
       <br><br>
