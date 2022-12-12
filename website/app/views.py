@@ -1,3 +1,4 @@
+import itertools
 from datetime import datetime
 from os import path
 
@@ -44,6 +45,48 @@ class AboutView(View):
             "about.html",
             context={
                 "content": content,
+            },
+        )
+
+
+class TagView(View):
+    def get(self, request, *args, **kwargs):
+        tag = kwargs.get("tag")
+
+        if tag:
+            return self.render_tag(request, tag)
+
+        posts = services.list_posts(ordered=True, hide_drafts=True)
+        all_tags = sorted(set(itertools.chain.from_iterable(p["tags"] for p in posts)))
+        tags = []
+
+        for tag_name in all_tags:
+            tag = {}
+            tag["name"] = tag_name
+            tag["name__escaped"] = tag_name.replace(" ", "_")
+            tag["post_count"] = len([True for post in posts if tag_name in post["tags"]])
+            tags.append(tag)
+
+        return render(
+            request,
+            "tags.html",
+            context={
+                "tags": tags,
+            },
+        )
+
+    def render_tag(self, request, tag):
+        tag = tag.replace("_", " ")
+
+        posts = services.list_posts(ordered=True, hide_drafts=True)
+        posts = [post for post in posts if tag in post["tags"]]
+
+        return render(
+            request,
+            "posts.html",
+            context={
+                "posts": posts,
+                "custom_title": f'tagged "{tag}"',
             },
         )
 

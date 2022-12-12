@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 
-{% block title %} Posts {% endblock %}
+{% block title %} Tags {% endblock %}
 
 {% block content %}
 
 <div class="row align-items-center justify-content-center">
   <div class="col">
     <div class="container-fluid">
-      <h1> Posts {{ custom_title }}</h1>
+      <h1> Tags </h1>
 
       <ul>
-      {% for post in posts %}
+      {% for tag in tags %}
         <li>
           <span class="font-monospace">
-            {{ post.date }}
+            {{ tag.post_count }}:
           </span>
-          <a class="" href="{% url 'posts_view' post.filename %}"> {{ post.title }} </a>
+          <a class="" href="{% url 'tags_view' tag.name__escaped %}">{{ tag.name }}</a>
         </li>
       {% endfor %}
       </ul>
