@@ -36,7 +36,6 @@ repos:
   rev: 1.7.4
   hooks:
   - id: bandit
-    args: ["-c", "pyproject.toml"]
     additional_dependencies: [ "bandit[toml]" ]
 
 - repo: https://github.com/psf/black
@@ -61,7 +60,7 @@ repos:
   rev: v0.991
   hooks:
   - id: mypy
-    additional_dependencies: ["types-requests", "types-pytz"]
+    additional_dependencies: ["types-requests", "types-pytz", "types-Markdown"]
 
 - repo: https://github.com/zricethezav/gitleaks
   rev: v8.15.0

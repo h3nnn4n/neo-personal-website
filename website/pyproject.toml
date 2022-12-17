@@ -22,6 +22,7 @@ flake8 = "^6.0.0"
 isort = "5.10.1"
 mypy = "0.991"
 bandit = {version = "1.7.4", extras = ["toml"]}
+types-Markdown = "^3.4.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
