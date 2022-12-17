@@ -40,5 +40,7 @@ while the heavier ones may need a lucky sequence of vectors to make it turn a sh
 
 Writing this was pretty much my first experience with JavaScript in a `just for fun` context.
 This project also got me willing again to do some creative coding, so expect to see some more around.
-Check out the [Dancing room](Dancing Room) for a similar project and the
-[creative](http://localhost:1313/tags/creative) tag.
+Check out the [Dancing room]({% url 'posts_view' 'dancing-room' %}) and
+[Dancing Room Zero]({% url 'posts_view' 'dancing-room-zero' %})
+for similar particle based projects. The [creative]({% url 'tags_view' 'creative' %}) tag also
+features similar content.
