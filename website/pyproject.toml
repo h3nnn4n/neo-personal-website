@@ -26,8 +26,5 @@ build-backend = "poetry.core.masonry.api"
 line-length = 120
 target-version = ['py310']
 
-[tool.bandit]
-exclude_dirs = []
-
 [tool.mypy]
 ignore_missing_imports = true
