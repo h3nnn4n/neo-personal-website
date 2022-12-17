@@ -29,7 +29,7 @@ class AboutView(View):
         )
 
         headers, markdown_data = parse_md_file(file_contents)
-        md_content = mark_safe(
+        md_content = mark_safe(  # nosec
             render_markdown(
                 markdown_data,
             )
@@ -64,7 +64,9 @@ class TagView(View):
             tag = {}
             tag["name"] = tag_name
             tag["name__escaped"] = tag_name.replace(" ", "_")
-            tag["post_count"] = len([True for post in posts if tag_name in post["tags"]])
+            tag["post_count"] = len(
+                [True for post in posts if tag_name in post["tags"]]
+            )
             tags.append(tag)
 
         return render(
@@ -124,7 +126,7 @@ class PostView(View):
         date = datetime.strptime(headers["date"], "%Y-%m-%d")
         pretty_date = date.strftime("%B %d, %Y")
 
-        md_content = mark_safe(
+        md_content = mark_safe(  # nosec
             render_markdown(
                 markdown_data,
             )

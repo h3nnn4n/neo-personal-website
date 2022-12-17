@@ -25,7 +25,9 @@ def render_markdown(markdown_str: str):
 
 
 @memoize(timeout=60)
-def list_posts(ordered: bool = False, hide_drafts: bool = False) -> list[dict[str, Any]]:
+def list_posts(
+    ordered: bool = False, hide_drafts: bool = False
+) -> list[dict[str, Any]]:
     def _parse(post: str) -> dict:
         post_path = path.join(posts_folder, post)
         file_contents = read_file(post_path)
@@ -82,7 +84,7 @@ def parse_md_file(markdown_str: str):
         try:
             # If it is a list, this will work :)
             value = json.loads(value)
-        except Exception:
+        except Exception:  # nosec
             pass
 
         headers[key] = value
