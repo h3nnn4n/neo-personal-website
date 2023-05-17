@@ -1,7 +1,7 @@
 ---
-title: "Modernizing a 40 year old pottery kiln"
+title: "Learning how to burn things"
 date: 2023-05-07
-tags: ["pottery", "internet of things", "automation"]
+tags: ["pottery", "internet of things", "automation", "progress"]
 draft: true
 ---
 
@@ -120,6 +120,8 @@ has allowed me to improve rather quickly.
 For those interested, here is the full code:
 [smart-kiln](https://github.com/h3nnn4n/smart-kiln). It is very custom and
 specific and not intended to be generic. Hopefully it can serve as a reference.
+If all goes well, I should be writing more in detail about the "final" kiln and
+how it works.
 
 This writing turned out to be way longer than I expected, and more about the
 history of my kilns than about the technical expected of the my latest kiln.
