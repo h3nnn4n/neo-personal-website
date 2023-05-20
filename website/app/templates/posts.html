@@ -20,6 +20,22 @@
       {% endfor %}
       </ul>
     </div>
+
+    {% if tags %}
+    <div class="container-fluid">
+      <h1> Tags </h1>
+      <ul>
+      {% for tag in tags %}
+        <li>
+          <span class="font-monospace">
+            {{ tag.post_count }}:
+          </span>
+          <a class="" href="{% url 'tags_view' tag.name__escaped %}">{{ tag.name }}</a>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
   </div>
 </div>
 

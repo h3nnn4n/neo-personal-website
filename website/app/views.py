@@ -64,9 +64,7 @@ class TagView(View):
             tag = {}
             tag["name"] = tag_name
             tag["name__escaped"] = tag_name.replace(" ", "_")
-            tag["post_count"] = len(
-                [True for post in posts if tag_name in post["tags"]]
-            )
+            tag["post_count"] = len([True for post in posts if tag_name in post["tags"]])
             tags.append(tag)
 
         return render(
@@ -100,14 +98,25 @@ class PostView(View):
         if slug:
             return self.render_post(request, slug)
 
-        # TODO: Should show tags
         posts = services.list_posts(ordered=True, hide_drafts=True)
+        all_tags = sorted(set(itertools.chain.from_iterable(p["tags"] for p in posts)))
+        tags = []
+
+        for tag_name in all_tags:
+            tag = {}
+            tag["name"] = tag_name
+            tag["name__escaped"] = tag_name.replace(" ", "_")
+            tag["post_count"] = len([post for post in posts if tag_name in post["tags"]])
+            tags.append(tag)
+
+        tags = sorted(tags, key=lambda t: t["post_count"], reverse=True)
 
         return render(
             request,
             "posts.html",
             context={
                 "posts": posts,
+                "tags": tags,
             },
         )
 
