@@ -1,6 +1,6 @@
 ---
 title: "Games"
-date: 2021-06-07T14:23:55-03:00
+date: 2021-06-07
 draft: false
 ---
 

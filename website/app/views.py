@@ -96,7 +96,7 @@ class PostView(View):
         slug = kwargs.get("slug")
 
         if slug:
-            return self.render_post(request, slug)
+            return render_post(request, slug)
 
         posts = services.list_posts(order_field="date", hide_drafts=True)
         all_tags = sorted(set(itertools.chain.from_iterable(p["tags"] for p in posts)))
@@ -120,42 +120,6 @@ class PostView(View):
             },
         )
 
-    def render_post(self, request, slug):
-        print(f"rendering post {slug}")
-        file_contents = read_file(
-            path.join(
-                settings.CONTENT_FOLDER,
-                f"posts/{slug}.md",
-            ),
-        )
-
-        headers, markdown_data = parse_md_file(file_contents)
-        __import__("pprint").pprint(headers)
-
-        date = datetime.strptime(headers["date"], "%Y-%m-%d")
-        pretty_date = date.strftime("%B %d, %Y")
-
-        md_content = mark_safe(  # nosec
-            render_markdown(
-                markdown_data,
-            )
-        )
-
-        md_content = "{% load static %}\n" + md_content
-        template = Template(md_content)
-        content = template.render(Context({}))
-
-        return render(
-            request,
-            "post.html",
-            context={
-                "title": headers.get("title"),
-                "date": pretty_date,
-                "tags": headers.get("tags"),
-                "content": content,
-            },
-        )
-
 
 class ProjectsView(View):
     def get(self, request, *args, **kwargs):
@@ -169,3 +133,45 @@ class ProjectsView(View):
                 "base_repo_url": settings.BASE_REPO_URL,
             },
         )
+
+
+class GamesView(View):
+    def get(self, request, *args, **kwargs):
+        return render_post(request, "games", base_folder="")
+
+
+def render_post(request, slug: str, base_folder: str = "posts"):
+    print(f"rendering post {slug}")
+    file_contents = read_file(
+        path.join(
+            settings.CONTENT_FOLDER,
+            path.join(base_folder, f"{slug}.md"),
+        ),
+    )
+
+    headers, markdown_data = parse_md_file(file_contents)
+    __import__("pprint").pprint(headers)
+
+    date = datetime.strptime(headers["date"], "%Y-%m-%d")
+    pretty_date = date.strftime("%B %d, %Y")
+
+    md_content = mark_safe(  # nosec
+        render_markdown(
+            markdown_data,
+        )
+    )
+
+    md_content = "{% load static %}\n" + md_content
+    template = Template(md_content)
+    content = template.render(Context({}))
+
+    return render(
+        request,
+        "post.html",
+        context={
+            "title": headers.get("title"),
+            "date": pretty_date,
+            "tags": headers.get("tags"),
+            "content": content,
+        },
+    )

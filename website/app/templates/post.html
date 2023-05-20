@@ -22,19 +22,23 @@
         </span>
       </h6>
 
-      <span class="font-monospace">
-        Tags:
-      </span>
+      {% if tags %}
+        <span class="font-monospace">
+          Tags:
+        </span>
 
-      {% for tag in tags %}
-      <a class="" href="{% url 'tags_view' tag|underscorize %}">
-        <span class="font-monospace badge rounded-pill bg-primary">
-          {{ tag }}
-        <!-- These two tags have to be here, or we get some rendering issues wtf -->
-        </span></a>
-      {% endfor %}
+        {% for tag in tags %}
+        <a class="" href="{% url 'tags_view' tag|underscorize %}">
+          <span class="font-monospace badge rounded-pill bg-primary">
+            {{ tag }}
+          <!-- These two tags have to be here, or we get some rendering issues wtf -->
+          </span></a>
+        {% endfor %}
 
-      <br><br>
+        <br>
+      {% endif %}
+
+      <br>
 
       <div style="text-align: justify">
         {{ content }}
