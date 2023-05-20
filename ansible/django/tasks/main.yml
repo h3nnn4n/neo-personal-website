@@ -50,6 +50,11 @@
   async: 10
   poll: 5
 
+- name: Sleep for 5 seconds
+  ansible.builtin.wait_for:
+    timeout: 5
+  delegate_to: localhost
+
 - name: Check sock file is present
   stat:
     path: "{{ project_folder }}/{{ repo_name }}/website/gunicorn.sock"
