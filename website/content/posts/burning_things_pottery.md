@@ -2,7 +2,7 @@
 title: "Learning how to burn things"
 date: 2023-05-07
 tags: ["pottery", "internet of things", "automation", "progress"]
-draft: true
+draft: false
 ---
 
 At some point in the past, I decided that I wanted to learn pottery, mostly
