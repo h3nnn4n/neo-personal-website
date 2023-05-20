@@ -15,16 +15,49 @@ and stresses in the part maybe causes cracks or other failures. If the
 temperature oscillates, the piece may contract and expand, also causing cracks.
 It is a relatively sensitive process.
 
-
 My first kiln used coal as fuel, and a hair dryer to force air in and reach the
 required temperatures. At this point, my goal was to bisque fire a piece
 without it cracking. Temperatures were monitored using one or more
 thermocouples. I didn't take any notes on what worked or didn't, rather I built
-a (very flawed) intuition. The second iteration used bottled gas from my
+a (very flawed) intuition.
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <img class="img-fluid" src="{% static 'images/kilns/coal_cold.jpg' %}"></img>
+    </div>
+    <div class="col">
+      <img class="img-fluid" src="{% static 'images/kilns/coal_burning.jpg' %}"></img>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <img class="img-fluid" src="{% static 'images/kilns/coal_inside.jpg' %}"></img>
+    </div>
+    <div class="col">
+      <img class="img-fluid" src="{% static 'images/kilns/coal_pretty.jpg' %}"></img>
+    </div>
+  </div>
+</div>
+</br>
+
+The second iteration used bottled gas from my
 kitchen (which I think is [Liquefied petroleum
 gas](https://en.wikipedia.org/wiki/Liquefied_petroleum_gas)). This change and
 ease of control allowed me to somewhat consistently bisque fire pieces,
 although often at least one piece would crack.
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <img class="img-fluid" src="{% static 'images/kilns/gas.jpg' %}"></img>
+    </div>
+    <div class="col">
+      <img class="img-fluid" src="{% static 'images/kilns/gas_firing.jpg' %}"></img>
+    </div>
+  </div>
+</div>
+</br>
 
 At this point, which using my gas fueled kiln, I decided it would be a good
 idea to start keeping track of what I did. The temperatures, the rates, hold
@@ -50,6 +83,18 @@ and on the outside of the kiln gave me enough confidence to be able to work
 without checking it every 5 minutes. However, my monkey brain didn't really
 like the idea of having something that can explode unattended. Furthermore,
 the kiln still had some issues blocking my progress.
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <img class="img-fluid" src="{% static 'images/kilns/gas2.jpg' %}"></img>
+    </div>
+    <div class="col">
+      <img class="img-fluid" src="{% static 'images/kilns/sensors.jpg' %}"></img>
+    </div>
+  </div>
+</div>
+</br>
 
 The main downside of my gas kiln, was reaching low enough temperatures and
 slowly ramping up to prevent thermal shock from cracking the pieces. Venturi
@@ -83,17 +128,33 @@ into a working state.
 
 While digging around inside the control box of the kiln, I decided to to open
 the PID Controller and see what was inside. It had a very "old tech" feeling to
-it. Inside it I found a QA seal dating 1984. At this time, my country (Brazil),
-was a military dictatorship. Digging around the circuitry, all integrated
-circuits were of national production. One of them was dated to 1981. A quite
-interesting discovery. Again I took pictures and documented my findings.
+it. Inside it I found a QA seal dating `198*`, and the chips dating 1984!. At
+this time, my country (Brazil), was a military dictatorship. Digging around the
+circuitry, all integrated circuits were of national production. One of them was
+dated to 1981. A quite interesting discovery. Again I took pictures and
+documented my findings.
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <img class="img-fluid" src="{% static 'images/kilns/qa_seal.jpg' %}"></img>
+    </div>
+    <div class="col">
+      <img class="img-fluid" src="{% static 'images/kilns/board_up.jpg' %}"></img>
+    </div>
+    <div class="col">
+      <img class="img-fluid" src="{% static 'images/kilns/board_down.jpg' %}"></img>
+    </div>
+  </div>
+</div>
+</br>
 
 Getting the kiln to follow a firing schedule was surprisingly easy. Took the
 first PID library I could find with some random tuning parameters and it worked
 so well that I never bothered to change it. The firing schedule is stored in a
 text file, that looks like this:
 
-```bash
+<pre>
 00:00 25
 02:30 115
 03:40 115
@@ -105,7 +166,7 @@ text file, that looks like this:
 08:40 982
 10:40 760
 12:00 0
-```
+</pre>
 
 The left column is the time, and the right one is the target temperature in
 Degrees Celsius. Anything in between is linearly interpolated. This allows to
@@ -123,6 +184,8 @@ specific and not intended to be generic. Hopefully it can serve as a reference.
 If all goes well, I should be writing more in detail about the "final" kiln and
 how it works.
 
-This writing turned out to be way longer than I expected, and more about the
-history of my kilns than about the technical expected of the my latest kiln.
-Nevertheless, I am happy with it. Glad to be writing again :)
+Meta: This writing turned out to be way longer than I expected, and more about
+the history of my kilns than about the technical expected of the my latest
+kiln. The "narrative" is all over the place too. Nevertheless, I am happy with
+it. Figured it was better to get something out rather than try to get it to be
+good. Glad to be writing again :)
