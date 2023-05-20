@@ -56,7 +56,7 @@ class TagView(View):
         if tag:
             return self.render_tag(request, tag)
 
-        posts = services.list_posts(ordered=True, hide_drafts=True)
+        posts = services.list_posts(order_field="date", hide_drafts=True)
         all_tags = sorted(set(itertools.chain.from_iterable(p["tags"] for p in posts)))
         tags = []
 
@@ -78,7 +78,7 @@ class TagView(View):
     def render_tag(self, request, tag):
         tag = tag.replace("_", " ")
 
-        posts = services.list_posts(ordered=True, hide_drafts=True)
+        posts = services.list_posts(order_field="date", hide_drafts=True)
         posts = [post for post in posts if tag in post["tags"]]
 
         return render(
@@ -98,7 +98,7 @@ class PostView(View):
         if slug:
             return self.render_post(request, slug)
 
-        posts = services.list_posts(ordered=True, hide_drafts=True)
+        posts = services.list_posts(order_field="date", hide_drafts=True)
         all_tags = sorted(set(itertools.chain.from_iterable(p["tags"] for p in posts)))
         tags = []
 
@@ -153,5 +153,19 @@ class PostView(View):
                 "date": pretty_date,
                 "tags": headers.get("tags"),
                 "content": content,
+            },
+        )
+
+
+class ProjectsView(View):
+    def get(self, request, *args, **kwargs):
+        projects = services.list_projects(order_field="weight", hide_drafts=True)
+
+        return render(
+            request,
+            "projects.html",
+            context={
+                "projects": projects,
+                "base_repo_url": settings.BASE_REPO_URL,
             },
         )

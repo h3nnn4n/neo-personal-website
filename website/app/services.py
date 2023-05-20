@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import typing as t
 from datetime import datetime
 from os import path
 from typing import Any
@@ -25,26 +26,39 @@ def render_markdown(markdown_str: str):
 
 
 @memoize(timeout=settings.POST_MEMOIZE_TIME)
-def list_posts(ordered: bool = False, hide_drafts: bool = False) -> list[dict[str, Any]]:
+def list_projects(order_field: t.Optional[str] = None, hide_drafts: bool = False) -> list[dict[str, Any]]:
+    projects_folder = path.join(settings.CONTENT_FOLDER, "projects")
+    return parse_and_list_md_files(projects_folder, order_field=order_field, hide_drafts=hide_drafts)
+
+
+@memoize(timeout=settings.POST_MEMOIZE_TIME)
+def list_posts(order_field: t.Optional[str] = None, hide_drafts: bool = False) -> list[dict[str, Any]]:
+    posts_folder = path.join(settings.CONTENT_FOLDER, "posts")
+    return parse_and_list_md_files(posts_folder, order_field=order_field, hide_drafts=hide_drafts)
+
+
+def parse_and_list_md_files(
+    base_folder: str, order_field: t.Optional[str] = None, hide_drafts: bool = False
+) -> list[dict[str, Any]]:
     def _parse(post: str) -> dict:
-        post_path = path.join(posts_folder, post)
+        post_path = path.join(base_folder, post)
         file_contents = read_file(post_path)
         headers, _ = parse_md_file(file_contents)
 
-        date = datetime.strptime(headers["date"], "%Y-%m-%d")
-        headers["pretty_date"] = date.strftime("%B %d, %Y")
-        headers["filename"] = post.partition(".")[0]
+        if headers.get("date"):
+            date = datetime.strptime(headers["date"], "%Y-%m-%d")
+            headers["pretty_date"] = date.strftime("%B %d, %Y")
+            headers["filename"] = post.partition(".")[0]
 
         return headers
 
-    posts_folder = path.join(settings.CONTENT_FOLDER, "posts")
-    posts = [_parse(p) for p in os.listdir(posts_folder)]
+    posts = [_parse(p) for p in os.listdir(base_folder)]
 
     if hide_drafts:
         posts = [p for p in posts if not p["draft"]]
 
-    if ordered:
-        posts = sorted(posts, key=lambda x: x["date"], reverse=True)
+    if order_field:
+        posts = sorted(posts, key=lambda x: x[order_field], reverse=True)
 
     return posts
 

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %} Projects {% endblock %}
+
+{% block content %}
+
+<div class="row align-items-center justify-content-center">
+  <div class="col">
+    <div class="container-fluid">
+      <h1> Projects </h1>
+
+      <ul>
+      {% for project in projects %}
+        <li>
+          <span class="h5 font-monospace">
+            <a href="{{ base_repo_url }}/{{ project.repo }}">
+              {{ project.title }}
+            </a>
+          </span>
+          <br>
+          <span class="p-3 text-secondary">
+            {{ project.description }}
+          </span>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

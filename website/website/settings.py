@@ -159,3 +159,5 @@ LOGGING = {
 CONTENT_FOLDER = "content"
 
 POST_MEMOIZE_TIME = config("POST_MEMOIZE_TIME", default=60, cast=int)
+
+BASE_REPO_URL = config("BASE_REPO_URL", default="https://github.com/h3nnn4n")
