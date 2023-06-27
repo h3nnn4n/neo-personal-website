@@ -14,3 +14,4 @@ Topics:
   - Arduino uno 1355.60
 - Objetivos
 - Dumb FK approach
+- Teensy and PCAs dying :(
