@@ -5,6 +5,16 @@ tags: ["robotics", "project", "aratu"]
 draft: true
 ---
 
+I once read something along the lines of "some people can only live they childhood dreams after they become adults".
+Well, child me really liked robots and wanted to build some. Of course at the time I didn't have the know-how nor
+the resources required. Heck, much of the technology available today didn't exist or wasn't available commercialy
+at a developing country. A lot has changed since them. We have microntrollers 10x faster than computers were back then,
+and they are wide available worldwide (when there isn't a chip shortage going on anyways). I am also fortunate enough
+to be able to afford to build a relativelly complex robot, and more importantly I have developed all the skills and
+meta skills. 
+
+
+
 Topics:
 - Inspiration?
 - Explain the name
