@@ -31,7 +31,7 @@
     pkill -9 -f gunicorn
   ignore_errors: true
 
-- name: Ensure Gunicorn is running
+- name: Start gunicorn
   shell: |
     DJANGO_SETTINGS_MODULE=website.settings \
     poetry run gunicorn \
@@ -47,20 +47,18 @@
   args:
     executable: /bin/bash
     chdir: "{{ project_folder }}/{{ repo_name }}/website"
-  async: 10
-  poll: 5
 
 - name: Sleep for 5 seconds
   ansible.builtin.wait_for:
     timeout: 5
   delegate_to: localhost
 
-- name: Check sock file is present
+- name: Check gunicorn sock file is present
   stat:
     path: "{{ project_folder }}/{{ repo_name }}/website/gunicorn.sock"
   register: sock_file
 
-- name: Fail if sock file doesn't exist
+- name: Fail if gunicorn sock file doesn't exist
   fail:
     msg: "sock file not found!"
   when: not sock_file.stat.exists
