@@ -28,7 +28,7 @@
 
 - name: Stop gunicorn
   command: |
-    pkill --full gunicorn
+    pkill -9 -f gunicorn
   ignore_errors: true
 
 - name: Ensure Gunicorn is running
