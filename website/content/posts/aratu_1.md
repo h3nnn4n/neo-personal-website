@@ -40,8 +40,7 @@ new parts. This came in very handy.
 <div class="container-fluid">
   <div class="row">
     <div class="col">
-      <
-        img
+      <img
         class="img-fluid" src="{% static 'images/aratu_1/side_leg_view.png' %}"
         alt="Side view of the robot leg, with all the bone lengths measured."
       ></img>
@@ -49,8 +48,7 @@ new parts. This came in very handy.
   </div>
   <div class="row">
     <div class="col">
-      <
-        img
+      <img
         class="img-fluid" src="{% static 'images/aratu_1/top_leg_view__sliced_.png' %}"
         alt="Top view of the robot leg, with all the bone lengths measured."
       ></img>
