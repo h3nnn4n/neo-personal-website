@@ -57,8 +57,6 @@ new parts. This came in very handy.
 </div>
 </br>
 
-TODO: pics of the old leg with a short tibia, and the long curved ones.
-
 During prototyping I took the first dev board I found, which happened to be an
 Arduino Uno R3. With it I was able to implement the (Forward
 Kinematics)[https://en.wikipedia.org/wiki/Forward_kinematics] routine, which is
@@ -69,23 +67,33 @@ Kinematics)[https://en.wikipedia.org/wiki/Inverse_kinematics] model isn't so
 simple though, and it can vary a lot if the leg model changes. Given my
 Optimization background, I decided to implement a numerical solution instead of
 an analytical one (keeping in sync with the modern software development
-approach of spending CPU time to save Engineering time). The IK solver couldn't
-run fast enough even for a single leg, but with some tricks the situation
-improved. The solver uses a poor's man gradient descent (more like a greedy
-search), which can take advantage of previously found solutions. Given that in
-50 ms or so the leg can only move so far, the solver can start there and try to
-find the new updated position. This works very fast in most cases. Another
-simple optimizations can be used too, like having an acceptable error in the
-position. For cheap servos this is specially relevant, since having the exact
-angles down to 6 decimal places won't improve things if the servo can be a
-couple of degrees off from where it should be. Another way is to timeout the
-solver and return the best solution found so far, and on the next update
-continue from there. This helps with long moves where the movement is
-interpolated. This allowed the IK solved to run fast enough on the Uno for a
-single leg to validate the physical construction of the leg, the electronics
-and the code.
+approach of spending CPU time to save Engineering time). Having the IK be an
+optimization problem on top of the FK makes it much simpler to update the
+kinematics if/when the leg model changes.
 
-TODO: Single IK test video
+The IK solver couldn't run fast enough even for a single leg, but with some
+tricks the situation improved. The solver uses a poor's man gradient descent
+(more like a greedy search), which can take advantage of previously found
+solutions as an starting point. Given that in 50 ms or so the leg can only move
+so far, the solver can start there and try to find the new updated position.
+This works very fast in most cases. Another simple optimizations can be used
+too, like having an acceptable error in the position. For cheap servos this is
+specially relevant, since having the exact angles down to 6 decimal places
+won't improve things if the servo can be a couple of degrees off from where it
+should be. Another way is to timeout the solver and return the best solution
+found so far, and on the next update continue from there. This helps with long
+moves where the movement is interpolated. This allowed the IK solved to run
+fast enough on the Uno for a single leg to validate the physical construction
+of the leg, the electronics and the code.
+
+<!--
+<video
+  class="img-fluid"
+  src="{% static 'videos/aratu_1/aratu_single_leg_ik_test.webm' %}"
+  alt="Single leg prototype moving in a 'walk' pattern using a simple IK solver."
+  autoplay loop muted
+></video>
+-->
 
 Despite the optimizations, it was very unlikely that the Uno would be able to
 keep up with 6 legs to control. This was quickly proven when I tried 3 legs.
@@ -127,14 +135,5 @@ as the soft-skills aspects. Time management being one and consistently
 developing the project instead of the very common burst of enthusiasm and then
 dropping it to never work on it again.
 
-
-Topics:
-- Inspiration?
-- Explain the name
-- Fast prototyping
-- Arduino Uno performance vs Teensy 4.1
-  - Teensy fk ips: 1086956.50
-  - Arduino uno 1355.60
-- Objetivos
-- Dumb IK approach
-- Teensy and PCAs dying :(
+Well, this is it for now. A follow up post will come soon, with an actual robot
+doing robot things.
