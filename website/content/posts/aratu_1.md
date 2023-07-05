@@ -25,23 +25,31 @@ pacific and atlatic coasts. Although crabs are decapods, while my project
 is an Hexapod, I decided to go with it. Most 6 legged insects I found didn't
 meet the "being memorable" criteria.
 
-Considering that relativelly little experience with robotics and I am not
-much the research first kind of person, one priority was to be able to
-iterate, fail and recover fast. I found that I am often more productive
-when I go ahead and just try to make things and go as far as I can without
-losing momentum. Once I hit a blocker that I can't easily resolve, then I
-start researching on how to fix that particular problem. Rinse and repeat.
-The coxa and tibia bones were two such cases were the first designs failed,
-but I was able to fix them without having to change the other components.
-The robot body was implemented having a grid of holes spaces 10mm apart
-to allow attaching things that I didn't forsee, without having to print
-new parts. This came in very handy.
+Considering that relativelly little experience with robotics and I am not much
+the research first kind of person, one priority was to be able to iterate, fail
+and recover fast. I found that I am often more productive when I go ahead and
+just try to make things and go as far as I can without losing momentum. Once I
+hit a blocker that I can't easily resolve, then I start researching on how to
+fix that particular problem. Rinse and repeat. The coxa and tibia bones were
+two such cases were the first designs failed, but I was able to fix them
+without having to change the other components. In the two next pictures, there
+are two different leg versions. In the first, the Tibia is straight and the
+Coxa has 65mm. In the second, the Tibia is longer and curved, allowing it to
+reach further down into the robot without required aggressive moves and the
+Coxa is shorter, reducing the strain on the main joint and improving rigidity.
+For the Tibia redesign, two side plates were updated, while the feet portion
+was reutilized. For the Coxa, the main piece connecting the two servos was also
+reutilized. This helped reduce the design and printing times allowing for a
+much faster iteration. Another point where this was helpful was in how the
+robot body was implemented having a grid of holes spaces 10mm apart, allowing
+attaching things that I didn't forsee without having to print new parts. For
+example when fixing different boards and cables.
 
 <div class="container-fluid">
   <div class="row">
     <div class="col">
       <img
-        class="img-fluid" src="{% static 'images/aratu_1/side_leg_view.png' %}"
+        class="img-fluid" src="{% static 'images/aratu_1/side_leg_view__old.png' %}"
         alt="Side view of the robot leg, with all the bone lengths measured."
       ></img>
     </div>
@@ -49,8 +57,9 @@ new parts. This came in very handy.
   <div class="row">
     <div class="col">
       <img
-        class="img-fluid" src="{% static 'images/aratu_1/top_leg_view__sliced_.png' %}"
-        alt="Top view of the robot leg, with all the bone lengths measured."
+        class="img-fluid" src="{% static 'images/aratu_1/side_leg_view.png' %}"
+        alt="Side view of a newer robot leg. The Tibia is now curved and longer
+        and the Coxa is shorter."
       ></img>
     </div>
   </div>
