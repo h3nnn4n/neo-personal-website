@@ -27,8 +27,8 @@
     chdir: "{{ project_folder }}/{{ repo_name }}/website"
 
 - name: Stop gunicorn
-  command: |
-    pkill -f gunicorn
+  shell: |
+    kill $(cat {{ project_folder }}/{{ repo_name }}/website/gunicorn.pid)
   ignore_errors: true
 
 - name: Start gunicorn
@@ -40,6 +40,7 @@
       --access-logfile access.log \
       --log-level info \
       --log-file server.log \
+      --pid={{ project_folder }}/{{ repo_name }}/website/gunicorn.pid \
       --preload \
       --timeout 2 \
       --worker-class sync \
