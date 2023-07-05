@@ -37,7 +37,55 @@ The robot body was implemented having a grid of holes spaces 10mm apart
 to allow attaching things that I didn't forsee, without having to print
 new parts. This came in very handy.
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <
+        img
+        class="img-fluid" src="{% static 'images/aratu_1/side_leg_view.png' %}"
+        alt="Side view of the robot leg, with all the bone lengths measured."
+      ></img>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <
+        img
+        class="img-fluid" src="{% static 'images/aratu_1/top_leg_view__sliced_.png' %}"
+        alt="Top view of the robot leg, with all the bone lengths measured."
+      ></img>
+    </div>
+  </div>
+</div>
+</br>
+
 TODO: pics of the old leg with a short tibia, and the long curved ones.
+
+During prototyping I took the first dev board I found, which happened to be an
+Arduino Uno R3. With it I was able to implement the (Forward
+Kinematics)[https://en.wikipedia.org/wiki/Forward_kinematics] routine, which is
+relatively straightforward. Even on the relatively weak 8bit AVR
+microcontroller running at 16MHz and without floating point arithmetic support
+the FK can be solved more than a thousand times per second. The (Inverse
+Kinematics)[https://en.wikipedia.org/wiki/Inverse_kinematics] model isn't so
+simple though, and it can vary a lot if the leg model changes. Given my
+Optimization background, I decided to implement a numerical solution instead of
+an analytical one (keeping in sync with the modern software development
+approach of spending CPU time to save Engineering time). The IK solver couldn't
+run fast enough even for a single leg, but with some tricks the situation
+improved. The solver uses a poor's man gradient descent (more like a greedy
+search), which can take advantage of previously found solutions. Given that in
+50 ms or so the leg can only move so far, the solver can start there and try to
+find the new updated position. This works very fast in most cases. Another
+simple optimizations can be used too, like having an acceptable error in the
+position. For cheap servos this is specially relevant, since having the exact
+angles down to 6 decimal places won't improve things if the servo can be a
+couple of degrees off from where it should be. Another way is to timeout the
+solver and return the best solution found so far, and on the next update
+continue from there. This helps with long moves where the movement is
+interpolated. This allowed the IK solved to run fast enough on the Uno for a
+single leg to validate the physical construction of the leg, the electronics
+and the code.
 
 Topics:
 - Inspiration?
@@ -47,5 +95,5 @@ Topics:
   - Teensy fk ips: 1086956.50
   - Arduino uno 1355.60
 - Objetivos
-- Dumb FK approach
+- Dumb IK approach
 - Teensy and PCAs dying :(
