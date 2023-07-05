@@ -85,6 +85,27 @@ interpolated. This allowed the IK solved to run fast enough on the Uno for a
 single leg to validate the physical construction of the leg, the electronics
 and the code.
 
+TODO: Single IK test video
+
+Despite the optimizations, it was very unlikely that the Uno would be able to
+keep up with 6 legs to control. This was quickly proven when I tried 3 legs.
+Time to upgrade. My choice was the (Teensy
+4.1)[https://www.pjrc.com/store/teensy41.html], a very capable 32bits
+microcontroller having a cloc of 600 MHz, with floating point support and even
+branch prediction. It has more features that I could ever want. It is even
+superscalar, meaning that it can execute more than one instruction at the same
+time under ideal circumstances. A quick benchmark between the Uno and the
+Teensy had very impressive results. The Uno could do on average 1355 FK solves
+per second, while the teensy could do 1086956. About 800x faster. One funny bug
+happened due to the Teensy being too fast. To move at a constant speed, the IK
+has to run periodically, but since there are no real guarantees on how long it
+will take to run again, it needs to account for the time between updates. On
+the Uno, this was usually in the 5~50ms range. For the teensy, it would often
+be 0ms, causing it to not move at all. The Uno required timeouts to keep it
+responsible, while the Teensy required some breaks. Instead of using
+microseconds to time it, I opted for using a timer to ensure it wasn't updated
+too often.
+
 Topics:
 - Inspiration?
 - Explain the name
