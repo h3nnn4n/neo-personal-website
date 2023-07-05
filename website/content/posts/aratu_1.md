@@ -106,6 +106,28 @@ responsible, while the Teensy required some breaks. Instead of using
 microseconds to time it, I opted for using a timer to ensure it wasn't updated
 too often.
 
+As for the project goals, there is quite a lot. I like to thing of them in two
+phases. The first being a platform phase, and the second an applications phase.
+For the platform phase, it is all about making the robot work. Here we have
+things like being able to stand, walk forwards, walk in any direction. Adjust
+gaits, translate and rotate the body dynamically, etc. This is plety ambitious
+already considering my lack of experience with complex robotics projects. Then,
+there is the second phase. For applications, the robot will be used as a
+platform for something more applied. The main one here is making it navigate
+autonomously, possibly using a spindle-type
+(Lidar)[https://en.wikipedia.org/wiki/Lidar]. For this, the robot being an
+hexapod doesn't matter as much since it would be anything capable of moving.
+
+These are goals for the project itself, but there are personal goals involved
+too. The first goal, as mentioned in the first paragraph, is simply about doing
+something that I always wanted since being a kid. Then, there is the challenge
+itself of handling all the complexities of the project, including the more
+hard-sciency things like programming, mechanical design and eletrocnics as well
+as the soft-skills aspects. Time management being one and consistently
+developing the project instead of the very common burst of enthusiasm and then
+dropping it to never work on it again.
+
+
 Topics:
 - Inspiration?
 - Explain the name
