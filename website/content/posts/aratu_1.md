@@ -58,12 +58,12 @@ new parts. This came in very handy.
 </br>
 
 During prototyping I took the first dev board I found, which happened to be an
-Arduino Uno R3. With it I was able to implement the (Forward
-Kinematics)[https://en.wikipedia.org/wiki/Forward_kinematics] routine, which is
+Arduino Uno R3. With it I was able to implement the [Forward
+Kinematics](https://en.wikipedia.org/wiki/Forward_kinematics) routine, which is
 relatively straightforward. Even on the relatively weak 8bit AVR
 microcontroller running at 16MHz and without floating point arithmetic support
-the FK can be solved more than a thousand times per second. The (Inverse
-Kinematics)[https://en.wikipedia.org/wiki/Inverse_kinematics] model isn't so
+the FK can be solved more than a thousand times per second. The [Inverse
+Kinematics](https://en.wikipedia.org/wiki/Inverse_kinematics) model isn't so
 simple though, and it can vary a lot if the leg model changes. Given my
 Optimization background, I decided to implement a numerical solution instead of
 an analytical one (keeping in sync with the modern software development
@@ -97,8 +97,8 @@ of the leg, the electronics and the code.
 
 Despite the optimizations, it was very unlikely that the Uno would be able to
 keep up with 6 legs to control. This was quickly proven when I tried 3 legs.
-Time to upgrade. My choice was the (Teensy
-4.1)[https://www.pjrc.com/store/teensy41.html], a very capable 32bits
+Time to upgrade. My choice was the [Teensy
+4.1](https://www.pjrc.com/store/teensy41.html), a very capable 32bits
 microcontroller having a cloc of 600 MHz, with floating point support and even
 branch prediction. It has more features that I could ever want. It is even
 superscalar, meaning that it can execute more than one instruction at the same
@@ -123,7 +123,7 @@ already considering my lack of experience with complex robotics projects. Then,
 there is the second phase. For applications, the robot will be used as a
 platform for something more applied. The main one here is making it navigate
 autonomously, possibly using a spindle-type
-(Lidar)[https://en.wikipedia.org/wiki/Lidar]. For this, the robot being an
+[Lidar](https://en.wikipedia.org/wiki/Lidar). For this, the robot being an
 hexapod doesn't matter as much since it would be anything capable of moving.
 
 These are goals for the project itself, but there are personal goals involved
