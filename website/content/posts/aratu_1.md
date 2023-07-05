@@ -86,15 +86,6 @@ moves where the movement is interpolated. This allowed the IK solved to run
 fast enough on the Uno for a single leg to validate the physical construction
 of the leg, the electronics and the code.
 
-<!--
-<video
-  class="img-fluid"
-  src="{% static 'videos/aratu_1/aratu_single_leg_ik_test.webm' %}"
-  alt="Single leg prototype moving in a 'walk' pattern using a simple IK solver."
-  autoplay loop muted
-></video>
--->
-
 Despite the optimizations, it was very unlikely that the Uno would be able to
 keep up with 6 legs to control. This was quickly proven when I tried 3 legs.
 Time to upgrade. My choice was the [Teensy
