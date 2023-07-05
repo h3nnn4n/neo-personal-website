@@ -14,24 +14,24 @@ from memoize import memoize
 logger = logging.getLogger(__name__)
 
 
-@memoize(timeout=settings.POST_MEMOIZE_TIME)
+@memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
 def read_file(filename: str) -> str:
     with open(filename, "rt") as f:
         return f.read()
 
 
-@memoize(timeout=settings.POST_MEMOIZE_TIME)
+@memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
 def render_markdown(markdown_str: str):
     return markdown(markdown_str, extensions=["attr_list"])
 
 
-@memoize(timeout=settings.POST_MEMOIZE_TIME)
+@memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
 def list_projects(order_field: t.Optional[str] = None, hide_drafts: bool = False) -> list[dict[str, Any]]:
     projects_folder = path.join(settings.CONTENT_FOLDER, "projects")
     return parse_and_list_md_files(projects_folder, order_field=order_field, hide_drafts=hide_drafts)
 
 
-@memoize(timeout=settings.POST_MEMOIZE_TIME)
+@memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
 def list_posts(order_field: t.Optional[str] = None, hide_drafts: bool = False) -> list[dict[str, Any]]:
     posts_folder = path.join(settings.CONTENT_FOLDER, "posts")
     return parse_and_list_md_files(posts_folder, order_field=order_field, hide_drafts=hide_drafts)
@@ -63,7 +63,7 @@ def parse_and_list_md_files(
     return posts
 
 
-@memoize(timeout=settings.POST_MEMOIZE_TIME)
+@memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
 def parse_md_file(markdown_str: str):
     """
     Poor man's parsing
