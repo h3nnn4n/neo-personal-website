@@ -28,7 +28,7 @@
 
 - name: Stop gunicorn
   command: |
-    pkill -9 -f gunicorn
+    pkill -f gunicorn
   ignore_errors: true
 
 - name: Start gunicorn
