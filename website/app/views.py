@@ -3,6 +3,7 @@ from datetime import datetime
 from os import path
 
 from django.conf import settings
+from django.http import Http404
 from django.shortcuts import render
 from django.template import Context, Template
 from django.utils.safestring import mark_safe
@@ -54,7 +55,10 @@ class TagView(View):
         tag = kwargs.get("tag")
 
         if tag:
-            return self.render_tag(request, tag)
+            try:
+                return self.render_tag(request, tag)
+            except FileNotFoundError:
+                raise Http404()
 
         posts = services.list_posts(order_field="date", hide_drafts=True)
         all_tags = sorted(set(itertools.chain.from_iterable(p["tags"] for p in posts)))
@@ -81,6 +85,10 @@ class TagView(View):
         posts = services.list_posts(order_field="date", hide_drafts=True)
         posts = [post for post in posts if tag in post["tags"]]
 
+        # No posts for a tag means that the tag doesn't exist
+        if len(posts) == 0:
+            raise Http404()
+
         return render(
             request,
             "posts.html",
@@ -96,7 +104,10 @@ class PostView(View):
         slug = kwargs.get("slug")
 
         if slug:
-            return render_post(request, slug)
+            try:
+                return render_post(request, slug)
+            except FileNotFoundError:
+                raise Http404()
 
         posts = services.list_posts(order_field="date", hide_drafts=True)
         all_tags = sorted(set(itertools.chain.from_iterable(p["tags"] for p in posts)))
