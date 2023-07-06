@@ -2,7 +2,7 @@
 title: "Project Aratu: yet another 3dof hexapod"
 date: 2023-06-24
 tags: ["robotics", "project", "aratu"]
-draft: true
+draft: false
 ---
 
 I once read something along the lines of "some people can only live they
