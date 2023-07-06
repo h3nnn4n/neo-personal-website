@@ -93,7 +93,23 @@ should be. Another way is to timeout the solver and return the best solution
 found so far, and on the next update continue from there. This helps with long
 moves where the movement is interpolated. This allowed the IK solved to run
 fast enough on the Uno for a single leg to validate the physical construction
-of the leg, the electronics and the code.
+of the leg, the electronics and the code. In the video below, the leg can be
+seen moving the foot in a triangular gait pattern. It jitters as lot, but it is
+caused mostly by the cheap servos which often overshoot the target position.
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <video
+        class="img-fluid"
+        alt="Robot leg moving the foot in a triangular pattern that can be used to walk."
+        autoplay loop muted
+        src="{% static 'videos/aratu_1/ik_gait_demo.webm' %}"
+      ></video>
+    </div>
+  </div>
+</div>
+</br>
 
 Despite the optimizations, it was very unlikely that the Uno would be able to
 keep up with 6 legs to control. This was quickly proven when I tried 3 legs.
