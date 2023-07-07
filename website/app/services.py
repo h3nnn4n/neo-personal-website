@@ -22,7 +22,7 @@ def read_file(filename: str) -> str:
 
 @memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
 def render_markdown(markdown_str: str):
-    return markdown(markdown_str, extensions=["attr_list"])
+    return markdown(markdown_str, extensions=["attr_list", "fenced_code", "codehilite"])
 
 
 @memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
