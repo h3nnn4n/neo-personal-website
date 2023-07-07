@@ -66,3 +66,75 @@ In my case it is defined as:
 #define FEMUR_LENGTH 78.984
 #define TIBIA_LENGTH 163.148
 ```
+
+Let's start working on our IK solver. A simple approach would be to go over all
+joints, move them in both directions by a step and see which direction improves
+it. We will need to iterate over all joints in two directions. We can simplify this
+by having a list of vectors that we apply to the vector `(a, b, c)`, like this:
+
+```c++
+const vec3_t offsets[] = {
+    vec3_t(1.0f, 0.0f, 0.0f), vec3_t(-1.0f, 0.0f, 0.0f),  // Coxa
+    vec3_t(0.0f, 1.0f, 0.0f), vec3_t(0.0f, -1.0f, 0.0f),  // Femur
+    vec3_t(0.0f, 0.0f, 1.0f), vec3_t(0.0f, 0.0f, -1.0f),  // Tibia
+};
+```
+
+For `(a, b, c)`, assuming `a`, `b` and `c` maps to the `coxa`, `femur` and
+`tibia` angles respectively, then the 6 vectors defined are the 6 different
+perturbations we can do to our angle vector. If our angle space is in degrees,
+then the unit vectors might be a reasonable step size. Applying the step size
+once is unlikely to get us very far though, so let's iterate multiple times
+for each offset.
+
+```c++
+vec3_t Leg::inverse_kinematics(vec3_t target_position) {
+    const uint16_t n_iters   = 25;
+    const uint8_t  n_offsets = 6;
+
+    const vec3_t offsets[] = {
+        vec3_t(1.0f, 0.0f, 0.0f), vec3_t(-1.0f, 0.0f, 0.0f),  // Coxa
+        vec3_t(0.0f, 1.0f, 0.0f), vec3_t(0.0f, -1.0f, 0.0f),  // Femur
+        vec3_t(0.0f, 0.0f, 1.0f), vec3_t(0.0f, 0.0f, -1.0f),  // Tibia
+    };
+
+    vec3_t angles      = {0.0f, 0.0f, 0.0f};
+    vec3_t best_angles = {0.0f, 0.0f, 0.0f};
+    float best_error   = feet_position_error(forward_kinematics(_current_position), target_position);
+    float error        = best_error;
+
+    for (uint16_t i = 0; i < n_iters; i++) {
+        for (uint16_t i_offset = 0; i_offset < n_offsets; i_offset++) {
+            angles = best_angles + offsets[i_offset];
+
+            vec3_t position = forward_kinematics(angles.x, angles.y, angles.z);
+            error           = feet_position_error(position, target_position);
+
+            if (error < best_error) {
+                best_error  = error;
+                best_angles = angles;
+            }
+        }
+    }
+
+    return best_angles;
+}
+```
+
+This simple IK routine can already get us pretty far, but it has some issues
+that would limit its usefulness in an actual robot.
+
+1. Our offset is `1` and we iterate `25` times, so it can only find a solution
+   if it is at most 25 degrees away from the starting point. Pretty bad.
+2. In the rare case where it finds the solution, it would keep going, wasting
+   precious cycles.
+3. The solution is limited to `1` degree increments, which might be too much.
+4. It converges slowly. If it is `x` units away, with an step of `1` it will
+   take `x` iterations to converge. With 3 angles to optimize, this can be even
+   longer.
+
+All of them can be fixed or completely avoided. Item 1 can be fixed by adding
+360 iterations instead of 25, which makes sense. This will increase the solve
+time though. For Item 2 we can add a short circuit and finish early if a
+solution good enough is found. For Item 3 and 4 we can add a scale factor to
+take smaller / bigger steps.
