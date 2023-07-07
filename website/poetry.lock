@@ -630,6 +630,21 @@ files = [
 plugins = ["importlib-metadata"]
 
 [[package]]
+name = "pymdown-extensions"
+version = "10.0.1"
+description = "Extension pack for Python Markdown."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pymdown_extensions-10.0.1-py3-none-any.whl", hash = "sha256:ae66d84013c5d027ce055693e09a4628b67e9dec5bce05727e45b0918e36f274"},
+    {file = "pymdown_extensions-10.0.1.tar.gz", hash = "sha256:b44e1093a43b8a975eae17b03c3a77aad4681b3b56fce60ce746dbef1944c8cb"},
+]
+
+[package.dependencies]
+markdown = ">=3.2"
+pyyaml = "*"
+
+[[package]]
 name = "python-decouple"
 version = "3.6"
 description = "Strict separation of settings from code."
@@ -887,4 +902,4 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "d87c95320cc8b9a03d5f6f9ce5e77a56ac8d78954871c32491b2c1eaf2439a74"
+content-hash = "61c98097202849d5afb6b1d8a0ce54c4e0875f8f150c379d2678b9a91bebc017"
