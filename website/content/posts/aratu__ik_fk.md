@@ -30,3 +30,39 @@ heuristicals methods comes in. A popular numerical solution is to use the
 Jacobian inverse. It is a relativelly math heavy solution, but very common. For
 heuristics, likely the two more common ones are Cyclic Coordinate Descent (CCD)
 and FABRIK (Forward And Backward Reaching Inverse Kinematics).
+
+For Aratu, I am going with a Heuristic approach for IK. It has 6 identical
+legs, each with 3dof. If we think of FK as a function that takes 3 angles and
+returns an `x, y, z` coordinate, we can define IK as an optimization problem
+where we want to optimize `a, b, c` (our angles) to minimize `||(x, y, z) -
+(x_t, y_t, z_t)||`. Here `x_t, y_y, z_t` is our target position, ie where we
+want to go. How we minimize this is up to us. Basically, our IK routine with be
+finding the values for the tuple `(a, b, c)` where when it is fed into FK the
+result is as close as possible to where we want to be.
+
+First, lets define our FK function:
+```c++
+vec3_t Leg::forward_kinematics(float coxa_angle, float femur_angle, float tibia_angle) {
+    vec3_t feet_position;
+
+    const float leg_length_top_view = (
+      COXA_LENGTH +
+      cos(femur_angle) * FEMUR_LENGTH
+      + cos(tibia_angle - femur_angle) * TIBIA_LENGTH
+    );
+
+    feet_position.x = sin(coxa_angle) * leg_length_top_view;
+    feet_position.y = cos(coxa_angle) * leg_length_top_view;
+    feet_position.z = sin(femur_angle) * FEMUR_LENGTH - sin(tibia_angle - femur_angle) * TIBIA_LENGTH;
+
+    return feet_position;
+}
+```
+
+The constants `COXA_LENGTH`, `FEMUR_LENGTH` and `TIBIA_LENGTH` are the bone sizes of our leg.
+In my case it is defined as:
+```c
+#define COXA_LENGTH  52
+#define FEMUR_LENGTH 78.984
+#define TIBIA_LENGTH 163.148
+```
