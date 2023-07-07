@@ -132,9 +132,15 @@ that would limit its usefulness in an actual robot.
 4. It converges slowly. If it is `x` units away, with an step of `1` it will
    take `x` iterations to converge. With 3 angles to optimize, this can be even
    longer.
+5. The solution starts from scratch every time and doesn't account for the
+   current position. In some cases there might be multiple solutions and we
+   want the one requiring the least amount of movement to reach.
+6. Might get stuck on a local minima.
+7. Doesn't account for physical constraints.
 
 All of them can be fixed or completely avoided. Item 1 can be fixed by adding
 360 iterations instead of 25, which makes sense. This will increase the solve
 time though. For Item 2 we can add a short circuit and finish early if a
 solution good enough is found. For Item 3 and 4 we can add a scale factor to
-take smaller / bigger steps.
+take smaller / bigger steps. This can also be used to address item 1 without
+making it significantly slower.
