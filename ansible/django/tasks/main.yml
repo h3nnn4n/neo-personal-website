@@ -6,7 +6,7 @@
     version: "{{ deploy_branch }}"
 
 - name: Install project deps with Poetry
-  command: "poetry install"
+  command: "~/.local/bin/poetry install"
   args:
     chdir: "{{ project_folder }}/{{ repo_name }}/website"
 
@@ -21,7 +21,7 @@
 - name: Run django collectstatic
   shell: |
     DJANGO_SETTINGS_MODULE=website.settings \
-    poetry run python3 manage.py collectstatic --no-input
+    ~/.local/bin/poetry run python3 manage.py collectstatic --no-input
   args:
     executable: /bin/bash
     chdir: "{{ project_folder }}/{{ repo_name }}/website"
@@ -34,7 +34,7 @@
 - name: Start gunicorn
   shell: |
     DJANGO_SETTINGS_MODULE=website.settings \
-    poetry run gunicorn \
+    ~/.local/bin/poetry run gunicorn \
       website.wsgi \
       --bind=unix:{{ project_folder }}/{{ repo_name }}/website/gunicorn.sock \
       --access-logfile access.log \
