@@ -56,6 +56,5 @@ jobs:
       - name: Deploy
         run: |
           ansible-playbook -i environments/main   \
-            bootstrap.yml                         \
             redis.yml                             \
             website.yml
