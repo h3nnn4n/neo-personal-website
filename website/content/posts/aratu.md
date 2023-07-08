@@ -151,5 +151,11 @@ as the soft-skills aspects. Time management being one and consistently
 developing the project instead of the very common burst of enthusiasm and then
 dropping it to never work on it again.
 
+The project is opensource. The main code running embedded on the robot is
+available at the github repository [here](https://github.com/h3nnn4n/hexapod).
+A secondary repository used to remote control the robot can be found
+[here](https://github.com/h3nnn4n/hexapod_remote). Not the best code around,
+but overall should be easy to understand.
+
 Well, this is it for now. A follow up post will come soon, with an actual robot
 doing robot things.
