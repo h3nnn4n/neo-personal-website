@@ -134,8 +134,8 @@ the robot standup if applied to all legs) gives us an error of `135.37`, taking
    precious cycles.
 3. The solution is limited to `1` degree increments, which might be too much.
 4. It converges slowly. If it is `x` units away, with an step of `1` it will
-   take `x` iterations to converge. With 3 angles to optimize, this can be even
-   longer.
+   take `x` iterations to converge (gross oversimplification). With 3 angles to
+   optimize, this can be even longer.
 5. The solution starts from scratch every time and doesn't account for the
    current position. In some cases there might be multiple solutions and we
    want the one requiring the least amount of movement to reach.
@@ -162,4 +162,70 @@ inner loop if the `best_error` is less than the target error.
 Now we take `0.000917` seconds per udate (`1090` ups) and we get down to an
 error of `9.825376`. A big improvement in terms of speed, but we have a worse
 position. For this to be useful, we need to 1) be able to converge to a better
-solution, and 2) get there faster.
+solution, and 2) get there faster. For this, we multiply the `offset` vector by
+a scale factor. If we increase the scale, it will converge faster but stop
+further away from the target, while a smaller scale can achieve a better
+solution but will take more steps. A mix of both is required.
+
+A simple way to converge closer to the target, but try to be faster at the same
+time is to start with a big scale factor and decrease when it no longer leads
+to improvements. Alternativelly we can use a small scale factor and if it
+works, we try a bigger one and so on and when it fails it restart backs to the
+small one. Let's experiment with the later one. Disabling the tolerance early
+termination it takes `0.002929` seconds (`341` ups) and reaches an error of
+`1.00`. A solution closer to the target, so we are on the right track. If we
+set a target error of `1.0` then we are down to `0.000362` seconds (`2762` ups)
+with an error of `0.997439`. There is our current code so far.
+
+```c++
+vec3_t Leg::inverse_kinematics(vec3_t target_position) {
+    const uint16_t n_iters        = 360;
+    const uint8_t  n_offsets      = 6;
+    const uint8_t  n_nested_iters = 20;
+    const float    tolerance      = 1.0f;
+    const float    scale          = 1.0f / 4.0f;
+
+    const vec3_t offsets[] = {
+        vec3_t(1.0f, 0.0f, 0.0f), vec3_t(-1.0f, 0.0f, 0.0f),  // Coxa
+        vec3_t(0.0f, 1.0f, 0.0f), vec3_t(0.0f, -1.0f, 0.0f),  // Femur
+        vec3_t(0.0f, 0.0f, 1.0f), vec3_t(0.0f, 0.0f, -1.0f),  // Tibia
+    };
+
+    vec3_t angles      = {0.0f, 0.0f, 0.0f};
+    vec3_t best_angles = {0.0f, 0.0f, 0.0f};
+    float  best_error  = feet_position_error(forward_kinematics(angles), target_position);
+    float  error       = best_error;
+
+    for (uint16_t i = 0; i < n_iters; i++) {
+        for (uint16_t i_offset = 0; i_offset < n_offsets; i_offset++) {
+            for (int j = 1; j <= n_nested_iters; j++) {
+                angles = best_angles + offsets[i_offset] * scale * j;
+
+                vec3_t position = forward_kinematics(angles.x, angles.y, angles.z);
+                error           = feet_position_error(position, target_position);
+
+                if (error < best_error) {
+                    best_error  = error;
+                    best_angles = angles;
+                } else {
+                    break;
+                }
+            }
+
+            if (best_error <= tolerance)
+                goto end;
+        }
+    }
+
+end:
+    return best_angles;
+}
+```
+
+For items 5, it is pretty simple. We store the current position and use it as
+the starting solution instead of the `0, 0, 0`. This by itself doesn't make
+much sense to benchmark, since unless we are changing the target position all
+the time, there isn't anything to solve. Item 6 also gets solved by reusing the
+last solution. In practice the leg will move a relativelly small amount by the
+time the robot is ready to update it. As for item 7, we can clamp it to the
+angle range the servo can move to.
