@@ -229,3 +229,21 @@ the time, there isn't anything to solve. Item 6 also gets solved by reusing the
 last solution. In practice the leg will move a relativelly small amount by the
 time the robot is ready to update it. As for item 7, we can clamp it to the
 angle range the servo can move to.
+
+With all the tweaks, this simple (and lazy) IK solver is good enough to run a
+hexapod 3dof robot using a Teensy 4.1 (which is a pretty beefy microcontroller
+to be fair) several times per minute. For one leg, it can even run fast enough
+on an Arduino Uno to smoothly move around. The actual code being used as of
+today is available at the project's github repository
+[here](https://github.com/h3nnn4n/hexapod/blob/d8f74e3d0dd3f10f87af4a30372fb7ff2a9bdaf2/lib/Leg/Leg.cpp#L129)
+where we can see all the tweaks being used. Some interesting ones to note are a
+time limit to make sure the solver doesn't run for too long, and another that
+ensures a minimal amount of time between updates. Another important change
+interpolates between a starting and an end point to make sure the robot moves
+smoothly to a target point at a constant speed. Without it, the servos update
+as fast as possible, and unless they have the same amount to move (and mass
+too), one will arrive earlier than other and have some jerky moves.
+
+While there certainly better solutions out there, here we built our own. One
+notable property that our solver has is depending only on the forward
+kinematics as the "model".
