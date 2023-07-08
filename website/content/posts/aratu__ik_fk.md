@@ -248,3 +248,5 @@ While there certainly better solutions out there, here we built our own. One
 notable property that our solver has is depending only on the forward
 kinematics as the "model". Checkout the full code
 [here](https://github.com/h3nnn4n/hexapod).
+
+Check another Aratu related projects on the on the [Aratu Tag](/tags/aratu/).

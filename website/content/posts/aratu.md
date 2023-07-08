@@ -155,7 +155,8 @@ The project is opensource. The main code running embedded on the robot is
 available at the github repository [here](https://github.com/h3nnn4n/hexapod).
 A secondary repository used to remote control the robot can be found
 [here](https://github.com/h3nnn4n/hexapod_remote). Not the best code around,
-but overall should be easy to understand.
+but overall should be easy to understand. Check another Aratu related projects
+on the on the [Aratu Tag](/tags/aratu/).
 
 Well, this is it for now. A follow up post will come soon, with an actual robot
 doing robot things.
