@@ -121,11 +121,15 @@ vec3_t Leg::inverse_kinematics(vec3_t target_position) {
 }
 ```
 
-This simple IK routine can already get us pretty far, but it has some issues
-that would limit its usefulness in an actual robot.
+This simple IK routine could already get us pretty far, but it has some issues
+that would limit its usefulness in an actual robot. This current setup, for an
+arbitrary target position of `0, 100, -115` (which is something that would make
+the robot standup if applied to all legs) gives us an error of `135.37`, taking
+`0.000168` seconds to calculate (`5952` updates per second).
 
 1. Our offset is `1` and we iterate `25` times, so it can only find a solution
-   if it is at most 25 degrees away from the starting point. Pretty bad.
+   if it is at most 25 degrees away from the starting point. Pretty bad. In
+   most cases it won't find a feasible solution.
 2. In the rare case where it finds the solution, it would keep going, wasting
    precious cycles.
 3. The solution is limited to `1` degree increments, which might be too much.
@@ -138,9 +142,24 @@ that would limit its usefulness in an actual robot.
 6. Might get stuck on a local minima.
 7. Doesn't account for physical constraints.
 
-All of them can be fixed or completely avoided. Item 1 can be fixed by adding
-360 iterations instead of 25, which makes sense. This will increase the solve
-time though. For Item 2 we can add a short circuit and finish early if a
-solution good enough is found. For Item 3 and 4 we can add a scale factor to
-take smaller / bigger steps. This can also be used to address item 1 without
-making it significantly slower.
+Quite a lot of issues! But all of them can be fixed, worked around or even
+completely avoided. Item 1 can be fixed by adding 360 iterations instead of 25,
+which makes sense. This would increase the solve time though by a linear factor
+though. For Item 2 we can add a short circuit and finish early if a solution
+good enough is found. For Item 3 and 4 we can add a scale factor to take
+smaller / bigger steps. This could also be used to address item 1 without
+making it significantly slower. Let's start implementing these improvements.
+
+If we try to increase the number of iterations to `360`, we get a final error
+of around `3.12`, much better. But it now takes `0.002660` seconds per update
+(`375` updates per second). Not terrible, but we can do better. Let's apply the
+tweaks above and see what happens.
+
+Let's add an early termination if we get close enough to our target. Let's set
+a big tolerance to test, such as `10`. This can be accomplished by exiting the
+inner loop if the `best_error` is less than the target error.
+
+Now we take `0.000917` seconds per udate (`1090` ups) and we get down to an
+error of `9.825376`. A big improvement in terms of speed, but we have a worse
+position. For this to be useful, we need to 1) be able to converge to a better
+solution, and 2) get there faster.
