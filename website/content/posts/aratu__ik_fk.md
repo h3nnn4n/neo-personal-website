@@ -2,7 +2,7 @@
 title: "Project Aratu: IK and FK"
 date: 2023-07-08
 tags: ["robotics", "project", "aratu", "inverse kinematics", "forward kinematics"]
-draft: true
+draft: false
 ---
 
 Articulated robots usually need to coordinate multiple actuators in order to
