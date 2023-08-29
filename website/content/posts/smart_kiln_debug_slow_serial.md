@@ -2,7 +2,7 @@
 title: "Debugging and fixing a slow arduino serial connection"
 date: 2023-05-07
 tags: ["pottery", "internet of things", "automation", "arduino"]
-draft: true
+draft: false
 ---
 
 My Smart Kiln runs of a Raspberry pi (or something like that) and an arduino.
@@ -78,7 +78,9 @@ failing to parse it every now and then won't have any catastrophic effects, so
 it should be fine having a 10 ms timeout.
 
 With this change, the smart kiln pid loop no longer has to wait every iteration
-for the serial to timeout. With this change, the data syncer script had to be
-tweaked to not run as fast as possible. It syncs the full state once per
-second. As for the PID loop, it now runs at a fixed 10 hertz, which for the
-given application is more than enough.
+for the serial to timeout and the data syncer script had to be tweaked to not
+run as fast as possible. It syncs the full state once per second. As for the
+PID loop, it now runs at a fixed 10 hertz, which for the given application is
+more than enough.
+
+Well, this is it for now. Stay safe.
