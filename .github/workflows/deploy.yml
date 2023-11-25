@@ -57,4 +57,5 @@ jobs:
         run: |
           ansible-playbook -i environments/main   \
             redis.yml                             \
+            nginx.yml                             \
             website.yml
