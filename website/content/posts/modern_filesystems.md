@@ -133,23 +133,19 @@ device being used. So it seems like it is already replicating the data that is
 present in only one disk. The final 1.3 terabytes took another 8 hours. Since
 this was my first time replacing a disk, I decided to run a rebalance
 afterwards to ensure data was properly replicated. This is also a good
-opportunity to go back to `raid1c4` for metadata.
+opportunity to go back to `raid1c4` for metadata. This rebalancing process took
+21 minutes, which tells me that it didn't do much, so I guess it wasn't really
+necessary.
 
-delete took 14 hours and only went over 1.4tb out of 2.7
+# Conclusion?
 
-TODO: When it finishes running, complete the writting here.
-
-Topics:
-- explain new pc with a bunch of old disks
-    - Wanted to use them as a single disk
-    - lvm could do it, but couldnt tolerate disk failures
-    - Investigated zfs, btrfs and bcachefs
-- How setup worked
-    - How to make it
-- Main pc and backup computer
-- Pool getting full and adding a new disk
-- Installing windows and losing one disk
-    - Me or windows nuked one of the disks with an efi partition
-    - Recovery process
-        - `btrfs balance start -v -mconvert=raid1c3,soft /mnt/disk_pool`
-        - `btrfs device delete missing /mnt/disk_pool`
+Overall, using `btrfs` has been a positive experience. It allowed me to give
+new life to my random collection of storage devices, while making it more
+"ergonomic" by being able to use all the devices as if it were one. Encryption
+adds a layer of security in case my computer gets stolen or something. The
+`raid1` setup with the checksums adds an extra layer of resiliency for the
+system. Compression improves data density and throughput, but putting more load
+on the cpu and reducing the load on the disk bandwidth, which in this setup is
+much more limited. In less than a month I had two situations where `btrfs`
+really helped me, one when the pool got full, and another when I nuked one of
+the disks and lost all of the data there.
