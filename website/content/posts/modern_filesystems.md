@@ -121,6 +121,17 @@ aparently going over all the data allocated in the disk, which was the 3
 terabyte one. Not sure what it is doing, but I would imagine that it is
 verifying that all the data is present or something similar.
 
+After 14 hours and only having processed 1 terabyte out of 3, I decided that
+would be a good idea to stop the process and just add the disk to the pool and
+see what would happen. What happened is that `btrfs` still had 1.3 terabyte
+marked as missing, and the disk was showing up as 3 terabytes of unallocated
+space. Running a balance with `soft` updated zero chunks. Then I remembered
+that the filesystem had to be mounted in degraded mode. Perhaps this is
+preventing the balance from running? Well, back to running `btrfs device delete
+missing` again.
+
+delete took 14 hours and only went over 1.4tb out of 2.7
+
 TODO: When it finishes running, complete the writting here.
 
 Topics:
