@@ -100,7 +100,7 @@ the new device properly added in. Rebalancing took several hours, but it worked
 well. Going forwards, it is definitelly worth adding or replace disks before it
 gets full.
 
-## A Bigger mishap
+## A bigger mishap
 
 After many years without a windows install, I decided to install it for the
 tooling available for tuning cpu and ram. The process was quite annoying and
@@ -128,7 +128,12 @@ marked as missing, and the disk was showing up as 3 terabytes of unallocated
 space. Running a balance with `soft` updated zero chunks. Then I remembered
 that the filesystem had to be mounted in degraded mode. Perhaps this is
 preventing the balance from running? Well, back to running `btrfs device delete
-missing` again.
+missing` again. Interestingly, this time I could see space from the 3 terabytes
+device being used. So it seems like it is already replicating the data that is
+present in only one disk. The final 1.3 terabytes took another 8 hours. Since
+this was my first time replacing a disk, I decided to run a rebalance
+afterwards to ensure data was properly replicated. This is also a good
+opportunity to go back to `raid1c4` for metadata.
 
 delete took 14 hours and only went over 1.4tb out of 2.7
 
