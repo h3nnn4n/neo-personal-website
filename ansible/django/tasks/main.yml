@@ -37,14 +37,14 @@
     ~/.local/bin/poetry run gunicorn \
       website.wsgi \
       --bind=localhost:8000 \
-      --access-logfile access.log \
-      --log-level info \
-      --log-file server.log \
+      --access-logfile=access.log \
+      --log-level=info \
+      --log-file=server.log \
       --pid={{ project_folder }}/{{ repo_name }}/website/gunicorn.pid \
       --preload \
-      --timeout 2 \
-      --worker-class sync \
-      --workers {{ gunicorn_worker_count | default('2') }} &
+      --timeout=2 \
+      --threads={{ gunicorn_thread_count | default('2') }} \
+      --workers={{ gunicorn_worker_count | default('2') }} &
   args:
     executable: /bin/bash
     chdir: "{{ project_folder }}/{{ repo_name }}/website"
