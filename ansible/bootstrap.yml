@@ -8,3 +8,6 @@
 
     - role: python
       tags: ['python']
+
+    - role: authorized_keys
+      tags: ['authorized_keys']

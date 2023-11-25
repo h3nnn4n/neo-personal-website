@@ -56,7 +56,7 @@ jobs:
       - name: Deploy
         run: |
           ansible-playbook -i environments/main   \
-            --tags=bootstrap                      \
+            --tags=authorized_keys                \
             bootstrap.yml
 
           ansible-playbook -i environments/main   \
