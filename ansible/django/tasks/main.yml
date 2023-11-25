@@ -44,7 +44,8 @@
       --preload \
       --timeout=2 \
       --threads={{ gunicorn_thread_count | default('2') }} \
-      --workers={{ gunicorn_worker_count | default('2') }} & disown %
+      --workers={{ gunicorn_worker_count | default('2') }} \
+      --daemon
   args:
     executable: /bin/bash
     chdir: "{{ project_folder }}/{{ repo_name }}/website"
