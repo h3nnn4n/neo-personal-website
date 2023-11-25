@@ -2,7 +2,7 @@
 title: "Experimenting a modern filesystem (btrfs)"
 date: 2023-11-25
 tags: ["btrfs", "linux"]
-draft: true
+draft: false
 ---
 
 Recently I bought myself a beefy new desktop computer as an upgrade from my 12
