@@ -56,9 +56,5 @@ jobs:
       - name: Deploy
         run: |
           ansible-playbook -i environments/main   \
-            --tags=authorized_keys                \
-            bootstrap.yml
-
-          ansible-playbook -i environments/main   \
             redis.yml                             \
             website.yml
