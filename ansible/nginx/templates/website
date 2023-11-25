@@ -3,7 +3,7 @@ server {
 
     location / {
       include proxy_params;
-      proxy_pass http://unix:{{ project_folder }}/{{ repo_name }}/website/gunicorn.sock;
+      proxy_pass http://localhost:8000
     }
 
     client_max_body_size 16M;

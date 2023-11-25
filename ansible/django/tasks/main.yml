@@ -36,7 +36,7 @@
     DJANGO_SETTINGS_MODULE=website.settings \
     ~/.local/bin/poetry run gunicorn \
       website.wsgi \
-      --bind=unix:{{ project_folder }}/{{ repo_name }}/website/gunicorn.sock \
+      --bind=localhost:8000 \
       --access-logfile access.log \
       --log-level info \
       --log-file server.log \
@@ -48,18 +48,3 @@
   args:
     executable: /bin/bash
     chdir: "{{ project_folder }}/{{ repo_name }}/website"
-
-- name: Sleep for 5 seconds
-  ansible.builtin.wait_for:
-    timeout: 5
-  delegate_to: localhost
-
-- name: Check gunicorn sock file is present
-  stat:
-    path: "{{ project_folder }}/{{ repo_name }}/website/gunicorn.sock"
-  register: sock_file
-
-- name: Fail if gunicorn sock file doesn't exist
-  fail:
-    msg: "sock file not found!"
-  when: not sock_file.stat.exists
