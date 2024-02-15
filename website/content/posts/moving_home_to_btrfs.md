@@ -111,6 +111,17 @@ copy the `rambo` pam file and replace it with ripley. No need to update the
 mount command. Mounting one device from the pool, automatically mounts
 everything.
 
+## Note on performance
+
+FWIW, I had around 700gb of data, and the balance operation took around 20
+minutes. One thing I noticed, is that the disk throughput and i/o queue were
+never saturated during this operation. The CPU usage was relatively low as
+well, at around 10% on a 32 core machine. The CPU governor didn't even set a
+single core to the highest clock (something that youtube will). The data volume
+would barely saturate a one lane pcie 2.0 link. I assume this is a software
+limitation when running the balance operation. Read and write operations easily
+achieve rates between 2 and 7 GB/s.
+
 ## Conclusion ?
 
 Compared to the simplicity of using `ext4`, `btrfs` can be a lot of extra work
