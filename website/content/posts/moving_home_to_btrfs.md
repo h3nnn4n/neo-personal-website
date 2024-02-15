@@ -2,7 +2,7 @@
 title: "Moving my home to btrfs"
 date: 2024-02-15
 tags: ["btrfs", "linux"]
-draft: true
+draft: false
 ---
 
 Recently I tried using btrfs, as explained in this
@@ -84,4 +84,42 @@ Now we reboot and validate that it works :)
 
 ## Adding the old home partition to the btrfs mount
 
-TODO: Do this first lol
+Now that we are using our fancy new `btrfs` filesystem, we can remove the old
+home and add it to the pool. Only do this after making sure that everything
+works with the new set. Also, make sure your backups work too, just in case ;)
+
+The steps are similar up to a point. First, we create the encrypted partition:
+`cryptsetup luksFormat /dev/nvme1n1p4 --label ripley`. I named mine, Ripley, after
+the character from Alien. Then we unlock it using
+`cryptsetup open /dev/disk/by-id/nvme-PCH-ALDPRO-1TB_ALDPRO1TB-05230441_1-part4 ripley`.
+
+Now, instead of using `mkfs`, we call `btrfs` directly to add the device to the
+pool. We do this with `btrfs device add /dev/mapper/ripley /home`. With this,
+we will have two devices in our pool, but the new one will be mostly unused. We
+can do a balance to fix this, and also to customize some settings. The
+following command balances the data, sets the data to be stored in a single
+place, and metadata to be replicated across devices:
+`btrfs balance start -dconvert=single -mconvert=raid1 /home`.
+
+Since we are using the whole 4tb disk, and a partition from another disk which
+is "only" 750gb, we can't do a raid1 setup for data. A cool thing, in my
+opinion, is being able to mix whole devices (without even a partition table)
+and partitions in the pool.
+
+Finally we need to set the new member of our pool to be unlocked at boot. Just
+copy the `rambo` pam file and replace it with ripley. No need to update the
+mount command. Mounting one device from the pool, automatically mounts
+everything.
+
+## Conclusion ?
+
+Compared to the simplicity of using `ext4`, `btrfs` can be a lot of extra work
+to accomplish something that at the end of the day is mostly the same: storing
+data. I would say that for the average user the time tradeoff for the `btrfs`
+features is likely not worth. However, for the poweruser, the curious, and
+alike, it can be a very useful tool. Compression, checksums, raid / jbod /
+spam, copy-on-write, volumes and snapshots can give lots of flexibility if used
+correctly.
+
+I haven't been running the `btrfs` setup on my home for long (only a few days).
+If anything fun happens, I will write a new post about for sure ;)
