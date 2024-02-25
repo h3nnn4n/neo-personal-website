@@ -99,17 +99,25 @@ we will have two devices in our pool, but the new one will be mostly unused. We
 can do a balance to fix this, and also to customize some settings. The
 following command balances the data, sets the data to be stored in a single
 place, and metadata to be replicated across devices:
-`btrfs balance start -dconvert=single -mconvert=raid1 /home`.
+`btrfs balance start -dconvert=single -mconvert=raid1 /home`. While losing data
+is bad, losing btrfs metadata is equaly as bad, so we set metadata to raid1.
 
 Since we are using the whole 4tb disk, and a partition from another disk which
-is "only" 750gb, we can't do a raid1 setup for data. A cool thing, in my
-opinion, is being able to mix whole devices (without even a partition table)
-and partitions in the pool.
+is "only" 750gb, we can't do a raid1 setup for data. Well, actually nothing
+stops us, but we would only be able to use 750gb, since that is the amount that
+overlaps between the two devices. The rest would go ununsed.
+
+A cool thing about this setup, in my opinion, is being able to mix whole
+devices (without even a partition table) and partitions in the pool. We could
+even go crazy and had a pendrive, a network mounted device, and whatever else
+you can imagine as part of the pool. It wouldn't necessarely be a good idea,
+but nothing is stoping us :)
 
 Finally we need to set the new member of our pool to be unlocked at boot. Just
-copy the `rambo` pam file and replace it with ripley. No need to update the
-mount command. Mounting one device from the pool, automatically mounts
-everything.
+copy the `rambo` pam file and replace it with the device for ripley. No need to
+update the mount command. Mounting one device from the pool, automatically
+mounts everything. And a final note: Don't forget to add the `ripley` script
+to the pam config file like I did.
 
 ## Note on performance
 
