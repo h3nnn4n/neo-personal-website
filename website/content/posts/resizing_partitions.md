@@ -26,3 +26,10 @@ run partprobe(8) or kpartx(8)
 The operation has completed successfully.
 ***** Restore appears to have gone OK ****
 ```
+
+- Used gparted and it just worked?
+    - Big spike 5.5k iops read, and write 600iops for 40 secs
+    - Around 270 MB/s write during this time
+- Updated fstab
+
+- Everything seemed in order, but decided to reboot afterwards due to ssh backdoor situation
