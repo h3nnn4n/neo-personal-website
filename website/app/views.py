@@ -12,6 +12,7 @@ from django.views.generic.base import View
 
 from app import services
 from app.services import parse_md_file, read_file, render_markdown
+from app.services import kiln
 
 
 class IndexView(TemplateView):
@@ -186,3 +187,19 @@ def render_post(request, slug: str, base_folder: str = "posts"):
             "content": content,
         },
     )
+
+
+class KilnView(View):
+    def get(self, request, *args, **kwargs):
+        temperature_date, temperature = kiln.get_temperature()
+        setpoint_date, setpoint = kiln.get_setpoint()
+
+        return render(
+            request,
+            "kiln.html",
+            context={
+                "setpoint": setpoint,
+                "temperature": temperature,
+                "error": setpoint - temperature,
+            },
+        )

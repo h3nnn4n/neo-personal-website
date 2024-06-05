@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os
+import socket
 from pathlib import Path
 
 from decouple import config
@@ -161,3 +162,16 @@ CONTENT_FOLDER = "content"
 POST_MEMOIZE_TIME = config("POST_MEMOIZE_TIME", default=60, cast=int)
 
 BASE_REPO_URL = config("BASE_REPO_URL", default="https://github.com/h3nnn4n")
+
+
+# InfluxDB settings
+INFLUXDB_HOST = config("INFLUXDB_HOST", default=None)
+INFLUXDB_PORT = config("INFLUXDB_PORT", default=None)
+INFLUXDB_USER = config("INFLUXDB_USER", default=None)
+INFLUXDB_PASSWORD = config("INFLUXDB_PASSWORD", default=None)
+INFLUXDB_DATABASE = config("INFLUXDB_DATABASE", default=None)
+INFLUXDB_TAGS_HOST = socket.gethostname()
+INFLUXDB_TIMEOUT = os.environ.get("INFLUXDB_TIMEOUT", 5)
+INFLUXDB_DISABLED = config("INFLUXDB_DISABLED", default=False, cast=bool)
+INFLUXDB_USE_CELERY = config("INFLUXDB_USE_CELERY", default=True, cast=bool)
+INFLUXDB_USE_THREADING = config("INFLUXDB_USE_THREADING", default=False, cast=bool)
