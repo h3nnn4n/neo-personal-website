@@ -192,7 +192,7 @@ def render_post(request, slug: str, base_folder: str = "posts"):
 class KilnView(View):
     def get(self, request, *args, **kwargs):
         temperature_date, temperature = kiln.get_temperature()
-        setpoint_date, setpoint = kiln.get_setpoint()
+        _, setpoint = kiln.get_setpoint()
 
         if setpoint is not None and temperature is not None:
             error = setpoint - temperature
@@ -206,5 +206,6 @@ class KilnView(View):
                 "setpoint": setpoint,
                 "temperature": temperature,
                 "error": error,
+                "last_temp_update": temperature_date,
             },
         )
