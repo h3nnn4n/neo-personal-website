@@ -24,7 +24,10 @@ def influxdb_query(query: str):
 @memoize(timeout=10, unless=settings.DEBUG)
 def get_setpoint():
     query = """
-    SELECT median("value") FROM "pid_state" WHERE ("key" = 'setpoint') AND time >= now() - 30m and time <= now() GROUP BY time(10s), "key" fill(null)
+    SELECT median("value")
+    FROM "pid_state"
+    WHERE ("key" = 'setpoint') AND time >= now() - 30m and time <= now()
+    GROUP BY time(10s), "key" fill(null)
     """
     result = influxdb_query(query)
     return tuple(result.raw["series"][0]["values"][-1])
@@ -33,7 +36,10 @@ def get_setpoint():
 @memoize(timeout=10, unless=settings.DEBUG)
 def get_temperature():
     query = """
-    SELECT median("value") FROM "pid_state" WHERE ("key" = 'input') AND time >= now() - 30m and time <= now() GROUP BY time(10s), "key" fill(null)
+    SELECT median("value")
+    FROM "pid_state"
+    WHERE ("key" = 'input') AND time >= now() - 30m and time <= now()
+    GROUP BY time(10s), "key" fill(null)
     """
     result = influxdb_query(query)
     return tuple(result.raw["series"][0]["values"][-1])
