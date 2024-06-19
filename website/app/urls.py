@@ -12,5 +12,5 @@ urlpatterns = [
     path("tags/", views.TagView.as_view(), name="tags_index"),
     path("tags/<slug:tag>/", views.TagView.as_view(), name="tags_view"),
     path("projects/", views.ProjectsView.as_view(), name="projects_index"),
-    path("kiln/", views.KilnView.as_view(), name="kiln"),
+    path("engine_room/kiln/", views.KilnView.as_view(), name="kiln"),
 ]

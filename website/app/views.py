@@ -194,12 +194,17 @@ class KilnView(View):
         temperature_date, temperature = kiln.get_temperature()
         setpoint_date, setpoint = kiln.get_setpoint()
 
+        if setpoint is not None and temperature is not None:
+            error = setpoint - temperature
+        else:
+            error = None
+
         return render(
             request,
             "kiln.html",
             context={
                 "setpoint": setpoint,
                 "temperature": temperature,
-                "error": setpoint - temperature,
+                "error": error,
             },
         )
