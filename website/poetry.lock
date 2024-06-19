@@ -398,6 +398,20 @@ setproctitle = ["setproctitle"]
 tornado = ["tornado (>=0.2)"]
 
 [[package]]
+name = "humanize"
+version = "4.9.0"
+description = "Python humanize utilities"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "humanize-4.9.0-py3-none-any.whl", hash = "sha256:ce284a76d5b1377fd8836733b983bfb0b76f1aa1c090de2566fcf008d7f6ab16"},
+    {file = "humanize-4.9.0.tar.gz", hash = "sha256:582a265c931c683a7e9b8ed9559089dea7edcf6cc95be39a3cbc2c5d5ac2bcfa"},
+]
+
+[package.extras]
+tests = ["freezegun", "pytest", "pytest-cov"]
+
+[[package]]
 name = "idna"
 version = "3.7"
 description = "Internationalized Domain Names in Applications (IDNA)"
@@ -1172,4 +1186,4 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "3dbc03ba9bba50992bdc909d0cde94c312fcdc5b6e43a1f01404cfa24ac17591"
+content-hash = "099dc1c562b5624409faedd11e3707c7c67e2415fa43314fcd317c41ed522516"

@@ -17,6 +17,7 @@ python-decouple = "^3.6"
 pygments = "^2.15.1"
 pymdown-extensions = "^10.0.1"
 influxdb = "^5.3.2"
+humanize = "^4.9.0"
 
 [tool.poetry.dev-dependencies]
 ipdb = "^0.13.9"

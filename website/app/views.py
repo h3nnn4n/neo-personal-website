@@ -2,17 +2,20 @@ import itertools
 from datetime import datetime
 from os import path
 
+import humanize
+import pytz
 from django.conf import settings
 from django.http import Http404
 from django.shortcuts import render
 from django.template import Context, Template
+from django.utils.dateparse import parse_datetime
+from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.views.generic import TemplateView
 from django.views.generic.base import View
 
 from app import services
-from app.services import parse_md_file, read_file, render_markdown
-from app.services import kiln
+from app.services import kiln, parse_md_file, read_file, render_markdown
 
 
 class IndexView(TemplateView):
@@ -194,10 +197,28 @@ class KilnView(View):
         temperature_date, temperature = kiln.get_temperature()
         _, setpoint = kiln.get_setpoint()
 
+        if temperature_date is not None:
+            temperature_date = parse_datetime(temperature_date).astimezone(pytz.utc)
+            print(temperature_date)
+            print(timezone.now())
+            last_temp_update_time_ago = humanize.naturaltime(timezone.now() - temperature_date)
+        else:
+            last_temp_update_time_ago = ""
+
         if setpoint is not None and temperature is not None:
             error = setpoint - temperature
+            error = round(error, 2)
+            error = f"{error}°C"
         else:
             error = None
+
+        if setpoint is not None:
+            setpoint = round(setpoint, 2)
+            setpoint = f"{setpoint}°C"
+
+        if temperature is not None:
+            temperature = round(temperature, 2)
+            temperature = f"{temperature}°C"
 
         return render(
             request,
@@ -207,5 +228,6 @@ class KilnView(View):
                 "temperature": temperature,
                 "error": error,
                 "last_temp_update": temperature_date,
+                "last_temp_update_time_ago": last_temp_update_time_ago,
             },
         )
