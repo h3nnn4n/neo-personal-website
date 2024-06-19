@@ -26,19 +26,29 @@
       <br>
 
       <div style="text-align: justify">
-        {{ content }}
-        <p>
-          Target temperature: {{ setpoint }}
-        </p>
-        <p>
-          Current temperature: {{ temperature }}
-        </p>
-        <p>
-          Error: {{ error }}
-        </p>
-        <p>
-          Last temperature update: {{ last_temp_update }} ({{ last_temp_update_time_ago }})
-        </p>
+        <h1> Kiln Engine Room </h1>
+
+        <table>
+          <tbody>
+            <tr>
+              <td> Target temperature: </td><td> {{ setpoint }} </td>
+            </tr>
+            <tr>
+              <td> Current temperature: </td><td> {{ temperature }} </td>
+            </tr>
+            <tr>
+              <td> Error: </td><td> {{ error }} </td>
+            </tr>
+            <tr>
+              <td>
+                Last temperature update:
+              </td>
+              <td>
+                {{ last_temp_update }} ({{ last_temp_update_time_ago }})
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
