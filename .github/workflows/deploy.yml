@@ -53,6 +53,10 @@ jobs:
           known_hosts: unnecessary
           if_key_exists: fail
 
+      - name: Update authorized_keys and ssh configs
+        run: |
+          ansible-playbook -i environments/main ssh.yml
+
       - name: Deploy
         run: |
           ansible-playbook -i environments/main   \
