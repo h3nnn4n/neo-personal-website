@@ -64,27 +64,59 @@
       margin: 10mm 0;
     }
 
-    /* Statement page */
-    .statement {
+    /* Statement + Bio page */
+    .statement-bio {
+      display: flex;
+      flex-direction: row;
+      height: 210mm;
+    }
+
+    .statement-bio .photo-area {
+      width: 100mm;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20mm;
+      background: #fafafa;
+    }
+
+    .statement-bio .photo-area img {
+      max-width: 100%;
+      max-height: 170mm;
+      object-fit: contain;
+    }
+
+    .statement-bio .text-area {
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 30mm 50mm;
+      padding: 20mm 30mm;
     }
 
-    .statement h2 {
+    .statement-bio h2 {
       font-size: 14pt;
       font-weight: 300;
       letter-spacing: 1.5pt;
       text-transform: uppercase;
-      margin-bottom: 10mm;
+      margin-bottom: 8mm;
     }
 
-    .statement .text {
-      font-size: 11pt;
-      line-height: 1.8;
+    .statement-bio .text {
+      font-size: 10pt;
+      line-height: 1.7;
       color: #333;
-      max-width: 180mm;
+      margin-bottom: 12mm;
+    }
+
+    .statement-bio .bio-text {
+      font-size: 9pt;
+      line-height: 1.7;
+      color: #555;
+    }
+
+    .statement-bio .sobre-heading {
+      margin-top: 10mm;
     }
 
     /* Piece page */
@@ -136,49 +168,6 @@
       margin-top: 5mm;
     }
 
-    /* Bio page */
-    .bio {
-      display: flex;
-      flex-direction: row;
-      height: 210mm;
-    }
-
-    .bio .photo-area {
-      width: 100mm;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20mm;
-      background: #fafafa;
-    }
-
-    .bio .photo-area img {
-      max-width: 100%;
-      max-height: 170mm;
-      object-fit: contain;
-    }
-
-    .bio .text-area {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 30mm 40mm;
-    }
-
-    .bio .text-area h2 {
-      font-size: 14pt;
-      font-weight: 300;
-      letter-spacing: 1.5pt;
-      text-transform: uppercase;
-      margin-bottom: 10mm;
-    }
-
-    .bio .text-area .text {
-      font-size: 10pt;
-      line-height: 1.8;
-      color: #333;
-    }
   </style>
 </head>
 <body>
@@ -189,10 +178,19 @@
     <div class="subtitle">Portfólio</div>
   </div>
 
-  <!-- Statement -->
-  <div class="page statement">
-    <h2>Visão do artista</h2>
-    <div class="text">{{ statement }}</div>
+  <!-- Statement + Bio -->
+  <div class="page statement-bio">
+    <div class="photo-area">
+      {% if bio_photo %}
+      <img src="file://{{ bio_photo }}">
+      {% endif %}
+    </div>
+    <div class="text-area">
+      <h2>Visão do artista</h2>
+      <div class="text">{{ statement }}</div>
+      <h2 class="sobre-heading">Sobre</h2>
+      <div class="bio-text">{{ bio }}</div>
+    </div>
   </div>
 
   <!-- Pieces -->
@@ -216,17 +214,5 @@
   </div>
   {% endfor %}
 
-  <!-- Bio -->
-  <div class="page bio">
-    <div class="photo-area">
-      {% if bio_photo %}
-      <img src="file://{{ bio_photo }}">
-      {% endif %}
-    </div>
-    <div class="text-area">
-      <h2>Sobre</h2>
-      <div class="text">{{ bio }}</div>
-    </div>
-  </div>
 </body>
 </html>
