@@ -18,8 +18,10 @@ pygments = "^2.15.1"
 pymdown-extensions = "^10.0.1"
 influxdb = "^5.3.2"
 humanize = "^4.9.0"
+pyyaml = "^6.0"
+weasyprint = "^68.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 ipdb = "^0.13.9"
 black = "22.10.0"
 flake8 = "^6.0.0"

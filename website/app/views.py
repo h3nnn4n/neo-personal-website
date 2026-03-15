@@ -5,7 +5,7 @@ from os import path
 import humanize
 import pytz
 from django.conf import settings
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import render
 from django.template import Context, Template
 from django.utils.dateparse import parse_datetime
@@ -14,8 +14,11 @@ from django.utils.safestring import mark_safe
 from django.views.generic import TemplateView
 from django.views.generic.base import View
 
+from weasyprint import HTML
+
 from app import services
 from app.services import kiln, parse_md_file, read_file, render_markdown
+from app.services import portfolio as portfolio_service
 
 
 class IndexView(TemplateView):
@@ -190,6 +193,30 @@ def render_post(request, slug: str, base_folder: str = "posts"):
             "content": content,
         },
     )
+
+
+class PortfolioPDFView(View):
+    def get(self, request, *args, **kwargs):
+        slug = kwargs.get("slug", "general")
+        data = portfolio_service.get_portfolio(slug)
+
+        html_string = render(
+            request,
+            "portfolio_print.html",
+            context={
+                "title": data["title"],
+                "statement": data["statement"],
+                "pieces": data["pieces"],
+                "bio": data["bio"],
+                "bio_photo": data["bio_photo"],
+            },
+        ).content.decode("utf-8")
+
+        pdf = HTML(string=html_string).write_pdf()
+
+        response = HttpResponse(pdf, content_type="application/pdf")
+        response["Content-Disposition"] = f'inline; filename="{slug}-portfolio.pdf"'
+        return response
 
 
 class KilnView(View):

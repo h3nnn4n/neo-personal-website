@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <style>
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    .page {
+      width: 297mm;
+      height: 210mm;
+      page-break-after: always;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page:last-child {
+      page-break-after: auto;
+    }
+
+    /* Cover page */
+    .cover {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40mm;
+    }
+
+    .cover h1 {
+      font-size: 28pt;
+      font-weight: 300;
+      letter-spacing: 2pt;
+      text-transform: uppercase;
+      margin-bottom: 8mm;
+    }
+
+    .cover .subtitle {
+      font-size: 12pt;
+      font-weight: 300;
+      color: #666;
+      letter-spacing: 1pt;
+    }
+
+    .cover .line {
+      width: 40mm;
+      height: 0.5pt;
+      background: #1a1a1a;
+      margin: 10mm 0;
+    }
+
+    /* Statement page */
+    .statement {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 30mm 50mm;
+    }
+
+    .statement h2 {
+      font-size: 14pt;
+      font-weight: 300;
+      letter-spacing: 1.5pt;
+      text-transform: uppercase;
+      margin-bottom: 10mm;
+    }
+
+    .statement .text {
+      font-size: 11pt;
+      line-height: 1.8;
+      color: #333;
+      max-width: 180mm;
+    }
+
+    /* Piece page */
+    .piece {
+      display: flex;
+      flex-direction: row;
+      height: 210mm;
+    }
+
+    .piece .image-area {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15mm;
+    }
+
+    .piece .image-area img {
+      max-width: 100%;
+      max-height: 180mm;
+      object-fit: contain;
+    }
+
+    .piece .meta {
+      width: 70mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 15mm 12mm;
+      background: #fafafa;
+    }
+
+    .piece .meta .title {
+      font-size: 12pt;
+      font-weight: 400;
+      margin-bottom: 3mm;
+    }
+
+    .piece .meta .details {
+      font-size: 9pt;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .piece .meta .description {
+      font-size: 9pt;
+      color: #444;
+      line-height: 1.6;
+      margin-top: 5mm;
+    }
+
+    /* Bio page */
+    .bio {
+      display: flex;
+      flex-direction: row;
+      height: 210mm;
+    }
+
+    .bio .photo-area {
+      width: 100mm;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20mm;
+      background: #fafafa;
+    }
+
+    .bio .photo-area img {
+      max-width: 100%;
+      max-height: 170mm;
+      object-fit: contain;
+    }
+
+    .bio .text-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 30mm 40mm;
+    }
+
+    .bio .text-area h2 {
+      font-size: 14pt;
+      font-weight: 300;
+      letter-spacing: 1.5pt;
+      text-transform: uppercase;
+      margin-bottom: 10mm;
+    }
+
+    .bio .text-area .text {
+      font-size: 10pt;
+      line-height: 1.8;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <!-- Cover -->
+  <div class="page cover">
+    <h1>{{ title }}</h1>
+    <div class="line"></div>
+    <div class="subtitle">Portfolio</div>
+  </div>
+
+  <!-- Statement -->
+  <div class="page statement">
+    <h2>Artist Statement</h2>
+    <div class="text">{{ statement }}</div>
+  </div>
+
+  <!-- Pieces -->
+  {% for piece in pieces %}
+  <div class="page piece">
+    <div class="image-area">
+      {% if piece.image_path %}
+      <img src="file://{{ piece.image_path }}">
+      {% endif %}
+    </div>
+    <div class="meta">
+      <div class="title">{{ piece.title }}</div>
+      <div class="details">
+        {{ piece.medium }}<br>
+        {{ piece.year }}
+      </div>
+      {% if piece.description %}
+      <div class="description">{{ piece.description }}</div>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <!-- Bio -->
+  <div class="page bio">
+    <div class="photo-area">
+      {% if bio_photo %}
+      <img src="file://{{ bio_photo }}">
+      {% endif %}
+    </div>
+    <div class="text-area">
+      <h2>About the Artist</h2>
+      <div class="text">{{ bio }}</div>
+    </div>
+  </div>
+</body>
+</html>

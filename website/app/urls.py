@@ -13,4 +13,6 @@ urlpatterns = [
     path("tags/<slug:tag>/", views.TagView.as_view(), name="tags_view"),
     path("projects/", views.ProjectsView.as_view(), name="projects_index"),
     path("engine_room/kiln/", views.KilnView.as_view(), name="kiln"),
+    path("portfolio/pdf/", views.PortfolioPDFView.as_view(), name="portfolio_pdf"),
+    path("portfolio/pdf/<slug:slug>/", views.PortfolioPDFView.as_view(), name="portfolio_pdf_slug"),
 ]
