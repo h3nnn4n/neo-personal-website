@@ -1,7 +1,10 @@
 ---
-title: "About the Artist"
+title: "Sobre o artista"
 artist_photo: content/images/kilns/gas2.jpg
 ---
 
-Your bio goes here. Replace this with a short biographical text — background,
-education, exhibitions, awards, and contact information.
+Renan é um artista multidisciplinar autodidata, tendo trabalhado com desenho,
+pintura, escultura com materiais diversos, ceramica, origami e costura. Com
+pouco conhecimento formal, gosta de explorar e desenvolver suas proprias
+técnicas. Muitos de seus trabalhos são concebidos e executados em uma única
+sessão, aproveitando a inspiração ao máximo.

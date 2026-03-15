@@ -1,5 +1,5 @@
 ---
-title: "Renan S Silva — Portfolio 2026"
+title: "Renan S Silva"
 artist_photo: content/images/kilns/gas2.jpg
 
 pieces:
@@ -65,8 +65,5 @@ pieces:
 
 ---
 
-Your artist statement goes here. This text will appear on the statement page
-of the portfolio PDF.
-
-Replace this with your actual artist statement — your artistic vision,
-themes you explore, techniques you use, and what drives your creative work.
+Meu trabalho explora o absurdo da existência em um universo indiferente, onde o ser humano, através de seus conflitos mentais, luta, vence ou se rende à falta de sentido.
+Tendo o corpo e a existência humana como ponto de partida, exploro como a consciência interage com o mundo através do meio biológico ao qual está permanentemente presa.
