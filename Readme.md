@@ -16,6 +16,23 @@ and requires the least amount of my brain cells to maintain.
 If you want to use this for some reason, go ahead. But beware that this is a
 pile of hacks that was never intended to be used by anyone but me.
 
+## Setup
+
+```bash
+brew install pango
+cd website
+pyenv install 3.10.4
+poetry install
+```
+
+## Run
+
+```bash
+cd website
+poetry run python manage.py collectstatic --noinput
+poetry run python manage.py runserver
+```
+
 ## License
 
 See [LICENSE](LICENSE).
