@@ -26,26 +26,19 @@
     executable: /bin/bash
     chdir: "{{ project_folder }}/{{ repo_name }}/website"
 
-- name: Stop gunicorn
-  shell: |
-    kill $(cat {{ project_folder }}/{{ repo_name }}/website/gunicorn.pid)
-  ignore_errors: true
+- name: Install gunicorn systemd service
+  template:
+    src: gunicorn.service.j2
+    dest: /etc/systemd/system/gunicorn.service
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
 
-- name: Start gunicorn
-  shell: |
-    DJANGO_SETTINGS_MODULE=website.settings \
-    ~/.local/bin/poetry run gunicorn \
-      website.wsgi \
-      --bind=localhost:8000 \
-      --access-logfile=access.log \
-      --log-level=info \
-      --log-file=server.log \
-      --pid={{ project_folder }}/{{ repo_name }}/website/gunicorn.pid \
-      --preload \
-      --timeout=2 \
-      --threads={{ gunicorn_thread_count | default('2') }} \
-      --workers={{ gunicorn_worker_count | default('2') }} \
-      --daemon
-  args:
-    executable: /bin/bash
-    chdir: "{{ project_folder }}/{{ repo_name }}/website"
+- name: Reload systemd and restart gunicorn
+  systemd:
+    name: gunicorn
+    state: restarted
+    daemon_reload: true
+    enabled: true
+  become: true
