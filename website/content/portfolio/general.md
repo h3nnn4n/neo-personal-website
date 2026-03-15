@@ -25,7 +25,7 @@ pieces:
     title: "Corpo Quebrado"
     year: 2026
     medium: "Escultura em cerâmica"
-    description: "Um corpo. Uma prisão."
+    description: "Um local permanente, com todos os seus defeitos."
 
   - file: content/images/portfolio/encontro.jpg
     title: "Encontro"
