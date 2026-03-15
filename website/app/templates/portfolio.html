@@ -123,16 +123,16 @@
 
 <div class="portfolio-bio">
   {% if bio_photo_url %}
-  <img src="{{ bio_photo_url }}" alt="Artist photo">
+  <img src="{{ bio_photo_url }}" alt="Foto do artista">
   {% endif %}
   <div class="text-area">
-    <h2>Sobre o artista</h2>
+    <h2>Sobre</h2>
     <div class="text">{{ bio }}</div>
   </div>
 </div>
 
 <div class="portfolio-pdf-link">
-  <a href="{% url 'portfolio_pdf' %}" class="btn btn-outline-dark btn-sm">Download PDF</a>
+  <a href="{% url 'portfolio_pdf' %}" class="btn btn-outline-dark btn-sm">Baixar PDF</a>
 </div>
 
 {% endblock %}
