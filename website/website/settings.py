@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 import socket
+import subprocess
 from pathlib import Path
 
 from decouple import config
@@ -70,6 +71,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "app.context_processors.git_info",
             ],
         },
     },
@@ -162,6 +164,13 @@ CONTENT_FOLDER = "content"
 POST_MEMOIZE_TIME = config("POST_MEMOIZE_TIME", default=60, cast=int)
 
 BASE_REPO_URL = config("BASE_REPO_URL", default="https://github.com/h3nnn4n")
+
+try:
+    GIT_SHA = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=BASE_DIR, stderr=subprocess.DEVNULL).decode().strip()
+    GIT_COMMIT_TIME = subprocess.check_output(["git", "log", "-1", "--format=%cI"], cwd=BASE_DIR, stderr=subprocess.DEVNULL).decode().strip()
+except Exception:
+    GIT_SHA = "fail"
+    GIT_COMMIT_TIME = "unknown"
 
 
 # InfluxDB settings

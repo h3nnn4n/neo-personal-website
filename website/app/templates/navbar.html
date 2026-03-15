@@ -39,6 +39,16 @@
           <span class="fa-brands fa-instagram fa-xl text-muted"></span>
         </a>
       </div>
+
+      {% if git_sha %}
+      <div class="vr mx-2 text-muted"></div>
+
+      <div class="text-end" style="line-height: 1.2;">
+        <a href="https://github.com/h3nnn4n/neo-personal-website/tree/{{ git_sha }}" class="text-muted text-decoration-none" style="font-size: 0.75rem; font-family: monospace;">{{ git_sha }}</a>
+        <br>
+        <small class="text-muted" style="font-size: 0.65rem;">{{ git_commit_time_ago }}</small>
+      </div>
+      {% endif %}
     </div>
   </div>
 </nav>
