@@ -9,7 +9,7 @@ pieces:
     medium: "Escultura em ceramica"
     description: "Após encontrar o absudo, a rebelião."
 
-  - file: content/images/portfolio/cérebro-aberto.jpg
+  - file: content/images/portfolio/cerebro-aberto.jpg
     title: "Cabeça Aberta"
     year: 2025
     medium: "Escultura em ceramica"
@@ -27,7 +27,7 @@ pieces:
     medium: "Escultura em ceramica"
     description: "O momento do encontro com o absurdo"
 
-  - file: content/images/portfolio/relização.jpg
+  - file: content/images/portfolio/relizacao.jpg
     title: "Realização"
     year: 2025
     medium: "Escultura em ceramica"
@@ -45,7 +45,7 @@ pieces:
     medium: "Escultura em ceramica"
     description: "Proteção instintiva contra o que não se pode controlar."
 
-  - file: content/images/portfolio/mão.jpg
+  - file: content/images/portfolio/mao.jpg
     title: "Mão"
     year: 2023
     medium: "Escultura em argila crua"

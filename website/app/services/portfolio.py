@@ -1,4 +1,5 @@
 import os
+from urllib.parse import quote
 
 import yaml
 from django.conf import settings
@@ -20,12 +21,12 @@ def get_portfolio(slug: str = "general") -> dict:
 
     for piece in headers.get("pieces", []):
         piece["image_path"] = os.path.join(settings.BASE_DIR, piece["file"])
-        piece["image_url"] = settings.STATIC_URL + piece["file"].removeprefix("content/").removeprefix("static/")
+        piece["image_url"] = settings.STATIC_URL + quote(piece["file"].removeprefix("content/").removeprefix("static/"))
 
     artist_photo = headers.get("artist_photo", "")
     artist_photo_url = ""
     if artist_photo:
-        artist_photo_url = settings.STATIC_URL + artist_photo.removeprefix("content/").removeprefix("static/")
+        artist_photo_url = settings.STATIC_URL + quote(artist_photo.removeprefix("content/").removeprefix("static/"))
         artist_photo = os.path.join(settings.BASE_DIR, artist_photo)
 
     return {
@@ -36,7 +37,7 @@ def get_portfolio(slug: str = "general") -> dict:
         "statement": statement.strip(),
         "bio": bio_text.strip(),
         "bio_photo": os.path.join(settings.BASE_DIR, bio_headers.get("artist_photo", "")) if bio_headers.get("artist_photo") else "",
-        "bio_photo_url": (settings.STATIC_URL + bio_headers["artist_photo"].removeprefix("content/").removeprefix("static/")) if bio_headers.get("artist_photo") else "",
+        "bio_photo_url": (settings.STATIC_URL + quote(bio_headers["artist_photo"].removeprefix("content/").removeprefix("static/"))) if bio_headers.get("artist_photo") else "",
     }
 
 
