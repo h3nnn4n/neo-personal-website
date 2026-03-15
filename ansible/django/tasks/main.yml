@@ -21,7 +21,7 @@
 - name: Run django collectstatic
   shell: |
     DJANGO_SETTINGS_MODULE=website.settings \
-    ~/.local/bin/poetry run python3 manage.py collectstatic --no-input --ignore "fontawesomefree/*"
+    ~/.local/bin/poetry run python3 manage.py collectstatic --no-input
   args:
     executable: /bin/bash
     chdir: "{{ project_folder }}/{{ repo_name }}/website"
