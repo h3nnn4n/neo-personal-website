@@ -68,18 +68,10 @@
   <h3>Visão</h3>
   <p>{{ statement }}</p>
 
-  <h3>Temas</h3>
-  <ul>
-    <li>Absurdismo e niilismo</li>
-    <li>O corpo como prisão da consciência</li>
-    <li>Conflitos mentais e dor crônica</li>
-    <li>O instinto e o irracional</li>
-  </ul>
-
   <h3>Técnicas e Experimentação</h3>
   <ul>
     <li>Escultura em cerâmica e argila crua</li>
-    <li>Queima em forno a gás e carvão</li>
+    <li>Queimas em forno a gás, carvão e elétrico</li>
     <li>Raku</li>
     <li>Confecção de esmaltes cerâmicos para raku</li>
   </ul>
@@ -98,7 +90,8 @@
 
 <div class="cv-links">
   <a href="{% url 'portfolio' %}" class="btn btn-outline-dark btn-sm">Portfólio</a>
-  <a href="{% url 'portfolio_pdf' %}" class="btn btn-outline-dark btn-sm">Baixar PDF</a>
+  <a href="{% url 'portfolio_cv_pdf' %}" class="btn btn-outline-dark btn-sm">Baixar CV PDF</a>
+  <a href="{% url 'portfolio_pdf' %}" class="btn btn-outline-dark btn-sm">Baixar Portfólio PDF</a>
 </div>
 
 {% endblock %}

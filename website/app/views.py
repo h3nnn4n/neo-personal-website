@@ -228,6 +228,27 @@ class PortfolioCVView(View):
         )
 
 
+class PortfolioCVPDFView(View):
+    def get(self, request, *args, **kwargs):
+        slug = kwargs.get("slug", "general")
+        data = portfolio_service.get_portfolio(slug)
+
+        html_string = render(
+            request,
+            "portfolio_cv_print.html",
+            context={
+                "title": data["title"],
+                "statement": data["statement"],
+            },
+        ).content.decode("utf-8")
+
+        pdf = HTML(string=html_string).write_pdf()
+
+        response = HttpResponse(pdf, content_type="application/pdf")
+        response["Content-Disposition"] = f'inline; filename="{slug}-cv.pdf"'
+        return response
+
+
 class PortfolioPDFView(View):
     def get(self, request, *args, **kwargs):
         slug = kwargs.get("slug", "general")
