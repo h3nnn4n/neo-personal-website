@@ -9,6 +9,12 @@ pieces:
     medium: "Escultura em cerâmica"
     description: "Após encontrar o absurdo, a rebelião."
 
+  - file: content/images/portfolio/adaptacao.jpg
+    title: "Adaptação"
+    year: 2025
+    medium: "Escultura em cerâmica"
+    description: "O animal ri, e se emociona."
+
   - file: content/images/portfolio/cerebro-aberto.jpg
     title: "Cabeça Aberta"
     year: 2025
