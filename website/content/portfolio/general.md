@@ -1,67 +1,55 @@
 ---
 title: "Renan S Silva"
-artist_photo: content/images/kilns/gas2.jpg
+artist_photo: content/images/portfolio/artista.jpg
 
 pieces:
-  - file: content/images/kilns/coal_burning.jpg
-    title: "Coal Burning"
-    year: 2023
-    medium: "Photography"
-    description: ""
+  - file: content/images/portfolio/absurdo.jpg
+    title: "Absurdo"
+    year: 2025
+    medium: "Técnica mista"
+    description: "A condição humana diante do vazio que insiste em não responder."
 
-  - file: content/images/kilns/coal_cold.jpg
-    title: "Coal Cold"
-    year: 2023
-    medium: "Photography"
-    description: ""
+  - file: content/images/portfolio/cérebro-aberto.jpg
+    title: "Cérebro Aberto"
+    year: 2025
+    medium: "Técnica mista"
+    description: "O que acontece quando a mente se expõe sem proteção."
 
-  - file: content/images/kilns/coal_inside.jpg
-    title: "Coal Inside"
-    year: 2023
-    medium: "Photography"
-    description: ""
+  - file: content/images/portfolio/corpo-quebrado.jpg
+    title: "Corpo Quebrado"
+    year: 2025
+    medium: "Técnica mista"
+    description: "Fragmentação do corpo como reflexo de conflitos internos."
 
-  - file: content/images/kilns/coal_pretty.jpg
-    title: "Coal Pretty"
-    year: 2023
-    medium: "Photography"
-    description: ""
+  - file: content/images/portfolio/encontro.jpg
+    title: "Encontro"
+    year: 2025
+    medium: "Técnica mista"
+    description: "Dois seres que se reconhecem sem necessidade de palavras."
 
-  - file: content/images/kilns/gas.jpg
-    title: "Gas Kiln"
-    year: 2023
-    medium: "Photography"
-    description: ""
+  - file: content/images/portfolio/figa.jpg
+    title: "Figa"
+    year: 2025
+    medium: "Técnica mista"
+    description: "Proteção instintiva contra o que não se pode controlar."
 
-  - file: content/images/kilns/gas_firing.jpg
-    title: "Gas Firing"
-    year: 2023
-    medium: "Photography"
-    description: ""
+  - file: content/images/portfolio/mão.jpg
+    title: "Mão"
+    year: 2025
+    medium: "Técnica mista"
+    description: "O gesto mais básico do fazer humano."
 
-  - file: content/images/kilns/board_down.jpg
-    title: "Board Down"
-    year: 2023
-    medium: "Photography"
-    description: ""
+  - file: content/images/portfolio/olhos.jpg
+    title: "Olhos"
+    year: 2025
+    medium: "Técnica mista"
+    description: "O olhar como ponte entre consciência e mundo exterior."
 
-  - file: content/images/kilns/board_up.jpg
-    title: "Board Up"
-    year: 2023
-    medium: "Photography"
-    description: ""
-
-  - file: content/images/kilns/sensors.jpg
-    title: "Sensors"
-    year: 2023
-    medium: "Photography"
-    description: ""
-
-  - file: content/images/kilns/qa_seal.jpg
-    title: "QA Seal"
-    year: 2023
-    medium: "Photography"
-    description: ""
+  - file: content/images/portfolio/relização.jpg
+    title: "Realização"
+    year: 2025
+    medium: "Técnica mista"
+    description: "O momento em que a intenção se materializa."
 
 ---
 

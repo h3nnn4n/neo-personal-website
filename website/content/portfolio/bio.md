@@ -1,6 +1,6 @@
 ---
 title: "Sobre o artista"
-artist_photo: content/images/kilns/gas2.jpg
+artist_photo: content/images/portfolio/artista.jpg
 ---
 
 Renan é um artista multidisciplinar autodidata, tendo trabalhado com desenho,
