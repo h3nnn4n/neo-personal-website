@@ -6,50 +6,50 @@ pieces:
   - file: content/images/portfolio/absurdo.jpg
     title: "Rebelião"
     year: 2025
-    medium: "Escultura em ceramica"
-    description: "Após encontrar o absudo, a rebelião."
+    medium: "Escultura em cerâmica"
+    description: "Após encontrar o absurdo, a rebelião."
 
   - file: content/images/portfolio/cerebro-aberto.jpg
     title: "Cabeça Aberta"
     year: 2025
-    medium: "Escultura em ceramica"
-    description: "A espera de um sentido"
+    medium: "Escultura em cerâmica"
+    description: "À espera de um sentido."
 
   - file: content/images/portfolio/corpo-quebrado.jpg
     title: "Corpo Quebrado"
     year: 2026
-    medium: "Escultura em ceramica"
-    description: "Uma peça sobre dor cronica"
+    medium: "Escultura em cerâmica"
+    description: "Um corpo. Uma prisão."
 
   - file: content/images/portfolio/encontro.jpg
     title: "Encontro"
     year: 2025
-    medium: "Escultura em ceramica"
-    description: "O momento do encontro com o absurdo"
+    medium: "Escultura em cerâmica"
+    description: "Ao se encarar o absurdo."
 
   - file: content/images/portfolio/relizacao.jpg
     title: "Realização"
     year: 2025
-    medium: "Escultura em ceramica"
-    description: "Quando o ser percebe que não há sentido, e cede ao desespero"
+    medium: "Escultura em cerâmica"
+    description: "Quando o ser percebe que não há sentido e cede ao desespero."
 
   - file: content/images/portfolio/olhos.jpg
     title: "Olhos"
     year: 2025
-    medium: "Escultura em ceramica"
-    description: "Novos olhos para um novo mundo"
+    medium: "Escultura em cerâmica"
+    description: "Novos olhos para um novo mundo."
 
   - file: content/images/portfolio/figa.jpg
     title: "Figa"
     year: 2022
-    medium: "Escultura em ceramica"
-    description: "Proteção instintiva contra o que não se pode controlar."
+    medium: "Escultura em cerâmica"
+    description: "Tentativa (fútil) de controle."
 
   - file: content/images/portfolio/mao.jpg
     title: "Mão"
     year: 2023
     medium: "Escultura em argila crua"
-    description: "O gesto mais básico do fazer humano."
+    description: "Um filho esculpe sua própria mão, assim como seu pai esculpiu a dele. Uma homenagem a alguém que não está mais entre nós."
 
 ---
 
