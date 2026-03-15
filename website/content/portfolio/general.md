@@ -4,52 +4,52 @@ artist_photo: content/images/portfolio/artista.jpg
 
 pieces:
   - file: content/images/portfolio/absurdo.jpg
-    title: "Absurdo"
+    title: "Rebelião"
     year: 2025
-    medium: "Técnica mista"
-    description: "A condição humana diante do vazio que insiste em não responder."
+    medium: "Escultura em ceramica"
+    description: "Após encontrar o absudo, a rebelião."
 
   - file: content/images/portfolio/cérebro-aberto.jpg
-    title: "Cérebro Aberto"
+    title: "Cabeça Aberta"
     year: 2025
-    medium: "Técnica mista"
-    description: "O que acontece quando a mente se expõe sem proteção."
+    medium: "Escultura em ceramica"
+    description: "A espera de um sentido"
 
   - file: content/images/portfolio/corpo-quebrado.jpg
     title: "Corpo Quebrado"
-    year: 2025
-    medium: "Técnica mista"
-    description: "Fragmentação do corpo como reflexo de conflitos internos."
+    year: 2026
+    medium: "Escultura em ceramica"
+    description: "Uma peça sobre dor cronica"
 
   - file: content/images/portfolio/encontro.jpg
     title: "Encontro"
     year: 2025
-    medium: "Técnica mista"
-    description: "Dois seres que se reconhecem sem necessidade de palavras."
-
-  - file: content/images/portfolio/figa.jpg
-    title: "Figa"
-    year: 2025
-    medium: "Técnica mista"
-    description: "Proteção instintiva contra o que não se pode controlar."
-
-  - file: content/images/portfolio/mão.jpg
-    title: "Mão"
-    year: 2025
-    medium: "Técnica mista"
-    description: "O gesto mais básico do fazer humano."
-
-  - file: content/images/portfolio/olhos.jpg
-    title: "Olhos"
-    year: 2025
-    medium: "Técnica mista"
-    description: "O olhar como ponte entre consciência e mundo exterior."
+    medium: "Escultura em ceramica"
+    description: "O momento do encontro com o absurdo"
 
   - file: content/images/portfolio/relização.jpg
     title: "Realização"
     year: 2025
-    medium: "Técnica mista"
-    description: "O momento em que a intenção se materializa."
+    medium: "Escultura em ceramica"
+    description: "Quando o ser percebe que não há sentido, e cede ao desespero"
+
+  - file: content/images/portfolio/olhos.jpg
+    title: "Olhos"
+    year: 2025
+    medium: "Escultura em ceramica"
+    description: "Novos olhos para um novo mundo"
+
+  - file: content/images/portfolio/figa.jpg
+    title: "Figa"
+    year: 2022
+    medium: "Escultura em ceramica"
+    description: "Proteção instintiva contra o que não se pode controlar."
+
+  - file: content/images/portfolio/mão.jpg
+    title: "Mão"
+    year: 2023
+    medium: "Escultura em argila crua"
+    description: "O gesto mais básico do fazer humano."
 
 ---
 
