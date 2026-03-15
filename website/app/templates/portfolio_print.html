@@ -32,38 +32,6 @@
       page-break-after: auto;
     }
 
-    /* Cover page */
-    .cover {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 40mm;
-    }
-
-    .cover h1 {
-      font-size: 28pt;
-      font-weight: 300;
-      letter-spacing: 2pt;
-      text-transform: uppercase;
-      margin-bottom: 8mm;
-    }
-
-    .cover .subtitle {
-      font-size: 12pt;
-      font-weight: 300;
-      color: #666;
-      letter-spacing: 1pt;
-    }
-
-    .cover .line {
-      width: 40mm;
-      height: 0.5pt;
-      background: #1a1a1a;
-      margin: 10mm 0;
-    }
-
     /* Statement + Bio page */
     .statement-bio {
       display: flex;
@@ -91,7 +59,15 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 20mm 30mm;
+      padding: 15mm 30mm;
+    }
+
+    .statement-bio .artist-name {
+      font-size: 22pt;
+      font-weight: 300;
+      letter-spacing: 2pt;
+      text-transform: uppercase;
+      margin-bottom: 10mm;
     }
 
     .statement-bio h2 {
@@ -171,14 +147,7 @@
   </style>
 </head>
 <body>
-  <!-- Cover -->
-  <div class="page cover">
-    <h1>{{ title }}</h1>
-    <div class="line"></div>
-    <div class="subtitle">Portfólio</div>
-  </div>
-
-  <!-- Statement + Bio -->
+  <!-- Cover + Statement + Bio -->
   <div class="page statement-bio">
     <div class="photo-area">
       {% if bio_photo %}
@@ -186,6 +155,7 @@
       {% endif %}
     </div>
     <div class="text-area">
+      <h1 class="artist-name">{{ title }}</h1>
       <h2>Visão do artista</h2>
       <div class="text">{{ statement }}</div>
       <h2 class="sobre-heading">Sobre</h2>
