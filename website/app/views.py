@@ -213,6 +213,21 @@ class PortfolioView(View):
         )
 
 
+class PortfolioCVView(View):
+    def get(self, request, *args, **kwargs):
+        slug = kwargs.get("slug", "general")
+        data = portfolio_service.get_portfolio(slug)
+
+        return render(
+            request,
+            "portfolio_cv.html",
+            context={
+                "title": data["title"],
+                "statement": data["statement"],
+            },
+        )
+
+
 class PortfolioPDFView(View):
     def get(self, request, *args, **kwargs):
         slug = kwargs.get("slug", "general")

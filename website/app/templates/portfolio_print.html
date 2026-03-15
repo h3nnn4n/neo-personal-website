@@ -144,6 +144,51 @@
       margin-top: 5mm;
     }
 
+    /* CV page */
+    .cv {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 25mm 50mm;
+    }
+
+    .cv h2 {
+      font-size: 18pt;
+      font-weight: 300;
+      letter-spacing: 2pt;
+      text-transform: uppercase;
+      margin-bottom: 12mm;
+    }
+
+    .cv h3 {
+      font-size: 10pt;
+      font-weight: 600;
+      letter-spacing: 1pt;
+      text-transform: uppercase;
+      color: #333;
+      margin-top: 8mm;
+      margin-bottom: 4mm;
+    }
+
+    .cv p {
+      font-size: 9.5pt;
+      line-height: 1.7;
+      color: #444;
+    }
+
+    .cv ul {
+      font-size: 9.5pt;
+      line-height: 1.8;
+      color: #444;
+      list-style: none;
+      padding: 0;
+    }
+
+    .cv ul li::before {
+      content: "— ";
+      color: #999;
+    }
+
   </style>
 </head>
 <body>
@@ -183,6 +228,44 @@
     </div>
   </div>
   {% endfor %}
+
+  <!-- CV -->
+  <div class="page cv">
+    <h2>Currículo Artístico</h2>
+
+    <h3>Formação</h3>
+    <p>Autodidata. Sem formação acadêmica em artes.</p>
+
+    <h3>Visão</h3>
+    <p>Explora o absurdo da existência, conflitos mentais, niilismo e a natureza instintiva do ser humano, tendo o corpo como ponto de partida.</p>
+
+    <h3>Temas</h3>
+    <ul>
+      <li>Absurdismo e niilismo</li>
+      <li>O corpo como prisão da consciência</li>
+      <li>Conflitos mentais e dor crônica</li>
+      <li>O instinto e o irracional</li>
+    </ul>
+
+    <h3>Técnicas e Experimentação</h3>
+    <ul>
+      <li>Escultura em cerâmica e argila crua</li>
+      <li>Queima em forno a gás e carvão</li>
+      <li>Experimentação com queima raku</li>
+      <li>Confecção de esmaltes cerâmicos</li>
+    </ul>
+
+    <h3>Outras Práticas</h3>
+    <ul>
+      <li>Desenho e pintura</li>
+      <li>Origami e costura</li>
+      <li>Construção e instrumentação de fornos artesanais</li>
+      <li>Creative coding e arte generativa</li>
+    </ul>
+
+    <h3>Contato</h3>
+    <p>renan.website/portfolio — @h3nnn4n</p>
+  </div>
 
 </body>
 </html>

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Currículo Artístico — {{ title }}{% endblock %}
+
+{% block css %}
+<style>
+  .cv-page {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+  }
+
+  .cv-page h1 {
+    font-size: 1.8rem;
+    font-weight: 300;
+    letter-spacing: 1.5pt;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .cv-page h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1pt;
+    text-transform: uppercase;
+    color: #333;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cv-page p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #444;
+  }
+
+  .cv-page ul {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #444;
+    list-style: none;
+    padding: 0;
+  }
+
+  .cv-page ul li::before {
+    content: "— ";
+    color: #999;
+  }
+
+  .cv-links {
+    text-align: center;
+    margin: 2rem 0 3rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="cv-page">
+  <h1>Currículo Artístico</h1>
+
+  <h3>Formação</h3>
+  <p>Autodidata. Sem formação acadêmica em artes, experiência profissional ou exposições.</p>
+
+  <h3>Visão</h3>
+  <p>{{ statement }}</p>
+
+  <h3>Temas</h3>
+  <ul>
+    <li>Absurdismo e niilismo</li>
+    <li>O corpo como prisão da consciência</li>
+    <li>Conflitos mentais e dor crônica</li>
+    <li>O instinto e o irracional</li>
+  </ul>
+
+  <h3>Técnicas e Experimentação</h3>
+  <ul>
+    <li>Escultura em cerâmica e argila crua</li>
+    <li>Queima em forno a gás e carvão</li>
+    <li>Raku</li>
+    <li>Confecção de esmaltes cerâmicos para raku</li>
+  </ul>
+
+  <h3>Outras Práticas</h3>
+  <ul>
+    <li>Desenho e pintura</li>
+    <li>Origami e costura</li>
+    <li>Construção e digitalização de fornos artesanais</li>
+    <li>Creative coding e arte generativa</li>
+  </ul>
+
+  <h3>Contato</h3>
+  <p>renan.website/portfolio — @h3nnn4n</p>
+</div>
+
+<div class="cv-links">
+  <a href="{% url 'portfolio' %}" class="btn btn-outline-dark btn-sm">Portfólio</a>
+  <a href="{% url 'portfolio_pdf' %}" class="btn btn-outline-dark btn-sm">Baixar PDF</a>
+</div>
+
+{% endblock %}
