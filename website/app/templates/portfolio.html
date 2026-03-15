@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block css %}
+<style>
+  .portfolio-statement {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+  }
+
+  .portfolio-statement h2 {
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 1.5pt;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .portfolio-statement .text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #333;
+  }
+
+  .portfolio-pieces {
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+  }
+
+  .portfolio-piece {
+    margin-bottom: 4rem;
+  }
+
+  .portfolio-piece img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .portfolio-piece .meta {
+    margin-top: 0.75rem;
+  }
+
+  .portfolio-piece .meta .title {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .portfolio-piece .meta .details {
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  .portfolio-piece .meta .description {
+    font-size: 0.9rem;
+    color: #444;
+    margin-top: 0.5rem;
+  }
+
+  .portfolio-bio {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .portfolio-bio img {
+    width: 150px;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  .portfolio-bio .text-area h2 {
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 1.5pt;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .portfolio-bio .text-area .text {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #333;
+  }
+
+  .portfolio-pdf-link {
+    text-align: center;
+    margin: 2rem 0 3rem;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="portfolio-statement">
+  <h1>{{ title }}</h1>
+  <h2>Visão do artista</h2>
+  <div class="text">{{ statement }}</div>
+</div>
+
+<div class="portfolio-pieces">
+  {% for piece in pieces %}
+  <div class="portfolio-piece">
+    {% if piece.image_url %}
+    <img src="{{ piece.image_url }}" alt="{{ piece.title }}">
+    {% endif %}
+    <div class="meta">
+      <div class="title">{{ piece.title }}</div>
+      <div class="details">{{ piece.medium }} — {{ piece.year }}</div>
+      {% if piece.description %}
+      <div class="description">{{ piece.description }}</div>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="portfolio-bio">
+  {% if bio_photo_url %}
+  <img src="{{ bio_photo_url }}" alt="Artist photo">
+  {% endif %}
+  <div class="text-area">
+    <h2>Sobre o artista</h2>
+    <div class="text">{{ bio }}</div>
+  </div>
+</div>
+
+<div class="portfolio-pdf-link">
+  <a href="{% url 'portfolio_pdf' %}" class="btn btn-outline-dark btn-sm">Download PDF</a>
+</div>
+
+{% endblock %}

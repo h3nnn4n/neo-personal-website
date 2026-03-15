@@ -195,6 +195,24 @@ def render_post(request, slug: str, base_folder: str = "posts"):
     )
 
 
+class PortfolioView(View):
+    def get(self, request, *args, **kwargs):
+        slug = kwargs.get("slug", "general")
+        data = portfolio_service.get_portfolio(slug)
+
+        return render(
+            request,
+            "portfolio.html",
+            context={
+                "title": data["title"],
+                "statement": data["statement"],
+                "pieces": data["pieces"],
+                "bio": data["bio"],
+                "bio_photo_url": data["bio_photo_url"],
+            },
+        )
+
+
 class PortfolioPDFView(View):
     def get(self, request, *args, **kwargs):
         slug = kwargs.get("slug", "general")

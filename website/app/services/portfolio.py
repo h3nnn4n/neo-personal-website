@@ -20,18 +20,23 @@ def get_portfolio(slug: str = "general") -> dict:
 
     for piece in headers.get("pieces", []):
         piece["image_path"] = os.path.join(settings.BASE_DIR, piece["file"])
+        piece["image_url"] = settings.STATIC_URL + piece["file"].removeprefix("content/").removeprefix("static/")
 
     artist_photo = headers.get("artist_photo", "")
+    artist_photo_url = ""
     if artist_photo:
+        artist_photo_url = settings.STATIC_URL + artist_photo.removeprefix("content/").removeprefix("static/")
         artist_photo = os.path.join(settings.BASE_DIR, artist_photo)
 
     return {
         "title": headers.get("title", ""),
         "artist_photo": artist_photo,
+        "artist_photo_url": artist_photo_url,
         "pieces": headers.get("pieces", []),
         "statement": statement.strip(),
         "bio": bio_text.strip(),
         "bio_photo": os.path.join(settings.BASE_DIR, bio_headers.get("artist_photo", "")) if bio_headers.get("artist_photo") else "",
+        "bio_photo_url": (settings.STATIC_URL + bio_headers["artist_photo"].removeprefix("content/").removeprefix("static/")) if bio_headers.get("artist_photo") else "",
     }
 
 
