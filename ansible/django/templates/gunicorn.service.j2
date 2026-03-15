@@ -14,7 +14,7 @@ ExecStart=/home/devops/.local/bin/poetry run gunicorn \
     --log-level=info \
     --log-file=server.log \
     --preload \
-    --timeout=2 \
+    --timeout=10 \
     --threads={{ gunicorn_thread_count | default('2') }} \
     --workers={{ gunicorn_worker_count | default('2') }}
 Restart=on-failure
