@@ -14,6 +14,9 @@
       - sudo
       - nmap
       - unzip
+      - libpango-1.0-0
+      - libpangocairo-1.0-0
+      - libpangoft2-1.0-0
     state: present
     update_cache: yes
     cache_valid_time: 3600
