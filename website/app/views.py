@@ -249,6 +249,46 @@ class PortfolioCVPDFView(View):
         return response
 
 
+class PortfolioPiecesView(View):
+    def get(self, request, *args, **kwargs):
+        data = portfolio_service.get_portfolio("general")
+        pieces_with_slug = [p for p in data["pieces"] if p.get("slug")]
+
+        return render(
+            request,
+            "portfolio_pieces.html",
+            context={
+                "pieces": pieces_with_slug,
+            },
+        )
+
+
+class PortfolioPiecePDFView(View):
+    def get(self, request, *args, **kwargs):
+        piece_slug = kwargs.get("piece_slug")
+        piece = portfolio_service.get_piece(piece_slug)
+
+        if not piece:
+            raise Http404()
+
+        data = portfolio_service.get_portfolio("general")
+
+        html_string = render(
+            request,
+            "portfolio_piece_print.html",
+            context={
+                "piece": piece,
+                "artist_name": data["title"],
+            },
+        ).content.decode("utf-8")
+
+        pdf = HTML(string=html_string).write_pdf()
+
+        response = HttpResponse(pdf, content_type="application/pdf")
+        response["Content-Disposition"] = f'inline; filename="{piece_slug}.pdf"'
+        return response
+
+
 class PortfolioPDFView(View):
     def get(self, request, *args, **kwargs):
         slug = kwargs.get("slug", "general")
