@@ -4,9 +4,13 @@ artist_photo: content/images/portfolio/artista.jpg
 
 pieces:
   - file: content/images/portfolio/absurdo.jpg
+    slug: absurdo
     title: "Rebelião"
+    date: "2025-01-01"
     year: 2025
     medium: "Escultura em cerâmica"
+    tecnica: "Cêramica. Modelagem manual. Queima em forno a gás. Glaze com óxido de férro."
+    dimensoes: "30 x 20 x 10 cm"
     description: "Após encontrar o absurdo, a rebelião."
 
   - file: content/images/portfolio/adaptacao.jpg
@@ -16,15 +20,23 @@ pieces:
     description: "O animal ri, e se emociona."
 
   - file: content/images/portfolio/cerebro-aberto.jpg
+    slug: cerebro-aberto
     title: "Cabeça Aberta"
+    date: "2025-01-01"
     year: 2025
     medium: "Escultura em cerâmica"
+    tecnica: "Cêramica. Modelagem manual. Queima em forno a gás. Glaze com óxido de férro."
+    dimensoes: "20 x 20 x 20 cm"
     description: "À espera de um sentido."
 
   - file: content/images/portfolio/corpo-quebrado.jpg
+    slug: corpo-quebrado
     title: "Corpo Quebrado"
+    date: "2026-01-01"
     year: 2026
     medium: "Escultura em cerâmica"
+    tecnica: "Cêramica. Modelagem manual. Queima em forno a gás. Glaze com óxido de férro."
+    dimensoes: "10 x 10 x 10 cm"
     description: "Um local permanente, com todos os seus defeitos."
 
   - file: content/images/portfolio/encontro.jpg

@@ -41,6 +41,15 @@ def get_portfolio(slug: str = "general") -> dict:
     }
 
 
+def get_piece(piece_slug: str, portfolio_slug: str = "general") -> dict | None:
+    data = get_portfolio(portfolio_slug)
+    for piece in data["pieces"]:
+        slug = piece.get("slug") or os.path.splitext(os.path.basename(piece["file"]))[0]
+        if slug == piece_slug:
+            return piece
+    return None
+
+
 def _parse_yaml_frontmatter(raw: str) -> tuple[dict, str]:
     if not raw.startswith("---"):
         return {}, raw

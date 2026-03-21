@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Peças — PDF Individual{% endblock %}
+
+{% block css %}
+<style>
+  .pieces-page {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+  }
+
+  .pieces-page h1 {
+    font-size: 1.8rem;
+    font-weight: 300;
+    letter-spacing: 1.5pt;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .piece-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .piece-item .title {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .piece-item .details {
+    font-size: 0.85rem;
+    color: #666;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="pieces-page">
+  <h1>Peças — PDF Individual</h1>
+
+  {% for piece in pieces %}
+  <div class="piece-item">
+    <div>
+      <div class="title">{{ piece.title }}</div>
+      <div class="details">{{ piece.medium }} — {{ piece.year }}</div>
+    </div>
+    <a href="{% url 'portfolio_piece_pdf' piece_slug=piece.slug %}" class="btn btn-outline-dark btn-sm">Baixar PDF</a>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    .piece-page {
+      width: 210mm;
+      height: 297mm;
+    }
+
+    .image-area {
+      text-align: center;
+      padding: 15mm 20mm 10mm;
+    }
+
+    .image-area img {
+      max-width: 170mm;
+      max-height: 180mm;
+    }
+
+    .meta-area {
+      padding: 10mm 25mm 20mm;
+      border-top: 0.5pt solid #ddd;
+    }
+
+    .piece-title {
+      font-size: 16pt;
+      font-weight: 400;
+      margin-bottom: 6mm;
+    }
+
+    .meta-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .meta-table td {
+      font-size: 9.5pt;
+      line-height: 1.6;
+      padding: 1mm 0;
+      vertical-align: top;
+    }
+
+    .meta-table .label {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5pt;
+      color: #666;
+      width: 30mm;
+    }
+
+    .meta-table .value {
+      color: #333;
+    }
+
+    .description {
+      font-size: 10pt;
+      line-height: 1.7;
+      color: #444;
+      margin-top: 5mm;
+      font-style: italic;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="piece-page">
+    <div class="image-area">
+      {% if piece.image_path %}
+      <img src="file://{{ piece.image_path }}">
+      {% endif %}
+    </div>
+
+    <div class="meta-area">
+      <div class="piece-title">{{ piece.title }}</div>
+
+      {% if piece.description %}
+      <div class="description">{{ piece.description }}</div>
+      {% endif %}
+
+      <table class="meta-table">
+        <tr>
+          <td class="label">Artista</td>
+          <td class="value">{{ artist_name }}</td>
+        </tr>
+        <tr>
+          <td class="label">Data</td>
+          <td class="value">{{ piece.year }}</td>
+        </tr>
+        <tr>
+          <td class="label">Técnica</td>
+          <td class="value">{{ piece.tecnica }}</td>
+        </tr>
+        <tr>
+          <td class="label">Dimensões</td>
+          <td class="value">{{ piece.dimensoes }}</td>
+        </tr>
+      </table>
+
+</div>
+  </div>
+</body>
+</html>
