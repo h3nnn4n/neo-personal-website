@@ -2,6 +2,7 @@ from typing import Callable, TypeVar
 
 from django.core.cache import cache
 
+
 T = TypeVar("T")
 
 

@@ -7,6 +7,7 @@ from os import path
 from typing import Any
 
 from django.conf import settings
+from markdown import markdown
 
 from app.utils import cached
 

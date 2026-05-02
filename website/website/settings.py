@@ -23,8 +23,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 try:
-    GIT_SHA = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=BASE_DIR, stderr=subprocess.DEVNULL).decode().strip()
-    GIT_COMMIT_TIME = subprocess.check_output(["git", "log", "-1", "--format=%cI"], cwd=BASE_DIR, stderr=subprocess.DEVNULL).decode().strip()
+    GIT_SHA = (
+        subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=BASE_DIR, stderr=subprocess.DEVNULL)
+        .decode()
+        .strip()
+    )
+    GIT_COMMIT_TIME = (
+        subprocess.check_output(["git", "log", "-1", "--format=%cI"], cwd=BASE_DIR, stderr=subprocess.DEVNULL)
+        .decode()
+        .strip()
+    )
 except Exception:
     GIT_SHA = "fail"
     GIT_COMMIT_TIME = "unknown"

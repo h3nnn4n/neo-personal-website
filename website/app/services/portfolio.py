@@ -51,8 +51,14 @@ def _get_portfolio_impl(slug, portfolio_path, bio_path):
         "pieces": pieces,
         "statement": statement.strip(),
         "bio": bio_text.strip(),
-        "bio_photo": os.path.join(settings.BASE_DIR, bio_headers.get("artist_photo", "")) if bio_headers.get("artist_photo") else "",
-        "bio_photo_url": (settings.STATIC_URL + quote(bio_headers["artist_photo"].removeprefix("content/").removeprefix("static/"))) if bio_headers.get("artist_photo") else "",
+        "bio_photo": os.path.join(settings.BASE_DIR, bio_headers.get("artist_photo", ""))
+        if bio_headers.get("artist_photo")
+        else "",
+        "bio_photo_url": (
+            settings.STATIC_URL + quote(bio_headers["artist_photo"].removeprefix("content/").removeprefix("static/"))
+        )
+        if bio_headers.get("artist_photo")
+        else "",
     }
 
 
