@@ -7,8 +7,6 @@ from os import path
 from typing import Any
 
 from django.conf import settings
-from markdown import markdown
-from memoize import memoize
 
 from app.utils import cached
 
@@ -25,9 +23,11 @@ def read_file(filename: str) -> str:
     )
 
 
-@memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
 def render_markdown(markdown_str: str):
-    return markdown(markdown_str, extensions=["attr_list", "fenced_code", "codehilite", "pymdownx.tilde"])
+    return cached(
+        ["render_markdown", settings.GIT_SHA, markdown_str],
+        lambda: markdown(markdown_str, extensions=["attr_list", "fenced_code", "codehilite", "pymdownx.tilde"]),
+    )
 
 
 def list_projects(order_field: t.Optional[str] = None, hide_drafts: bool = False) -> list[dict[str, Any]]:
@@ -76,12 +76,18 @@ def parse_and_list_md_files(
     return posts
 
 
-@memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
 def parse_md_file(markdown_str: str):
     """
     Poor man's parsing
     """
 
+    return cached(
+        ["parse_md_file", settings.GIT_SHA, markdown_str],
+        lambda: _parse_md_file_impl(markdown_str),
+    )
+
+
+def _parse_md_file_impl(markdown_str: str):
     to_process = markdown_str
     line_number = -1  # So the first iteration is zero
     parsing_header = False
