@@ -7,9 +7,10 @@ from os import path
 from typing import Any
 
 from django.conf import settings
-from django.core.cache import cache
 from markdown import markdown
 from memoize import memoize
+
+from app.utils import cached
 
 
 logger = logging.getLogger(__name__)
@@ -17,15 +18,11 @@ logger = logging.getLogger(__name__)
 
 def read_file(filename: str) -> str:
     mtime = os.path.getmtime(filename)
-    cache_key = f"read_file:{filename}:{mtime}"
 
-    content = cache.get(cache_key)
-    if content is None:
-        with open(filename, "rt") as f:
-            content = f.read()
-        cache.set(cache_key, content, timeout=None)
-
-    return content
+    return cached(
+        ["read_file", filename, mtime],
+        lambda: open(filename, "rt").read(),
+    )
 
 
 @memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
@@ -36,27 +33,21 @@ def render_markdown(markdown_str: str):
 def list_projects(order_field: t.Optional[str] = None, hide_drafts: bool = False) -> list[dict[str, Any]]:
     projects_folder = path.join(settings.CONTENT_FOLDER, "projects")
     dir_mtime = os.path.getmtime(projects_folder)
-    cache_key = f"list_projects:{projects_folder}:{dir_mtime}:{order_field}:{hide_drafts}"
 
-    result = cache.get(cache_key)
-    if result is None:
-        result = parse_and_list_md_files(projects_folder, order_field=order_field, hide_drafts=hide_drafts)
-        cache.set(cache_key, result, timeout=None)
-
-    return result
+    return cached(
+        ["list_projects", projects_folder, dir_mtime, order_field, hide_drafts],
+        lambda: parse_and_list_md_files(projects_folder, order_field=order_field, hide_drafts=hide_drafts),
+    )
 
 
 def list_posts(order_field: t.Optional[str] = None, hide_drafts: bool = False) -> list[dict[str, Any]]:
     posts_folder = path.join(settings.CONTENT_FOLDER, "posts")
     dir_mtime = os.path.getmtime(posts_folder)
-    cache_key = f"list_posts:{posts_folder}:{dir_mtime}:{order_field}:{hide_drafts}"
 
-    result = cache.get(cache_key)
-    if result is None:
-        result = parse_and_list_md_files(posts_folder, order_field=order_field, hide_drafts=hide_drafts)
-        cache.set(cache_key, result, timeout=None)
-
-    return result
+    return cached(
+        ["list_posts", posts_folder, dir_mtime, order_field, hide_drafts],
+        lambda: parse_and_list_md_files(posts_folder, order_field=order_field, hide_drafts=hide_drafts),
+    )
 
 
 def parse_and_list_md_files(
