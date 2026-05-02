@@ -8,33 +8,47 @@ from typing import Any
 
 from django.conf import settings
 from markdown import markdown
-from memoize import memoize
+
+from app.utils import cached
 
 
 logger = logging.getLogger(__name__)
 
 
-@memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
 def read_file(filename: str) -> str:
-    with open(filename, "rt") as f:
-        return f.read()
+    mtime = os.path.getmtime(filename)
+
+    return cached(
+        ["read_file", filename, mtime],
+        lambda: open(filename, "rt").read(),
+    )
 
 
-@memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
 def render_markdown(markdown_str: str):
-    return markdown(markdown_str, extensions=["attr_list", "fenced_code", "codehilite", "pymdownx.tilde"])
+    return cached(
+        ["render_markdown", settings.GIT_SHA, markdown_str],
+        lambda: markdown(markdown_str, extensions=["attr_list", "fenced_code", "codehilite", "pymdownx.tilde"]),
+    )
 
 
-@memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
 def list_projects(order_field: t.Optional[str] = None, hide_drafts: bool = False) -> list[dict[str, Any]]:
     projects_folder = path.join(settings.CONTENT_FOLDER, "projects")
-    return parse_and_list_md_files(projects_folder, order_field=order_field, hide_drafts=hide_drafts)
+    dir_mtime = os.path.getmtime(projects_folder)
+
+    return cached(
+        ["list_projects", projects_folder, dir_mtime, order_field, hide_drafts],
+        lambda: parse_and_list_md_files(projects_folder, order_field=order_field, hide_drafts=hide_drafts),
+    )
 
 
-@memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
 def list_posts(order_field: t.Optional[str] = None, hide_drafts: bool = False) -> list[dict[str, Any]]:
     posts_folder = path.join(settings.CONTENT_FOLDER, "posts")
-    return parse_and_list_md_files(posts_folder, order_field=order_field, hide_drafts=hide_drafts)
+    dir_mtime = os.path.getmtime(posts_folder)
+
+    return cached(
+        ["list_posts", posts_folder, dir_mtime, order_field, hide_drafts],
+        lambda: parse_and_list_md_files(posts_folder, order_field=order_field, hide_drafts=hide_drafts),
+    )
 
 
 def parse_and_list_md_files(
@@ -63,12 +77,18 @@ def parse_and_list_md_files(
     return posts
 
 
-@memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
 def parse_md_file(markdown_str: str):
     """
     Poor man's parsing
     """
 
+    return cached(
+        ["parse_md_file", settings.GIT_SHA, markdown_str],
+        lambda: _parse_md_file_impl(markdown_str),
+    )
+
+
+def _parse_md_file_impl(markdown_str: str):
     to_process = markdown_str
     line_number = -1  # So the first iteration is zero
     parsing_header = False

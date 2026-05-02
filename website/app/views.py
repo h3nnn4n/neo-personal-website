@@ -5,20 +5,21 @@ from os import path
 import humanize
 import pytz
 from django.conf import settings
+from django.core.cache import cache as pdf_cache
 from django.http import Http404, HttpResponse
 from django.shortcuts import render
 from django.template import Context, Template
-from django.utils.dateparse import parse_datetime
 from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 from django.utils.safestring import mark_safe
 from django.views.generic import TemplateView
 from django.views.generic.base import View
-
 from weasyprint import HTML
 
 from app import services
-from app.services import kiln, parse_md_file, read_file, render_markdown
+from app.services import kiln, parse_md_file
 from app.services import portfolio as portfolio_service
+from app.services import read_file, render_markdown
 
 
 class IndexView(TemplateView):
@@ -233,18 +234,23 @@ class PortfolioCVPDFView(View):
         slug = kwargs.get("slug", "general")
         data = portfolio_service.get_portfolio(slug)
 
-        html_string = render(
-            request,
-            "portfolio_cv_print.html",
-            context={
-                "title": data["title"],
-                "statement": data["statement"],
-            },
-        ).content.decode("utf-8")
+        cache_key = f"portfolio_cv:{slug}"
+        pdf_bytes = pdf_cache.get(cache_key)
 
-        pdf = HTML(string=html_string).write_pdf()
+        if pdf_bytes is None:
+            html_string = render(
+                request,
+                "portfolio_cv_print.html",
+                context={
+                    "title": data["title"],
+                    "statement": data["statement"],
+                },
+            ).content.decode("utf-8")
 
-        response = HttpResponse(pdf, content_type="application/pdf")
+            pdf_bytes = HTML(string=html_string).write_pdf()
+            pdf_cache.set(cache_key, pdf_bytes, timeout=None)
+
+        response = HttpResponse(pdf_bytes, content_type="application/pdf")
         response["Content-Disposition"] = f'inline; filename="{slug}-cv.pdf"'
         return response
 
@@ -273,18 +279,23 @@ class PortfolioPiecePDFView(View):
 
         data = portfolio_service.get_portfolio("general")
 
-        html_string = render(
-            request,
-            "portfolio_piece_print.html",
-            context={
-                "piece": piece,
-                "artist_name": data["title"],
-            },
-        ).content.decode("utf-8")
+        cache_key = f"portfolio_piece:{piece_slug}"
+        pdf_bytes = pdf_cache.get(cache_key)
 
-        pdf = HTML(string=html_string).write_pdf()
+        if pdf_bytes is None:
+            html_string = render(
+                request,
+                "portfolio_piece_print.html",
+                context={
+                    "piece": piece,
+                    "artist_name": data["title"],
+                },
+            ).content.decode("utf-8")
 
-        response = HttpResponse(pdf, content_type="application/pdf")
+            pdf_bytes = HTML(string=html_string).write_pdf()
+            pdf_cache.set(cache_key, pdf_bytes, timeout=None)
+
+        response = HttpResponse(pdf_bytes, content_type="application/pdf")
         response["Content-Disposition"] = f'inline; filename="{piece_slug}.pdf"'
         return response
 
@@ -294,21 +305,26 @@ class PortfolioPDFView(View):
         slug = kwargs.get("slug", "general")
         data = portfolio_service.get_portfolio(slug)
 
-        html_string = render(
-            request,
-            "portfolio_print.html",
-            context={
-                "title": data["title"],
-                "statement": data["statement"],
-                "pieces": data["pieces"],
-                "bio": data["bio"],
-                "bio_photo": data["bio_photo"],
-            },
-        ).content.decode("utf-8")
+        cache_key = f"portfolio:{slug}"
+        pdf_bytes = pdf_cache.get(cache_key)
 
-        pdf = HTML(string=html_string).write_pdf()
+        if pdf_bytes is None:
+            html_string = render(
+                request,
+                "portfolio_print.html",
+                context={
+                    "title": data["title"],
+                    "statement": data["statement"],
+                    "pieces": data["pieces"],
+                    "bio": data["bio"],
+                    "bio_photo": data["bio_photo"],
+                },
+            ).content.decode("utf-8")
 
-        response = HttpResponse(pdf, content_type="application/pdf")
+            pdf_bytes = HTML(string=html_string).write_pdf()
+            pdf_cache.set(cache_key, pdf_bytes, timeout=None)
+
+        response = HttpResponse(pdf_bytes, content_type="application/pdf")
         response["Content-Disposition"] = f'inline; filename="{slug}-portfolio.pdf"'
         return response
 
