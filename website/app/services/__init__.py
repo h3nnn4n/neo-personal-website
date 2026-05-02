@@ -7,6 +7,7 @@ from os import path
 from typing import Any
 
 from django.conf import settings
+from django.core.cache import cache
 from markdown import markdown
 from memoize import memoize
 
@@ -14,10 +15,17 @@ from memoize import memoize
 logger = logging.getLogger(__name__)
 
 
-@memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
 def read_file(filename: str) -> str:
-    with open(filename, "rt") as f:
-        return f.read()
+    mtime = os.path.getmtime(filename)
+    cache_key = f"read_file:{filename}:{mtime}"
+
+    content = cache.get(cache_key)
+    if content is None:
+        with open(filename, "rt") as f:
+            content = f.read()
+        cache.set(cache_key, content, timeout=None)
+
+    return content
 
 
 @memoize(timeout=settings.POST_MEMOIZE_TIME, unless=settings.DEBUG)
