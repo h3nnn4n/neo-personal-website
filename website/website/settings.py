@@ -22,6 +22,14 @@ from decouple import config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+try:
+    GIT_SHA = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=BASE_DIR, stderr=subprocess.DEVNULL).decode().strip()
+    GIT_COMMIT_TIME = subprocess.check_output(["git", "log", "-1", "--format=%cI"], cwd=BASE_DIR, stderr=subprocess.DEVNULL).decode().strip()
+except Exception:
+    GIT_SHA = "fail"
+    GIT_COMMIT_TIME = "unknown"
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -89,6 +97,7 @@ CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379",
+        "VERSION": GIT_SHA,
     }
 }
 
@@ -164,13 +173,6 @@ CONTENT_FOLDER = "content"
 POST_MEMOIZE_TIME = config("POST_MEMOIZE_TIME", default=60, cast=int)
 
 BASE_REPO_URL = config("BASE_REPO_URL", default="https://github.com/h3nnn4n")
-
-try:
-    GIT_SHA = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=BASE_DIR, stderr=subprocess.DEVNULL).decode().strip()
-    GIT_COMMIT_TIME = subprocess.check_output(["git", "log", "-1", "--format=%cI"], cwd=BASE_DIR, stderr=subprocess.DEVNULL).decode().strip()
-except Exception:
-    GIT_SHA = "fail"
-    GIT_COMMIT_TIME = "unknown"
 
 
 # InfluxDB settings
