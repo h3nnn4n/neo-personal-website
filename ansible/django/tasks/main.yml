@@ -42,3 +42,16 @@
     daemon_reload: true
     enabled: true
   become: true
+
+- name: Cleanup old cache dirs
+  find:
+    path: "{{ project_folder }}/{{ repo_name }}/local-cache"
+    patterns: "*"
+    file_type: directory
+  register: old_caches
+
+- name: Delete old caches
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ old_caches.results }}"
