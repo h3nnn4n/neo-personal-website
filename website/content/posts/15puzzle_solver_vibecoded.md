@@ -38,8 +38,8 @@ Along with making the solver, I was also interested in the difference between
 agents and models. So I tried a selfhosted qwen3-32b with
 [swival](https://swival.dev/), which is supposed to be an agent optimized for
 self hosted models with a small context. Then, next I used MiniMax M2.5 with
-[opencode](https://opencode.ai/). Finally, I used Claude Code with Open 3.7, 1M
-context with a high effort.
+[opencode](https://opencode.ai/). Finally, I used Claude Code with Opus 3.7, 1M
+context with a xhigh effort.
 
 All 3 agents started on a rust implementation and had similar prompts where
 possible, but this quickly became infeasible as they started to drift approach.
