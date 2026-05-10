@@ -32,3 +32,18 @@ Here it goes:
 
 - [tmate](https://mxschmitt.github.io/action-tmate/): Allows SSH-ing into a
   github actions runner for debugging (or whatever else you need to do).
+
+- [bat](https://github.com/sharkdp/bat): A better `cat`, with syntax highlighinh
+  et al.
+
+- [bottom](https://github.com/ClementTsang/bottom): Htop on steroids.
+
+- [fd](https://github.com/sharkdp/fd): Super fast `find`.
+
+- [fzf](https://github.com/junegunn/fzf): Super fast fuzzy finder. Can be
+  combined with piped data for easily finding something interactivelly. When
+  combined with `fd` it can scan millions of directories and files in a couple
+  of seconds.
+
+- [ripgrep](https://github.com/BurntSushi/ripgrep): Recursively find strings
+  in a folder. Super fast.
