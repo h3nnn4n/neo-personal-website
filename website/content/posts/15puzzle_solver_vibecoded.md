@@ -1,5 +1,9 @@
---- title: "Optimal 15 puzzle solver" date: 2026-05-10 tags: ["rust",
-"puzzle", "solver"] draft: true ---
+---
+title: "Optimal 15 puzzle solver"
+date: 2026-05-10
+tags: ["rust", "puzzle", "solver"]
+draft: true
+---
 
 Since I was young I always enjoyed puzzles, at two levels: 1) Solving them
 myself, and 2) Writing code to solve them. It is a two in one. Take the Rubik's
