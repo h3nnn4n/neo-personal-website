@@ -2,7 +2,7 @@
 title: "Optimal 15 puzzle solver"
 date: 2026-05-10
 tags: ["rust", "puzzle", "solver"]
-draft: true
+draft: false
 ---
 
 Since I was young I always enjoyed puzzles, at two levels: 1) Solving them
