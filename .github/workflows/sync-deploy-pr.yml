@@ -1,0 +1,49 @@
+name: Sync Deploy PR
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Ensure production branch exists
+        run: |
+          if ! git ls-remote --exit-code origin production 2>/dev/null; then
+            git checkout --orphan production
+            git commit --allow-empty -m "init production branch"
+            git push origin production
+          fi
+
+      - name: Check for drift
+        id: drift
+        run: |
+          git fetch origin production
+          if ! git diff --quiet origin/main origin/production; then
+            echo "drift=true" >> $GITHUB_OUTPUT
+          else
+            echo "drift=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create deploy PR
+        if: steps.drift.outputs.drift == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --base production \
+            --head main \
+            --title "Deploy: main → production" \
+            --body "Automated PR to deploy latest changes from main to production." \
+            --label "deploy" \
+            2>&1 || echo "PR may already exist, skipping"
