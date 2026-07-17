@@ -1,0 +1,18 @@
+[submodule "website/content/external/flow-net"]
+	path = website/content/external/flow-net
+	url = https://github.com/h3nnn4n/flow-net
+[submodule "website/content/external/Dancing-Rooms"]
+	path = website/content/external/Dancing-Rooms
+	url = https://github.com/h3nnn4n/Dancing-Rooms
+[submodule "website/content/external/dancing-friends-zero"]
+	path = website/content/external/dancing-friends-zero
+	url = https://github.com/h3nnn4n/dancing-friends-zero
+[submodule "website/content/external/cracks"]
+	path = website/content/external/cracks
+	url = https://github.com/h3nnn4n/cracks
+[submodule "website/content/external/fracture"]
+	path = website/content/external/fracture
+	url = https://github.com/h3nnn4n/fracture
+[submodule "website/content/external/smart-panda"]
+	path = website/content/external/smart-panda
+	url = https://github.com/h3nnn4n/smart-panda

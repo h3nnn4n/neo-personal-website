@@ -1,0 +1,24 @@
+---
+- name: Update apt pkg list
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  become: yes
+
+- name: Remove system poetry
+  ansible.builtin.package:
+    name: python3-poetry
+    state: absent
+  become: yes
+
+- name: Install poetry using official installer
+  shell: "curl -sSL https://install.python-poetry.org | python3 - --version 1.5.0"
+
+- name: Add poetry to PATH
+  ansible.builtin.lineinfile:
+    path: /home/devops/.bashrc
+    line: "export PATH=$HOME/.local/bin:$PATH"
+    create: yes
+
+- name: Ensure local poetry install works
+  command: "~/.local/bin/poetry --version"

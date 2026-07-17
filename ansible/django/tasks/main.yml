@@ -1,0 +1,44 @@
+---
+- name: Checkout website
+  git:
+    repo: https://github.com/h3nnn4n/{{ repo_name }}
+    dest: "{{ project_folder }}/{{ repo_name }}"
+    version: "{{ deploy_branch }}"
+
+- name: Install project deps with Poetry
+  command: "~/.local/bin/poetry install"
+  args:
+    chdir: "{{ project_folder }}/{{ repo_name }}/website"
+
+- name: Setup .env file
+  template:
+    src: dot_env
+    dest: "{{ project_folder }}/{{ repo_name }}/website/.env"
+    owner: devops
+    group: devops
+    mode: '0400'  # Read only to owner
+
+- name: Run django collectstatic
+  shell: |
+    DJANGO_SETTINGS_MODULE=website.settings \
+    ~/.local/bin/poetry run python3 manage.py collectstatic --no-input
+  args:
+    executable: /bin/bash
+    chdir: "{{ project_folder }}/{{ repo_name }}/website"
+
+- name: Install gunicorn systemd service
+  template:
+    src: gunicorn.service.j2
+    dest: /etc/systemd/system/gunicorn.service
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+
+- name: Reload systemd and restart gunicorn
+  systemd:
+    name: gunicorn
+    state: restarted
+    daemon_reload: true
+    enabled: true
+  become: true

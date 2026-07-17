@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">h3nnn4n</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link{% if request.path == '/' %} active{% endif %}" href="{% url 'index' %}">Home</a>
+        <a class="nav-link{% if '/posts/' in request.path %} active{% endif %}" href="{% url 'posts_index' %}">Posts</a>
+        <a class="nav-link{% if '/projects/' in request.path %} active{% endif %}" href="{% url 'projects_index' %}">Projects</a>
+        <a class="nav-link{% if '/games/' in request.path %} active{% endif %}" href="{% url 'games' %}">Games</a>
+        <a class="nav-link{% if request.path == '/about/' %} active{% endif %}" href="{% url 'about' %}">About</a>
+      </div>
+    </div>
+
+    <div class="collapse navbar-collapse justify-content-end">
+      <div class="px-1">
+        <a rel="me" href="https://techhub.social/@h3nnn4n">
+          <span class="fa-brands fa-mastodon fa-xl text-muted"></span>
+        </a>
+      </div>
+
+      <div class="px-1">
+        <a rel="me" href="https://github.com/h3nnn4n/">
+          <span class="fa-brands fa-github fa-xl text-muted"></span>
+        </a>
+      </div>
+
+      <div class="px-1">
+        <a rel="me" href="https://www.linkedin.com/in/renan-s-silva/">
+          <span class="fa-brands fa-linkedin fa-xl text-muted"></span>
+        </a>
+      </div>
+
+      <div class="px-1">
+        <a rel="me" href="https://www.instagram.com/h3nnn4n/">
+          <span class="fa-brands fa-instagram fa-xl text-muted"></span>
+        </a>
+      </div>
+
+      {% if git_sha %}
+      <div class="vr mx-2 text-muted"></div>
+
+      <div class="text-end" style="line-height: 1.2;">
+        <a href="https://github.com/h3nnn4n/neo-personal-website/tree/{{ git_sha }}" class="text-muted text-decoration-none" style="font-size: 0.75rem; font-family: monospace;">{{ git_sha }}</a>
+        <br>
+        <small class="text-muted" style="font-size: 0.65rem;">{{ git_commit_time_ago }}</small>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</nav>

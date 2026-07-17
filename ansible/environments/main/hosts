@@ -1,0 +1,7 @@
+website:
+  hosts:
+    renan.website
+
+all:
+  vars:
+    ansible_user: devops

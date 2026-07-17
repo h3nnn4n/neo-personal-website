@@ -1,0 +1,15 @@
+.intro {
+  text-align: center;
+}
+
+.intro > h1 {
+  color: #212121;
+  font-size: 12vh;
+  font-weight: 300;
+}
+
+.intro > h2 {
+  color: #757575;
+  font-size: 3vmin;
+  font-weight: 250;
+}

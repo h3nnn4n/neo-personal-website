@@ -1,0 +1,7 @@
+---
+- hosts: website
+  strategy: free
+  gather_facts: false
+  roles:
+    - role: redis
+      tags: ['redis']

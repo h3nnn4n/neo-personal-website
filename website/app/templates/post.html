@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load extras %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/codehilite.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="row align-items-center justify-content-center">
+  <div class="col">
+    <div>
+      <h1> {{ title }} </h1>
+
+      <h6>
+        <span class="font-monospace">
+          {{ date }}
+        </span>
+      </h6>
+
+      {% if tags %}
+        <span class="font-monospace">
+          Tags:
+        </span>
+
+        {% for tag in tags %}
+        <a class="" href="{% url 'tags_view' tag|underscorize %}">
+          <span class="font-monospace badge rounded-pill bg-primary">
+            {{ tag }}
+          <!-- These two tags have to be here, or we get some rendering issues wtf -->
+          </span></a>
+        {% endfor %}
+
+        <br>
+      {% endif %}
+
+      <br>
+
+      <div style="text-align: justify">
+        {{ content }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+- name: Set authorized keys
+  authorized_key:
+    user: "{{ item }}"
+    state: present
+    key: "{{ lookup('file', 'authorized_keys') }}"
+    exclusive: True
+  with_items:
+    - devops

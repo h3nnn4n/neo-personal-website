@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load extras %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/codehilite.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="row align-items-center justify-content-center">
+  <div class="col">
+    <div>
+      <h1> {{ title }} </h1>
+
+      <h6>
+        <span class="font-monospace">
+          {{ date }}
+        </span>
+      </h6>
+
+      <br>
+
+      <div style="text-align: justify">
+        <h1> Kiln Engine Room </h1>
+
+        <table>
+          <tbody>
+            <tr>
+              <td> Target temperature: </td><td> {{ setpoint }} </td>
+            </tr>
+            <tr>
+              <td> Current temperature: </td><td> {{ temperature }} </td>
+            </tr>
+            <tr>
+              <td> Error: </td><td> {{ error }} </td>
+            </tr>
+            <tr>
+              <td>
+                Last temperature update:
+              </td>
+              <td>
+                {{ last_temp_update }} ({{ last_temp_update_time_ago }})
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
